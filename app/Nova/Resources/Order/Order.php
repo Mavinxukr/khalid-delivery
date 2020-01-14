@@ -1,0 +1,228 @@
+<?php
+
+namespace App\Nova\Resources\Order;
+
+use App\Nova\Actions\Actions\ConfirmOrder;
+use App\Nova\Actions\PaymentOrder;
+use App\Nova\Resource;
+use App\Nova\Resources\Category\ProductCategory;
+use App\Nova\Resources\Product\Product;
+use App\Nova\Resources\Provider\Provider;
+use App\Nova\Resources\User\User;
+use Cron\HoursField;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inspheric\Fields\Indicator;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Place;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Michielfb\Time\Time;
+use OwenMelbz\RadioField\RadioButton;
+use Sloveniangooner\SearchableSelect\SearchableSelect;
+use Timothyasp\Badge\Badge;
+
+class Order extends Resource
+{
+    /**
+     * The model the resource corresponds to.
+     *
+     * @var string
+     */
+    public static $model = 'App\Models\Order\Order';
+
+    /**
+     * The single value that should be used to represent the resource when being displayed.
+     *
+     * @var string
+     */
+    public static $title = 'name';
+
+    /**
+     * The columns that should be searched.
+     *
+     * @var array
+     */
+    public static $search = [
+        'id','name'
+    ];
+
+    public static function label()
+    {
+        return 'Order';
+    }
+
+
+
+    public static $category = "Order";
+
+
+    public static $group = 'Order';
+
+    /**
+     * Get the fields displayed by the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function fields(Request $request)
+    {
+        return [
+            ID::make()->sortable(),
+            BelongsTo::make('User','user',User::class)
+                ->exceptOnForms(),
+            Text::make('Paid')
+                ->exceptOnForms(),
+            Text::make('Debt')
+                ->exceptOnForms(),
+            RadioButton::make('Provider type', 'provider_category')
+                ->options([
+                    'food' => 'Food',
+                    'service' => 'Service',
+                ])
+                ->hideFromDetail()
+                ->hideFromIndex(),
+            NovaDependencyContainer::make([
+                Number::make('Quantity','quantity')
+            ])->dependsOn('provider_category', 'food'),
+            NovaDependencyContainer::make([
+                Number::make('Count cleaning','count_clean'),
+                Select::make('Type cleaning','type_cleaning')
+                    ->options([
+                        '1' => 'house',
+                        '2' => 'office',
+                        '3' => 'flat',
+                    ]),
+                Number::make('Quantity hours','quantity'),
+                Select::make('Callback Time')
+                    ->options([
+                        '10' => '10 min',
+                        '15' => '15 min',
+                        '30' => '30 min',
+                        '60' => '60 min'
+                    ])
+                    ->hideFromIndex()
+                    ->hideFromDetail(),
+                Number::make('Interval')
+                    ->withMeta([
+                        'value' => 0
+                    ]),
+            ])->dependsOn('provider_category', 'service'),
+            BelongsTo::make('Place','place',\App\Nova\Resources\Place\Place::class)
+                ->exceptOnForms(),
+            Select::make('Status')
+                ->options([
+                    '2' => 'new',
+                    '3' => 'late',
+                    '4' => 'confirm',
+                    '5' => 'cancel'
+                ])
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->hideWhenCreating(),
+            BelongsTo::make('Accept company','provider', Provider::class)
+                ->exceptOnForms(),
+            Text::make('Provider category','provider_category')
+                ->exceptOnForms(),
+            Badge::make('Status')
+                ->colors([
+                    'wait'      => 'black',
+                    'new'       => 'red',
+                    'late'      => 'blue',
+                    'confirm'   => 'green',
+                    'cancel'    => 'grey'
+                ])
+                ->exceptOnForms(),
+            Text::make('Name')
+            ->rules('required'),
+                 SearchableSelect::make('Product name','product_id')
+                     ->resource(Product::class)
+                     ->help("Need chose provider")
+                     ->rules('required')
+                     ->hideFromIndex()
+                     ->hideWhenUpdating()
+                     ->hideFromDetail(),
+            Date::make('Date','date_delivery')
+                ->format('YYYY-MM-DD')
+                ->rules('required'),
+            Time::make('Time From','date_delivery_from')
+                ->format('HH:mm:ss')
+                ->rules('required'),
+            Time::make('Time To','date_delivery_to')
+                ->format('HH:mm:ss')
+                ->rules('required'),
+            Textarea::make('Comment')
+                ->rules('required'),
+            Number::make('Cost')
+                ->exceptOnForms(),
+            BelongsToMany::make('Product','products', Product::class)
+                ->canSee(function (){
+                    return $this->provider_category === 'food';
+                })
+                ->exceptOnForms(),
+        ];
+    }
+
+    public static function redirectAfterCreate(NovaRequest $request, $resource)
+    {
+        return 'resources/orders';
+    }
+
+
+    /**
+     * Get the cards available for the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function cards(Request $request)
+    {
+        return [];
+    }
+
+    /**
+     * Get the filters available for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function filters(Request $request)
+    {
+        return [];
+    }
+
+    /**
+     * Get the lenses available for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function lenses(Request $request)
+    {
+        return [];
+    }
+
+    /**
+     * Get the actions available for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function actions(Request $request)
+    {
+        return [
+            (new PaymentOrder)
+                ->onlyOnTableRow(),
+            (new ConfirmOrder)
+                ->onlyOnTableRow()
+        ];
+    }
+}
