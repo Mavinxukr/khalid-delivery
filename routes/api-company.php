@@ -18,4 +18,12 @@ use Illuminate\Http\Request;
 
 Route::group(["namespace"=>"ApiCompany"],function() {
     Route::post('login','Auth\AuthController@login');
+
+    Route::group(['middleware' => 'auth:api'], function () {
+        //---------------------------- Auth logout --------------------------------//
+        Route::post('logout','Auth\AuthController@logout');
+        //---------------------------- Profile  --------------------------------//
+        Route::get('company-profile','Profile\ProfileCompanyController@getClientProfile');
+
+    });
 });

@@ -53,8 +53,7 @@ class Provider extends Model
 
     protected $hidden = [
         'balance','updated_at','created_at',
-        'active','image','phone_number',
-        'category_id'
+        'active', 'category_id'
     ];
     public function payment()
     {

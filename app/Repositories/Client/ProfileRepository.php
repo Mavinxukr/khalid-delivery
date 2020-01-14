@@ -4,13 +4,11 @@
 namespace App\Repositories\Client;
 
 
+use App\Helpers\ActionSaveImage;
 use App\Helpers\TransJsonResponse;
 use App\Interfaces\Client\Profile\ProfileInterface;
 use App\Interfaces\FormatInterface;
-use App\Models\Feedback\Feedback;
 use App\User;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ProfileRepository implements ProfileInterface, FormatInterface
 {
@@ -18,17 +16,18 @@ class ProfileRepository implements ProfileInterface, FormatInterface
     {
         $user = User::findOrFail($id);
         $user->edit = true;
-        $user->first_name = $data->first_name ?? $user->first_name;
-        $user->last_name = $data->last_name ?? $user->last_name;
-        $user->phone = $data->phone ?? $user->phone;
-        $user->email = $data->email ?? $user->email;
-            if (isset($data->password)){
-                $user->password =   bcrypt($data->password);
-            }
-        $user->image = isset($data->image)? $this->updateImage($data->image, $user) : $user->image;
+        $user->first_name       = $data->first_name ?? $user->first_name;
+        $user->last_name        = $data->last_name  ?? $user->last_name;
+        $user->phone            = $data->phone      ?? $user->phone;
+        $user->email            = $data->email      ?? $user->email;
+        if (isset($data->password)){
+            $user->password     = bcrypt($data->password);
+        }
+        $user->image            = isset($data->image) ?
+                                  ActionSaveImage::updateImage($data->image, $user) :
+                                  $user->image;
         $user->save();
         $result = $this->format($user);
-
         return TransJsonResponse::toJson(true, $result,'Updated user', 200);
     }
 
@@ -37,23 +36,6 @@ class ProfileRepository implements ProfileInterface, FormatInterface
         $user =  $this->format($data->user());
 
         return TransJsonResponse::toJson(true, $user,'Get user', 200);
-
-    }
-
-    public function updateImage($file, User $user) :string
-    {
-        if (!is_null($file)){
-            $ext = explode("/", $file->getClientMimeType());
-            $name = Str::random('60').'.'.end($ext);
-            $path = 'image/profile/'. $name;
-            if (file_exists(storage_path('app/public/').$user->image)){
-                Storage::disk('public')->delete($user->image);
-            }
-            Storage::disk('public')->put($path,file_get_contents($file));
-            return  $path;
-        }else{
-            return $user->image;
-        }
 
     }
     public function getProfileComments(int $id)

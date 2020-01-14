@@ -62,8 +62,13 @@ class Provider extends Resource
     {
         return [
             ID::make()->sortable(),
-
             Text::make('Name')
+                ->sortable()
+                ->rules('required', 'max:255'),
+            Text::make('Website')
+                ->sortable()
+                ->rules('required', 'max:255'),
+            Text::make('Email')
                 ->sortable()
                 ->rules('required', 'max:255'),
             Text::make('Description')

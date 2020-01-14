@@ -21,6 +21,8 @@ class CreateRestaurantsTable extends Migration
             $table->double('balance')->default(0.0);
             $table->longText('image')->nullable();
             $table->boolean('active')->default(1);
+            $table->string('website')->default('empty');
+            $table->string('email')->default('empty');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')
                                                   ->on('categories')

@@ -54,9 +54,6 @@ class AuthRepository implements AuthInterface, FormatInterface
 
     public function format($data)
     {
-
-        $hasCard = true ? !is_null($data->creditCard) : false;
-
         return [
             'id'         => $data->id,
             'user_name'  => $data->first_name. ' '. $data->last_name ?? '' ,
@@ -66,9 +63,7 @@ class AuthRepository implements AuthInterface, FormatInterface
             'image'      => isset($data->image ) ?  env('APP_URL_IMAGE').$data->image : null,
             'role'       => $data->roles()->value('name') ?? null,
             'token'      => 'Bearer '.$data->createToken('Delivery')
-                    ->accessToken,
-            'has_card'   => $hasCard
-
+                            ->accessToken
         ];
     }
 }

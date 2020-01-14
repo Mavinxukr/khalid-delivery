@@ -12,8 +12,6 @@ interface ProfileInterface
 
     public function getUserByToken($data);
 
-    public function updateImage($file, User $user): string ;
-
     public function getProfileComments(int $id);
 
 }
