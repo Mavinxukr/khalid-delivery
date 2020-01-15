@@ -5,40 +5,35 @@ namespace App\Nova\Resources\Provider;
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Tests\Fixtures\Tag;
+use Benjacho\BelongsToManyField\BelongsToManyField;
 
-class ProviderSetting extends Resource
+class Language extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Models\Provider\SettingProvider';
+    public static $model = 'App\Models\Provider\Language';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     public static $category = "Company";
+
     /**
      * The columns that should be searched.
      *
      * @var array
      */
-
-    public static function label()
-    {
-        return 'Company setting';
-    }
     public static $search = [
-        'id',
+        'id','name'
     ];
 
     /**
@@ -51,20 +46,8 @@ class ProviderSetting extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Kitchen')
-                ->nullable('required'),
-            Text::make('Time Delivery Mean')
-                ->nullable('required'),
-            Text::make('Min order value','min_order')
-                ->nullable('required'),
-            Text::make('Delivery fee','delivery_fee')
-                ->nullable('required'),
-            Text::make('Tags')
-                ->nullable('required'),
-            Number::make('Rating')
-                ->nullable('required'),
-            Number::make('Price rating')
-                ->nullable('required'),
+            Text::make('Name')
+                ->rules('require')
         ];
     }
 

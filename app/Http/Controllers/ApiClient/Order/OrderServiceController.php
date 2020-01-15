@@ -31,7 +31,7 @@ class OrderServiceController extends Controller
      * @apiParam {String} count_clean Count cleaning
      * @apiParam {Number} interval Interval
      * @apiParam {Number} quantity Quantity hours
-     * @apiParam {Number} callback_time Callback time <br> 10, 15, 30, 60 - min
+     * @apiParam {String} callback_time Callback time <br> 10:00
      * @apiParam {Text} comment Comment
      * @apiPermission Authorization
      * @apiHeader  Authorization token

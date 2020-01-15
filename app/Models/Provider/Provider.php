@@ -5,6 +5,7 @@ namespace App\Models\Provider;
 use App\Models\Category\Category;
 use App\Models\Payment\Payment;
 use App\Models\Product\Product;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -73,13 +74,30 @@ class Provider extends Model
     public function productTop()
     {
         return $this->hasMany(Product::class,'provider_id')
-            ->orderBy('id','DESC')
-            ->take(3);
+                    ->orderBy('id','DESC')
+                    ->take(3);
     }
 
     public function product()
     {
         return $this->hasMany(Product::class,'provider_id');
+    }
+
+    public function languages()
+    {
+        return $this->belongsToMany(Language::class,'provider_language');
+    }
+
+
+    public function schedule()
+    {
+        return $this->hasOne(CompanySchedule::class);
+    }
+
+
+    public function users()
+    {
+        return $this->hasMany(User::class,'company_id');
     }
 
 

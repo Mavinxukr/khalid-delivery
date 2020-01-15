@@ -4,9 +4,13 @@ namespace App\Nova\Resources\Provider;
 
 use App\Nova\Actions\SendToNumber;
 use App\Nova\Resources\Category\Category;
+use App\Nova\Resources\User\User;
+use Benjacho\BelongsToManyField\BelongsToManyField;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
@@ -65,6 +69,14 @@ class Provider extends Resource
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
+            PhoneNumber::make('Phone Number')
+                ->format('+380-##-##-##-###')
+                ->placeholder('Example: 12-34-56-789')
+                ->disableValidation()
+                ->useMaskPlaceholder()
+                ->linkOnIndex()
+                ->linkOnDetail()
+                ->rules('required'),
             Text::make('Website')
                 ->sortable()
                 ->rules('required', 'max:255'),
@@ -82,13 +94,7 @@ class Provider extends Resource
                 ->hideFromDetail(),
             BelongsTo::make('Category','categories', Category::class)
                 ->exceptOnForms(),
-            PhoneNumber::make('Phone Number')
-                ->format('+380-##-##-##-###')
-                ->placeholder('Example: 12-34-56-789')
-                ->disableValidation()
-                ->useMaskPlaceholder()
-                ->linkOnIndex()
-                ->linkOnDetail()
+            Text::make('Chamber of commerce')
                 ->rules('required'),
             Boolean::make('Active')
                 ->trueValue(1)
@@ -102,7 +108,11 @@ class Provider extends Resource
                 ->path('image/provider/')
                 ->rules('file')
                 ->prunable(),
-            HasOne::make('Provider setting','providerSetting',ProviderSetting::class)
+            HasOne::make('Provider setting','providerSetting',ProviderSetting::class),
+            HasOne::make('Provider schedule','schedule',Schedule::class),
+            BelongsToMany::make('Language','languages',Language::class),
+            HasMany::make('Users','users',User::class)
+
         ];
     }
 

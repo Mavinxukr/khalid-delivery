@@ -24,7 +24,7 @@ class ProfileRepository implements ProfileInterface, FormatInterface
             $user->password     = bcrypt($data->password);
         }
         $user->image            = isset($data->image) ?
-                                  ActionSaveImage::updateImage($data->image, $user) :
+                                  ActionSaveImage::updateImage($data->image, $user,'profile') :
                                   $user->image;
         $user->save();
         $result = $this->format($user);

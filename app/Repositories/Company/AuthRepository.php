@@ -21,10 +21,10 @@ class AuthRepository implements AuthInterface, FormatInterface
             $user = Auth::user();
 
             if (!is_null($user)){
-                $roles = $user->roles()->value('name');
+                $role = $user->roles()->value('name');
 
-                if ($roles !== 'company')  {
-                    throw new \Exception('Your role is not equal - company');
+                if ($role !== 'company')  {
+                    throw new \Exception('Log in is only for role - company !');
                 }
                 $data =  $this->format($user);
                 return TransJsonResponse::toJson(true, $data,'Login success',200);
@@ -55,13 +55,6 @@ class AuthRepository implements AuthInterface, FormatInterface
     public function format($data)
     {
         return [
-            'id'         => $data->id,
-            'user_name'  => $data->first_name. ' '. $data->last_name ?? '' ,
-            'first_name' => $data->first_name ?? '',
-            'last_name'  => $data->last_name ?? '',
-            'email'      => $data->email,
-            'image'      => isset($data->image ) ?  env('APP_URL_IMAGE').$data->image : null,
-            'role'       => $data->roles()->value('name') ?? null,
             'token'      => 'Bearer '.$data->createToken('Delivery')
                             ->accessToken
         ];

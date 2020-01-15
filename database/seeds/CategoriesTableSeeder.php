@@ -18,5 +18,8 @@ class CategoriesTableSeeder extends Seeder
         Category::create([
             'type' => 'service'
         ]);
+        Category::create([
+            'type' => 'market'
+        ]);
     }
 }

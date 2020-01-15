@@ -19,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         SmsToUser::class => 'App\Policies\LogPolicy',
         Order::class => 'App\Policies\OrderPolicy',
+
     ];
 
     /**

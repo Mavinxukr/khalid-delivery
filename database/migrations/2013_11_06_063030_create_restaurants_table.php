@@ -23,6 +23,7 @@ class CreateRestaurantsTable extends Migration
             $table->boolean('active')->default(1);
             $table->string('website')->default('empty');
             $table->string('email')->default('empty');
+            $table->string('chamber_of_commerce')->default('empty');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')
                                                   ->on('categories')

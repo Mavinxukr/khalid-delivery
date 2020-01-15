@@ -7,7 +7,6 @@ namespace App\Repositories\Client;
 use App\Helpers\TransJsonResponse;
 use App\Interfaces\Client\Place\PlaceInterface;
 use App\Models\PlaceService\Place;
-use Illuminate\Support\Facades\Request;
 
 class PlaceRepository implements PlaceInterface
 {

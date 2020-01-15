@@ -58,7 +58,11 @@ class AuthRepository implements AuthInterface, FormatInterface
              ]);
          $user = Auth::user();
 
-         if ($user){
+         if (!is_null($user)){
+             $role = $user->roles()->value('name');
+             if ($role !== 'user' && $role !== 'super-admin')  {
+                 throw new \Exception('Log in is only for role - user !');
+             }
              $data =  $this->format($user);
              return TransJsonResponse::toJson(true, $data,'Login success',200);
          }

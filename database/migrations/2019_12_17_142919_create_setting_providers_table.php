@@ -20,7 +20,6 @@ class CreateSettingProvidersTable extends Migration
             $table->string('time_delivery_mean')->nullable();
             $table->string('min_order')->nullable();
             $table->string('delivery_fee')->nullable();
-            $table->string('schedule')->nullable();
             $table->string('tags')->nullable();
             $table->string('rating');
             $table->string('price_rating');
