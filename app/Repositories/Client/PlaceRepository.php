@@ -37,6 +37,7 @@ class PlaceRepository implements PlaceInterface
     public function format($data)
     {
         return [
+            'id'            => $data->id,
             'name'          => $data->name,
             'address'       => $data->address,
             'postal_code'   => $data->postal_code,
