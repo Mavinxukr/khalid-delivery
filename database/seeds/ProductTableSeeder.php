@@ -42,7 +42,7 @@ class ProductTableSeeder extends Seeder
             'parent_id' => null
         ]);
         \App\Models\Product\Product::create([
-            'title' => 'cleaning flat',
+            'title' => 'cleaning house',
             'description' => 'cleaning house',
             'type' => 'service',
             'price' => 333,
