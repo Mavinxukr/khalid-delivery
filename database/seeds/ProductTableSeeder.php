@@ -19,7 +19,8 @@ class ProductTableSeeder extends Seeder
             'image' => 'https://upload.wikimedia.org/wikipedia/commons/0/0b/KreeftbijDenOsse.jpg',
             'has_ingredients' => false,
             'provider_id' => 1,
-            'parent_id' => null
+            'parent_id' => null,
+            'category_id' => rand(1,4)
         ]);
         \App\Models\Product\Product::create([
             'title' => 'omar122',
@@ -29,8 +30,46 @@ class ProductTableSeeder extends Seeder
             'image' => 'https://upload.wikimedia.org/wikipedia/commons/0/0b/KreeftbijDenOsse.jpg',
             'has_ingredients' => false,
             'provider_id' => 1,
-            'parent_id' => null
+            'parent_id' => null,
+            'category_id' => rand(1,4)
         ]);
+        \App\Models\Product\Product::create([
+            'title' => 'omar122',
+            'description' => 'good dish',
+            'type' => 'food',
+            'price' => 88,
+            'image' => 'https://upload.wikimedia.org/wikipedia/commons/0/0b/KreeftbijDenOsse.jpg',
+            'has_ingredients' => false,
+            'provider_id' => 1,
+            'parent_id' => null,
+            'category_id' => rand(1,4)
+        ]);
+        \App\Models\Product\Product::create([
+            'title' => 'pork',
+            'description' => 'good dish',
+            'type' => 'food',
+            'price' => 32,
+            'image' => 'https://upload.wikimedia.org/wikipedia/commons/0/0b/KreeftbijDenOsse.jpg',
+            'has_ingredients' => false,
+            'provider_id' => 1,
+            'parent_id' => null,
+            'category_id' => rand(1,4)
+        ]);
+        \App\Models\Product\Product::create([
+            'title' => 'fish',
+            'description' => 'good dish',
+            'type' => 'food',
+            'price' => 33,
+            'image' => 'https://upload.wikimedia.org/wikipedia/commons/0/0b/KreeftbijDenOsse.jpg',
+            'has_ingredients' => false,
+            'provider_id' => 1,
+            'parent_id' => null,
+            'category_id' => rand(1,4)
+        ]);
+
+
+
+
         \App\Models\Product\Product::create([
             'title' => 'cleaning flat',
             'description' => 'cleaning flat',
@@ -52,25 +91,56 @@ class ProductTableSeeder extends Seeder
             'parent_id' => null
         ]);
 
+
+
+
         \App\Models\Product\Product::create([
-            'title' => 'cleaning flat',
+            'title' => 'market mean',
             'description' => 'mean pork',
             'type' => 'market',
             'price' => 123,
             'image' => 'http://saechka.ru/upload/iblock/28a/myaso_govyadina.jpg',
             'has_ingredients' => false,
             'provider_id' => 3,
-            'parent_id' => null
+            'parent_id' => null,
+            'category_id' => rand(5,8)
+
         ]);
         \App\Models\Product\Product::create([
-            'title' => 'cleaning flat',
+            'title' => 'market mean123',
             'description' => 'mean bif',
             'type' => 'market',
             'price' => 747,
             'image' => 'http://saechka.ru/upload/iblock/28a/myaso_govyadina.jpg',
             'has_ingredients' => false,
             'provider_id' => 3,
-            'parent_id' => null
+            'parent_id' => null,
+            'category_id' => rand(5,8)
+
+        ]);
+        \App\Models\Product\Product::create([
+            'title' => 'market mean123',
+            'description' => 'mean bif',
+            'type' => 'market',
+            'price' => 323,
+            'image' => 'http://saechka.ru/upload/iblock/28a/myaso_govyadina.jpg',
+            'has_ingredients' => false,
+            'provider_id' => 3,
+            'parent_id' => null,
+            'category_id' => rand(5,8)
+
+        ]);
+        \App\Models\Product\Product::create([
+            'title' => 'market mean123',
+            'description' => 'mean bif',
+            'type' => 'market',
+            'price' => 222,
+            'image' => 'http://saechka.ru/upload/iblock/28a/myaso_govyadina.jpg',
+            'has_ingredients' => false,
+            'provider_id' => 3,
+            'parent_id' => null,
+            'category_id' => rand(5,8)
+
         ]);
     }
 }

@@ -22,7 +22,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @api {get} client/services/{food/service}  Show services #Screen №1,10,34
+     * @api {get} client/services/{food/service/market}  Show services #Screen №1,10,34
      * @apiName  Show services
      * @apiVersion 1.1.1
      * @apiGroup Client Service
