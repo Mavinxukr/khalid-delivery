@@ -30,5 +30,15 @@ class CompanyTableSeeder extends Seeder
             'image'=>'https://www.stathakis.com/hs-fs/hubfs/6-1.jpg?width=1600&name=6-1.jpg',
             'category_id' => 2
         ]);
+
+        \App\Models\Provider\Provider::create([
+            'phone_number' => '+390-55-55-55-555',
+            'name' => 'market',
+            'website' => 'www.clean',
+            'description' => 'market',
+            'chamber_of_commerce ' => '3434343434',
+            'image'=>'https://media-cdn.tripadvisor.com/media/photo-s/18/2b/25/bc/traditional-market.jpg',
+            'category_id' => 3
+        ]);
     }
 }
