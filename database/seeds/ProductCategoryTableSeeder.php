@@ -23,9 +23,9 @@ class ProductCategoryTableSeeder extends Seeder
         \App\Models\Category\ProductCategory::create([
             'type' => 'winter menu'
         ]); \App\Models\Category\ProductCategory::create([
-        'type' => 'vegetables'
+            'type' => 'vegetables'
     ]); \App\Models\Category\ProductCategory::create([
-        'type' => 'fruit'
+            'type' => 'fruit'
     ]);
         \App\Models\Category\ProductCategory::create([
             'type' => 'fish'
