@@ -78,7 +78,7 @@ class ProfileRepository implements ProfileInterface, FormatInterface
 
     public function getSchedule(Request $request)
     {
-      $schedule = $request->user()->company->schedule;
+      $schedule = $request->user()->company->schedule ?? null;
       return TransJsonResponse::toJson(true, $schedule,'Get schedule company', 201);
     }
 
@@ -86,8 +86,8 @@ class ProfileRepository implements ProfileInterface, FormatInterface
     {
         $request->user()
             ->company
-            ->schedule
-            ->update(array_filter($request->all()));
+            ->schedule()
+            ->updateOrCreate(array_filter($request->all()));
         $schedule = $request->user()
                             ->company
                             ->schedule;
@@ -97,7 +97,7 @@ class ProfileRepository implements ProfileInterface, FormatInterface
 
     public function getCreditCard(Request $request)
     {
-        $card = $request->user()->company->creditCard;
+        $card = $request->user()->company->creditCard ?? null;
 
         return TransJsonResponse::toJson(true, $card,'Get company credit card', 201);
 

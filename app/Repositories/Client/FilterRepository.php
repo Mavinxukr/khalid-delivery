@@ -30,7 +30,7 @@ class FilterRepository implements FilterInterface,FormatInterface
             'id'                => $data->id,
             'name'              => $data->title ?? $data->name,
             'image'             => isset($data->image ) ?
-                                    env('APP_URL_IMAGE').$data->image : null,
+                                    config('app.url_image').$data->image : null,
         ];
     }
 

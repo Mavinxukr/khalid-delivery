@@ -22,7 +22,7 @@ class SingleProductRepository implements SingleProductInterface, FormatInterface
                 'price'             => $data->price,
                 'description'       => $data->description,
                 'image'             => isset($data->image ) ?
-                                    env('APP_URL_IMAGE').$data->image : null,
+                                    config('app.url_image').$data->image : null,
             ];
         }
         if ($data->type === 'food'){
@@ -47,14 +47,6 @@ class SingleProductRepository implements SingleProductInterface, FormatInterface
     public function show(int $id)
     {
         $product = Product::findOrFail($id);
-
-       /* if ($product->type === 'food'){
-            $product = $product->component
-                ->map(function ($item){
-                    return $this->format($item);
-                });
-        }*/
-
            return TransJsonResponse::toJson(true,$this->format($product),
                'Get product by id',200);
 

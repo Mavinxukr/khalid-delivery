@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 Route::group(["namespace"=>"ApiCompany"],function() {
     Route::post('login','Auth\AuthController@login');
 
-    Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['middleware' => ['auth:api','company']], function () {
         //---------------------------- Auth logout --------------------------------//
         Route::post('logout','Auth\AuthController@logout');
         //---------------------------- Profile  --------------------------------//

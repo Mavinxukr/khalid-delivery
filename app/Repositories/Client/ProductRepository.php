@@ -59,7 +59,7 @@ class ProductRepository implements ProductInterface, FormatInterface
                 'id'                => $data->id,
                 'name'              => $data->title ?? $data->name,
                 'image'             => isset($data->image ) ?
-                                        env('APP_URL_IMAGE').$data->image : null,
+                                        config('app.url_image').$data->image : null,
                 'rating'            => $data->providerSetting->rating ?? 0,
                 'price_rating'      => $data->providerSetting->rating ?? 0,
                 'time_delivery'     => $data->providerSetting->time_delivery_mean ?? null,

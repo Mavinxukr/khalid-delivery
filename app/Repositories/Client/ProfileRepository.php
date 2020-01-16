@@ -55,7 +55,7 @@ class ProfileRepository implements ProfileInterface, FormatInterface
             'last_name'   => $data->last_name,
             'email'       => $data->email,
             'image'       => isset($data->image)
-                            ?  env('APP_URL_IMAGE').$data->image : null,
+                            ?  config('app.url_image').$data->image : null,
             'phone'       => $data->phone,
             'has_card'    => $hasCard
       ];

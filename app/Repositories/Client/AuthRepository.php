@@ -7,6 +7,7 @@ use App\Helpers\TransJsonResponse;
 use App\Interfaces\Client\Auth\AuthInterface;
 use App\Interfaces\FormatInterface;
 use App\User;
+use Config;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
@@ -40,7 +41,7 @@ class AuthRepository implements AuthInterface, FormatInterface
             'first_name' => $data->first_name ?? '',
             'last_name'  => $data->last_name ?? '',
             'email'      => $data->email,
-            'image'      => isset($data->image ) ?  env('APP_URL_IMAGE').$data->image : null,
+            'image'      => isset($data->image ) ?  config('app.url_image').$data->image : null,
             'role'       => $data->roles()->first()->name ?? null,
             'token'      => 'Bearer '.$data->createToken('Delivery')
                             ->accessToken,
@@ -51,6 +52,7 @@ class AuthRepository implements AuthInterface, FormatInterface
 
     public function login($data)
     {
+        dd(env('APP_URL_IMAGE'));
      try{
          Auth::attempt([
                  'email'    => $data->email,

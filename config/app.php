@@ -28,6 +28,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'url_image' => env('APP_URL_IMAGE','production'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
