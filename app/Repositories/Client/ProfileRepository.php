@@ -5,6 +5,7 @@ namespace App\Repositories\Client;
 
 
 use App\Helpers\ActionSaveImage;
+use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Interfaces\Client\Profile\ProfileInterface;
 use App\Interfaces\FormatInterface;
@@ -54,8 +55,7 @@ class ProfileRepository implements ProfileInterface, FormatInterface
             'first_name'  => $data->first_name,
             'last_name'   => $data->last_name,
             'email'       => $data->email,
-            'image'       => isset($data->image)
-                            ?  config('app.url_image').$data->image : null,
+            'image'       => ImageLinker::linker($data->image),
             'phone'       => $data->phone,
             'has_card'    => $hasCard
       ];

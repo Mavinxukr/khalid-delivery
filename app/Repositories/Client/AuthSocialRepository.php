@@ -5,6 +5,7 @@ namespace App\Repositories\Client;
 
 
 use App\Helpers\AuthSocialHelper;
+use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Interfaces\Client\Auth\AuthSocialInterface;
 use App\Interfaces\FormatInterface;
@@ -110,14 +111,6 @@ class AuthSocialRepository implements AuthSocialInterface, FormatInterface
 
     public function format($data)
     {
-            $image = $data->image;
-            $validate = explode('/', $image)[0] ?? null;
-            $uri = null;
-            if (!is_null($validate) && $validate == 'image') {
-                $uri = env('APP_URL_IMAGE') . $image;
-            } else {
-                $uri = $image;
-            }
         $hasCard = true ? !is_null($data->creditCard) : false;
         return [
             'id'         => $data->id,
@@ -125,7 +118,7 @@ class AuthSocialRepository implements AuthSocialInterface, FormatInterface
             'first_name' => $data->first_name ?? '',
             'last_name'  => $data->last_name ?? '',
             'email'      => $data->email,
-            'image'      => $uri,
+            'image'      => ImageLinker::linker($data->image),
             'role'       => $data->roles()->value('name') ?? null,
             'token'      => 'Bearer '.$data->createToken('Delivery')
                             ->accessToken,

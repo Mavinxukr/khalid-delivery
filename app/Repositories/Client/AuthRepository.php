@@ -3,6 +3,7 @@
 
 namespace App\Repositories\Client;
 
+use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Interfaces\Client\Auth\AuthInterface;
 use App\Interfaces\FormatInterface;
@@ -32,7 +33,6 @@ class AuthRepository implements AuthInterface, FormatInterface
 
     public function format($data)
     {
-
         $hasCard = true ? !is_null($data->creditCard) : false;
 
         return [
@@ -41,7 +41,7 @@ class AuthRepository implements AuthInterface, FormatInterface
             'first_name' => $data->first_name ?? '',
             'last_name'  => $data->last_name ?? '',
             'email'      => $data->email,
-            'image'      => isset($data->image ) ?  config('app.url_image').$data->image : null,
+            'image'      => ImageLinker::linker($data->image),
             'role'       => $data->roles()->first()->name ?? null,
             'token'      => 'Bearer '.$data->createToken('Delivery')
                             ->accessToken,
@@ -60,10 +60,6 @@ class AuthRepository implements AuthInterface, FormatInterface
          $user = Auth::user();
 
          if (!is_null($user)){
-             $role = $user->roles()->value('name');
-             if ($role !== 'user' && $role !== 'super-admin')  {
-                 throw new \Exception('Log in is only for role - user !');
-             }
              $data =  $this->format($user);
              return TransJsonResponse::toJson(true, $data,'Login success',200);
          }

@@ -52,5 +52,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $user->assignRole('user');
         $user = App\User::whereEmail('pashaios@gmail.com')->first(); // enter your email here
         $user->assignRole('user');
+        $user = App\User::whereEmail('denis@gmail.com')->first(); // enter your email here
+        $user->assignRole('user');
     }
 }

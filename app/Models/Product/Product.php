@@ -2,6 +2,7 @@
 
 namespace App\Models\Product;
 
+use App\Helpers\ImageLinker;
 use App\Models\Category\Category;
 use App\Models\Category\ProductCategory;
 use App\Models\Provider\Provider;
@@ -51,7 +52,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $casts = [
-        'has_ingredients' => 'boolean'
+        'has_ingredients' => 'boolean',
     ];
 
     protected $fillable = [
@@ -65,6 +66,11 @@ class Product extends Model
         'parent_id','updated_at','created_at',
         'category_id','provider_id',
     ];
+
+    public function getImageAttribute($value)
+    {
+        return  ImageLinker::linker($value);
+    }
 
     public function provider()
     {

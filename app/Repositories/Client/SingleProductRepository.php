@@ -4,6 +4,7 @@
 namespace App\Repositories\Client;
 
 
+use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Interfaces\Client\Product\SingleProductInterface;
 use App\Interfaces\FormatInterface;
@@ -21,8 +22,7 @@ class SingleProductRepository implements SingleProductInterface, FormatInterface
                 'name'              => $data->title,
                 'price'             => $data->price,
                 'description'       => $data->description,
-                'image'             => isset($data->image ) ?
-                                    config('app.url_image').$data->image : null,
+                'image'             => ImageLinker::linker($data->image)
             ];
         }
         if ($data->type === 'food'){
@@ -31,8 +31,7 @@ class SingleProductRepository implements SingleProductInterface, FormatInterface
                 'name'              => $data->title,
                 'price'             => $data->price,
                 'description'       => $data->description,
-                'image'             => isset($data->image ) ?
-                                    env('APP_URL_IMAGE').$data->image : null,
+                'image'             => ImageLinker::linker($data->image),
                 'has_ingredients'   => $data->has_ingredients
             ];
             if ($data->has_ingredients){

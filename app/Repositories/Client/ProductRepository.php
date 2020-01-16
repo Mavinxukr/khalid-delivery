@@ -4,6 +4,7 @@
 namespace App\Repositories\Client;
 
 
+use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Interfaces\Client\Product\ProductInterface;
 use App\Interfaces\FormatInterface;
@@ -53,13 +54,12 @@ class ProductRepository implements ProductInterface, FormatInterface
 
         if ($data instanceof Provider){
             $topProduct =  $data->productTop()
-                    ->get(['id','title','price','description']) ?? null;
+                    ->get(['id','title','price','description','image']) ?? null;
 
             $result = [
                 'id'                => $data->id,
                 'name'              => $data->title ?? $data->name,
-                'image'             => isset($data->image ) ?
-                                        config('app.url_image').$data->image : null,
+                'image'             => ImageLinker::linker($data->image),
                 'rating'            => $data->providerSetting->rating ?? 0,
                 'price_rating'      => $data->providerSetting->rating ?? 0,
                 'time_delivery'     => $data->providerSetting->time_delivery_mean ?? null,
@@ -74,8 +74,7 @@ class ProductRepository implements ProductInterface, FormatInterface
             $result =  [
                 'id'                => $data->id,
                 'name'              => $data->title ?? $data->name,
-                'image'             => isset($data->image ) ?
-                                        env('APP_URL_IMAGE').$data->image : null,
+                'image'             => ImageLinker::linker($data->image),
                 'description'       => $data->description ?? null,
                 'has_ingredients'   => $data->has_ingredients,
                 'price'             => $data->price,
@@ -119,8 +118,7 @@ class ProductRepository implements ProductInterface, FormatInterface
                                     return [
                                         'id'    => $item->id,
                                         'name'  => $item->type,
-                                        'image' => isset($item->image ) ?
-                                                    env('APP_URL_IMAGE').$item->image : null,
+                                        'image' => ImageLinker::linker($item->image),
                                     ];
                                 });
 

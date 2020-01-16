@@ -4,6 +4,7 @@
 namespace App\Repositories\Client;
 
 
+use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Interfaces\Client\Product\FilterInterface;
 use App\Interfaces\FormatInterface;
@@ -29,8 +30,7 @@ class FilterRepository implements FilterInterface,FormatInterface
         return  [
             'id'                => $data->id,
             'name'              => $data->title ?? $data->name,
-            'image'             => isset($data->image ) ?
-                                    config('app.url_image').$data->image : null,
+            'image'             => ImageLinker::linker($data->image),
         ];
     }
 
