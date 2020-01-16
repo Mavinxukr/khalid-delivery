@@ -52,7 +52,6 @@ class AuthRepository implements AuthInterface, FormatInterface
 
     public function login($data)
     {
-        dd(env('APP_URL_IMAGE'));
      try{
          Auth::attempt([
                  'email'    => $data->email,
