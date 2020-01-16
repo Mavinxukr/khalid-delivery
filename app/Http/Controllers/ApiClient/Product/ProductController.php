@@ -28,7 +28,7 @@ class ProductController extends Controller
      * @apiGroup Client Service
      * @apiPermission Authorization
      * @apiHeader  Authorization token
-     * @apiSampleRequest  client/services/{food/service}
+     * @apiSampleRequest  client/services/{food/service/market}
      */
     public function indexServices(Request $request)
     {
