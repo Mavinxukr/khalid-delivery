@@ -21,12 +21,11 @@ class ProductRepository implements ProductInterface, FormatInterface
         $products = null;
         $category = Category::whereType($type)
                                         ->first();
-
         if ($type == 'food'){
             $products = Provider::whereCategoryId($category->id)
                 ->get()
-                ->map(function ($service){
-                    return $this->format($service);
+                ->map(function ($food){
+                    return $this->format($food);
                 });
         }
         if ($type == 'service'){
@@ -36,7 +35,13 @@ class ProductRepository implements ProductInterface, FormatInterface
                     return $this->format($service);
                 });
         }
-
+        if ($type == 'market'){
+            $products = Provider::whereCategoryId($category->id)
+                ->get()
+                ->map(function ($market){
+                    return $this->format($market);
+                });
+        }
 
         return TransJsonResponse::toJson(true,$products,'Show all', 200);
 
@@ -62,9 +67,8 @@ class ProductRepository implements ProductInterface, FormatInterface
                 'min_order_value'   => $data->providerSetting->min_order ?? null,
                 'delivery_fee'      => $data->providerSetting->delivery_fee ?? null,
                 'description'       => $data->providerSetting->kitchen ?? null,
-                'top_one'           => $topProduct[0] ?? null,
-                'top_two'           => $topProduct[1] ?? null,
-                'top_three'         => $topProduct[2] ?? null
+                'top_product'       => $topProduct ?? null,
+
             ];
         }else{
             $result =  [
