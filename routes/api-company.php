@@ -23,12 +23,14 @@ Route::group(["namespace"=>"ApiCompany"],function() {
         //---------------------------- Auth logout --------------------------------//
         Route::post('logout','Auth\AuthController@logout');
         //---------------------------- Profile  --------------------------------//
-        Route::get('company-profile','Profile\ProfileCompanyController@getClientProfile');
-        Route::post('company-profile/update','Profile\ProfileCompanyController@updateClientProfile');
-        Route::get('company-profile/get-language',
-                                                    'Profile\ProfileCompanyController@getLanguage');
-        Route::post('company/company-profile/update-language',
-                                                    'Profile\ProfileCompanyController@updateLanguage');
+        Route::prefix('company-profile')->group(function () {
+            Route::get('/','Profile\ProfileCompanyController@getClientProfile');
+            Route::post('update','Profile\ProfileCompanyController@updateClientProfile');
+            Route::get('get-language', 'Profile\ProfileCompanyController@getLanguage');
+            Route::get('get-schedule','Profile\ProfileCompanyController@getSchedule');
+            Route::post('update-language','Profile\ProfileCompanyController@updateLanguage');
+            Route::post('update-schedule','Profile\ProfileCompanyController@updateSchedule');
+        });
 
     });
 });

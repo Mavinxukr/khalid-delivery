@@ -66,7 +66,7 @@ class ProfileCompanyController extends Controller
 
     public function updateLanguage(Request $request)
     {
-        return $this->profile->updateLanguage($request->language_ids);
+        return $this->profile->updateLanguage($request->user()->company, $request->language_ids);
     }
 
     /**
@@ -82,5 +82,43 @@ class ProfileCompanyController extends Controller
     public function getLanguage()
     {
         return $this->profile->getLanguage();
+    }
+
+
+    /**
+     * @api {get} company/company-profile/get-schedule  Get company schedule  #Screen 10
+     * @apiName  Get company schedule
+     * @apiVersion 1.1.1
+     * @apiGroup Company  Profile
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/company-profile/get-schedule
+     */
+
+    public function getSchedule(Request $request)
+    {
+        return $this->profile->getSchedule($request);
+    }
+
+    /**
+     * @api {post} company/company-profile/update-schedule  Update company profile schedule #Screen 10
+     * @apiName  Update company profile schedule
+     * @apiVersion 1.1.1
+     * @apiGroup Company  Profile
+     * @apiParam {String} monday Monday
+     * @apiParam {String} tuesday Tuesday
+     * @apiParam {String} wednesday Wednesday
+     * @apiParam {String} thursday Thursday
+     * @apiParam {String} friday Friday
+     * @apiParam {String} saturday Saturday
+     * @apiParam {String} sunday Sunday
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/company-profile/update-schedule
+     */
+
+    public function updateSchedule(Request $request)
+    {
+        return $this->profile->updateSchedule($request);
     }
 }

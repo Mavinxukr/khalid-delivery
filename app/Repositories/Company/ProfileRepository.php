@@ -5,6 +5,7 @@ namespace App\Repositories\Company;
 
 
 use App\Helpers\ActionSaveImage;
+use App\Helpers\CompanyProfileUpdate;
 use App\Helpers\TransJsonResponse;
 use App\Interfaces\Company\Profile\ProfileInterface;
 use App\Interfaces\FormatInterface;
@@ -67,8 +68,11 @@ class ProfileRepository implements ProfileInterface, FormatInterface
        return TransJsonResponse::toJson(true, $result,'Updated company', 201);
     }
 
-    public function updateLanguage(string $ids)
+    public function updateLanguage(Provider $provider , string $ids = null)
     {
+        CompanyProfileUpdate::updateCompanyLanguage($provider, $ids);
+
+        return TransJsonResponse::toJson(true, null,'Updated company languages', 201);
 
     }
 
@@ -80,5 +84,24 @@ class ProfileRepository implements ProfileInterface, FormatInterface
                                   return $this->format($language);
                               })  ;
         return TransJsonResponse::toJson(true, $language,'Get language company', 201);
+    }
+
+    public function getSchedule(Request $request)
+    {
+      $schedule = $request->user()->company->schedule;
+      return TransJsonResponse::toJson(true, $schedule,'Get schedule company', 201);
+    }
+
+    public function updateSchedule( Request $request)
+    {
+        $schedule               = $request->user()->company->schedule;
+        $schedule->monday       = $request->monday      ?? $schedule->monday;
+        $schedule->tuesday      = $request->tuesday     ?? $schedule->tuesday;
+        $schedule->wednesday    = $request->wednesday   ?? $schedule->wednesday;
+        $schedule->thursday     = $request->thursday    ?? $schedule->thursday;
+        $schedule->friday       = $request->friday      ?? $schedule->friday;
+        $schedule->sunday       = $request->sunday      ?? $schedule->sunday;
+        $schedule->save();
+        return TransJsonResponse::toJson(true, $schedule,'Updated company schedule', 201);
     }
 }
