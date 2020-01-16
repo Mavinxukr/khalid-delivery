@@ -15,11 +15,16 @@ interface ProfileInterface
 
     public function updateCompanyProfile(Request $request);
 
+    public function getLanguage();
+
     public function updateLanguage(Provider $provider,string $ids);
+
+    public function getSchedule(Request $request);
 
     public function updateSchedule(Request $request);
 
-    public function getLanguage();
+    public function getCreditCard(Request $request);
 
-    public function getSchedule(Request $request);
+    public function updateCreditCard(Request $request);
+
 }

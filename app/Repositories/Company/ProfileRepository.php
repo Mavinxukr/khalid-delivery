@@ -28,39 +28,32 @@ class ProfileRepository implements ProfileInterface, FormatInterface
 
     public function format($data)
     {
-        if ($data instanceof Language){
-            $result = [
-                'id'                    => $data->id,
-                'name'                  => $data->name
-            ];
-        }else{
-            $result =  [
+            $hasCard = !is_null($data->creditCard) ? true : false;
+            return [
                 'id'                     => $data->id,
                 'image'                  => isset($data->image ) ?
                                          env('APP_URL_IMAGE').$data->image : null,
                 'company_name'           => $data->name,
-                'phone'                  => $data->phone_number,
+                'phone_number'           => $data->phone_number,
                 'email'                  => $data->email,
                 'type_company'           => $data->categories->type,
                 'website'                => $data->website,
                 'chamber_of_commerce'    => $data->chamber_of_commerce,
+                'hasCard'                => $hasCard,
                 'working_hours'          => $data->schedule,
-                'languages'              => $data->languages()->get()
+                'languages'              => $data->languages()->get(),
             ];
-        }
-       return $result ;
+
+
     }
 
     public function updateCompanyProfile(Request $request)
     {
-       $company                         = $request->user()->company;
-       $company->name                   = $request->name                ?? $company->name;
-       $company->phone_number           = $request->phone               ?? $company->phone_number;
-       $company->email                  = $request->email               ?? $company->email;
-       $company->website                = $request->website             ?? $company->website;
-       $company->chamber_of_commerce    = $request->chamber_of_commerce ?? $company->chamber_of_commerce;
-       $company->category_id            = $request->category_id         ?? $company->category_id;
-       $company->image                  = isset($request->image)        ?
+        $request->user()
+            ->company
+            ->update(array_filter($request->except('image')));
+        $company                         = $request->user()->company;
+        $company->image                  = isset($request->image)        ?
                                           ActionSaveImage::updateImage($request->image, $company,'provider'):
                                           $company->image;
        $company->save();
@@ -79,10 +72,7 @@ class ProfileRepository implements ProfileInterface, FormatInterface
     public function getLanguage()
     {
         $language = Language::orderBy('name','ASC')
-                              ->get()
-                              ->map(function ($language){
-                                  return $this->format($language);
-                              })  ;
+                              ->get(['id','name']);
         return TransJsonResponse::toJson(true, $language,'Get language company', 201);
     }
 
@@ -94,14 +84,39 @@ class ProfileRepository implements ProfileInterface, FormatInterface
 
     public function updateSchedule( Request $request)
     {
-        $schedule               = $request->user()->company->schedule;
-        $schedule->monday       = $request->monday      ?? $schedule->monday;
-        $schedule->tuesday      = $request->tuesday     ?? $schedule->tuesday;
-        $schedule->wednesday    = $request->wednesday   ?? $schedule->wednesday;
-        $schedule->thursday     = $request->thursday    ?? $schedule->thursday;
-        $schedule->friday       = $request->friday      ?? $schedule->friday;
-        $schedule->sunday       = $request->sunday      ?? $schedule->sunday;
-        $schedule->save();
+        $request->user()
+            ->company
+            ->schedule
+            ->update(array_filter($request->all()));
+        $schedule = $request->user()
+                            ->company
+                            ->schedule;
+
         return TransJsonResponse::toJson(true, $schedule,'Updated company schedule', 201);
+    }
+
+    public function getCreditCard(Request $request)
+    {
+        $card = $request->user()->company->creditCard;
+
+        return TransJsonResponse::toJson(true, $card,'Get company credit card', 201);
+
+    }
+
+    public function updateCreditCard(Request $request)
+    {
+        $request->user()
+                ->company
+                ->creditCard()
+                ->updateOrCreate(
+                    ['provider_id' => $request->user()->company->id],
+                    array_filter($request->all() +
+                    ['provider_id' => $request->user()->company->id]
+                    ));
+        $creditCard =  $request->user()
+                                ->company
+                                ->creditCard
+                                ->get()->except('provider_id');
+        return TransJsonResponse::toJson(true, $creditCard,'Updated company credit card', 201);
     }
 }

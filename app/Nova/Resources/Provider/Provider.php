@@ -111,7 +111,8 @@ class Provider extends Resource
             HasOne::make('Provider setting','providerSetting',ProviderSetting::class),
             HasOne::make('Provider schedule','schedule',Schedule::class),
             BelongsToMany::make('Language','languages',Language::class),
-            HasMany::make('Users','users',User::class)
+            HasMany::make('Users','users',User::class),
+            HasOne::make('Credit card','creditCard',CreditCard::class)
 
         ];
     }

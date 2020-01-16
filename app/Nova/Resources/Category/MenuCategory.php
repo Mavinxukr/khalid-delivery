@@ -4,6 +4,7 @@ namespace App\Nova\Resources\Category;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -60,6 +61,13 @@ class MenuCategory extends Resource
             Boolean::make('Active')
                 ->trueValue(1)
                 ->falseValue(0),
+            Avatar::make('Image')
+                ->prunable(true)
+                ->disk('public')
+                ->path('image/category-menu/')
+                ->sortable()
+                ->help("Upload image")
+                ->rules( 'file'),
         ];
     }
 

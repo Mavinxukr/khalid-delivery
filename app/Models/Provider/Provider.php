@@ -49,7 +49,9 @@ use Illuminate\Database\Eloquent\Model;
 class Provider extends Model
 {
     protected $fillable = [
-        'balance','category_id'
+        'balance','category_id','phone_number',
+        'name','email','website',
+        'chamber_of_commerce','image'
     ];
 
     protected $hidden = [
@@ -98,6 +100,12 @@ class Provider extends Model
     public function users()
     {
         return $this->hasMany(User::class,'company_id');
+    }
+
+
+    public function creditCard()
+    {
+        return $this->hasOne(CompanyCreditCard::class);
     }
 
 

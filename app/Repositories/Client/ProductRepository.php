@@ -110,7 +110,15 @@ class ProductRepository implements ProductInterface, FormatInterface
                               ->pluck('category_id');
         $result = ProductCategory::whereIn('id',$unique)
                                 ->whereActive(true)
-                                ->get(['id','type']);
+                                ->get()
+                                ->map(function ($item){
+                                    return [
+                                        'id'    => $item->id,
+                                        'name'  => $item->type,
+                                        'image' => isset($item->image ) ?
+                                                    env('APP_URL_IMAGE').$item->image : null,
+                                    ];
+                                });
 
         return TransJsonResponse::toJson(true,$result,
             'All categories for menu by restaurant id',200);

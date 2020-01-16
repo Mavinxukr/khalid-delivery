@@ -17,6 +17,7 @@ class CreateProductCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->boolean('active')->default(1);
             $table->string('type');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

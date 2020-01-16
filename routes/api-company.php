@@ -28,8 +28,10 @@ Route::group(["namespace"=>"ApiCompany"],function() {
             Route::post('update','Profile\ProfileCompanyController@updateClientProfile');
             Route::get('get-language', 'Profile\ProfileCompanyController@getLanguage');
             Route::get('get-schedule','Profile\ProfileCompanyController@getSchedule');
+            Route::get('get-credit-card','Profile\ProfileCompanyController@getCreditCard');
             Route::post('update-language','Profile\ProfileCompanyController@updateLanguage');
             Route::post('update-schedule','Profile\ProfileCompanyController@updateSchedule');
+            Route::post('update-credit-card','Profile\ProfileCompanyController@updateCreditCard');
         });
 
     });

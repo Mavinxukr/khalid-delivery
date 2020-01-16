@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiCompany\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientProfileRequest;
+use App\Http\Requests\CompanyCreditCard;
 use App\Interfaces\Company\Profile\ProfileInterface;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class ProfileCompanyController extends Controller
      * @apiName  Update company profile
      * @apiVersion 1.1.1
      * @apiGroup Company  Profile
-     * @apiParam {String} phone Phone
+     * @apiParam {String} phone_number Phone
      * @apiParam {String} name Company_name
      * @apiParam {String} email Email
      * @apiParam {String} website Website
@@ -120,5 +121,41 @@ class ProfileCompanyController extends Controller
     public function updateSchedule(Request $request)
     {
         return $this->profile->updateSchedule($request);
+    }
+
+    /**
+     * @api {get} company/company-profile/get-credit-card  Get company credit card
+     * @apiName Get company credit card
+     * @apiVersion 1.1.1
+     * @apiGroup Company  Profile
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/company-profile/get-credit-card
+     */
+
+    public function getCreditCard(Request $request)
+    {
+        return $this->profile->getCreditCard($request);
+    }
+
+    /**
+     * @api {post} company/company-profile/update-credit-card  Update or Create company profile credit card
+     * @apiName  Update or Create company profile credit card
+     * @apiVersion 1.1.1
+     * @apiGroup Company  Profile
+     * @apiParam {String} holder_name Holder name
+     * @apiParam {String} number_card Number card (format: 2222-2222-2222-2222)
+     * @apiParam {Number} expire_month Expire month (format: 01)
+     * @apiParam {Number} expire_year Expire year (format: 22)
+     * @apiParam {Number} cvv_code Cvv code (format: 123)
+     * @apiParam {String} zip_code Zip code (format: 12345)
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/company-profile/update-credit-card
+     */
+
+    public function updateCreditCard(CompanyCreditCard $request)
+    {
+        return $this->profile->updateCreditCard($request);
     }
 }
