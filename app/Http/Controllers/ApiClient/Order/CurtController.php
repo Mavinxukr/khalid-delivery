@@ -51,14 +51,14 @@ class CurtController extends Controller
     }
 
     /**
-     * @api {patch} client/cart/{product_id}  Update  cart #Screen №25
+     * @api {patch} client/cart/{id}  Update  cart #Screen №25
      * @apiName  Update  cart
      * @apiVersion 1.1.1
      * @apiGroup Client cart
      * @apiParam {Number} quantity Quantity
      * @apiPermission Authorization
      * @apiHeader  Authorization token
-     * @apiSampleRequest  client/cart/{product_id}
+     * @apiSampleRequest  client/cart/cart/{id}
      */
 
     public function update(Request $request, $id)
