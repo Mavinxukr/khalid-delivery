@@ -58,7 +58,7 @@ class ProductRepository implements ProductInterface, FormatInterface
 
             $result = [
                 'id'                => $data->id,
-                'name'              => $data->title ?? $data->name,
+                'title'             => $data->title ?? $data->name,
                 'image'             => ImageLinker::linker($data->image),
                 'rating'            => $data->providerSetting->rating ?? 0,
                 'price_rating'      => $data->providerSetting->rating ?? 0,
@@ -73,7 +73,7 @@ class ProductRepository implements ProductInterface, FormatInterface
         }else{
             $result =  [
                 'id'                => $data->id,
-                'name'              => $data->title ?? $data->name,
+                'title'             => $data->title ?? $data->name,
                 'image'             => ImageLinker::linker($data->image),
                 'description'       => $data->description ?? null,
                 'has_ingredients'   => $data->has_ingredients,
