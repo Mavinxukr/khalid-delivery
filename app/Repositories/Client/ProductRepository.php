@@ -66,7 +66,7 @@ class ProductRepository implements ProductInterface, FormatInterface
                 'working_hours'     => $data->providerSetting->schedule ?? null,
                 'min_order_value'   => $data->providerSetting->min_order ?? null,
                 'delivery_fee'      => $data->providerSetting->delivery_fee ?? null,
-                'description'       => $data->providerSetting->kitchen ?? null,
+                'kitchen'           => $data->providerSetting->kitchen ?? null,
                 'top_product'       => $topProduct ?? null,
 
             ];
