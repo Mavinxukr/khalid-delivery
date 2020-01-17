@@ -58,7 +58,7 @@ class CurtController extends Controller
      * @apiParam {Number} quantity Quantity
      * @apiPermission Authorization
      * @apiHeader  Authorization token
-     * @apiSampleRequest  client/cart/cart/{id}
+     * @apiSampleRequest  client/cart/{id}
      */
 
     public function update(Request $request, $id)
