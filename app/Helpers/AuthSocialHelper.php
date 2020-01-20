@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class AuthSocialHelper
 {
-    public static function validateUserAndAuth (string $driver,$socialUser, $localUser = null)
+    public static function validateUserAndAuth (string $driver,$socialUser, $localUser = null) : User
     {
         $updateBy  ['social_driver'] = $driver;
         $updateBy  ['social_key']    = $socialUser['id'] ?? $socialUser->id;
@@ -51,6 +51,6 @@ class AuthSocialHelper
         }
         $user =  User::updateOrCreate($updateBy,$createData);
 
-        return 1;
+        return $user;
     }
 }
