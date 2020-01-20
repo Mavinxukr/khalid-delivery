@@ -22,7 +22,6 @@ class AuthRepository implements AuthInterface, FormatInterface
 
             if (!is_null($user)){
                 $role = $user->roles()->value('name');
-
                 if ($role !== 'company')  {
                     throw new \Exception('Log in is only for role - company !');
                 }
@@ -43,7 +42,6 @@ class AuthRepository implements AuthInterface, FormatInterface
         }catch (\Exception $exception){
             return TransJsonResponse::toJson(false,null,$exception->getMessage(),400);
         }
-
 
     }
 

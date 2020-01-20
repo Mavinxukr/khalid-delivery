@@ -16,18 +16,13 @@ class ProfileRepository implements ProfileInterface, FormatInterface
     public function update($data, int $id)
     {
         $user = User::findOrFail($id);
-        $user->edit             = true;
-        $user->first_name       = $data->first_name ?? $user->first_name;
-        $user->last_name        = $data->last_name  ?? $user->last_name;
-        $user->phone            = $data->phone      ?? $user->phone;
-        $user->email            = $data->email      ?? $user->email;
-        if (isset($data->password)){
-            $user->password     = bcrypt($data->password);
-        }
-        $user->image            = isset($data->image) ?
-                                  ActionSaveImage::updateImage($data->image, $user,'profile') :
-                                  $user->image;
-        $user->save();
+        $createData['edit'] = true;
+        if(isset($data->password)) $createData['password'] = bcrypt($data->password);
+        if (isset($data->image))   $createData['image']    =
+                                    ActionSaveImage::updateImage($data->image, $user,'profile');
+        $user->update(array_filter(
+            $data->except('image','password')) + $createData
+        );
         $result = $this->format($user);
         return TransJsonResponse::toJson(true, $result,'Updated user', 200);
     }
@@ -58,22 +53,9 @@ class ProfileRepository implements ProfileInterface, FormatInterface
             'image'             => ImageLinker::linker($data->image),
             'phone'             => $data->phone,
             'has_card'          => $hasCard,
-      ];
-
-      if (!empty($data->myFeedback)){
-          $result['feedbacks'] = $data->myFeedback()
-                                ->get();
-      }
-
-      if (!empty($data->order)){
-          $result['orders'] = $data->orderProfile()
-                                ->get();
-      }
-
-      return $result;
-
+            'feedbacks'         => $data->myFeedback()->get(),
+            'orders'            => $data->orderProfile()->get(),
+        ];
+        return $result;
     }
-
-
-
 }

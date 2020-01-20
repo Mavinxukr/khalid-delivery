@@ -20,72 +20,21 @@ class ProductRepository implements ProductInterface, FormatInterface
     public function indexServices(string $type)
     {
         $products = null;
-        $category = Category::whereType($type)
-                                        ->first();
-        if ($type == 'food'){
-            $products = Provider::whereCategoryId($category->id)
-                ->get()
-                ->map(function ($food){
-                    return $this->format($food);
-                });
-        }
+        $category = Category::whereType($type)->first();
         if ($type == 'service'){
             $products = Product::whereType($type)
                 ->get()
                 ->map(function ($service){
                     return $this->format($service);
                 });
-        }
-        if ($type == 'market'){
+        }else{
             $products = Provider::whereCategoryId($category->id)
                 ->get()
-                ->map(function ($market){
-                    return $this->format($market);
+                ->map(function ($item){
+                    return $this->format($item);
                 });
         }
-
         return TransJsonResponse::toJson(true,$products,'Show all', 200);
-
-    }
-
-    public function format($data)
-    {
-        $result = [];
-
-        if ($data instanceof Provider){
-            $topProduct =  $data->productTop()
-                    ->get([
-                        'id','title','price',
-                        'description','image','weight'
-                    ]) ?? null;
-
-            $result = [
-                'id'                => $data->id,
-                'title'             => $data->title ?? $data->name,
-                'image'             => ImageLinker::linker($data->image),
-                'rating'            => $data->providerSetting->rating ?? 0,
-                'price_rating'      => $data->providerSetting->rating ?? 0,
-                'time_delivery'     => $data->providerSetting->time_delivery_mean ?? null,
-                'working_hours'     => $data->providerSetting->schedule ?? null,
-                'min_order_value'   => $data->providerSetting->min_order ?? null,
-                'delivery_fee'      => $data->providerSetting->delivery_fee ?? null,
-                'kitchen'           => $data->providerSetting->kitchen ?? null,
-                'top_product'       => $topProduct ?? null,
-
-            ];
-        }else{
-            $result =  [
-                'id'                => $data->id,
-                'title'             => $data->title ?? $data->name,
-                'image'             => ImageLinker::linker($data->image),
-                'description'       => $data->description ?? null,
-                'has_ingredients'   => $data->has_ingredients,
-                'price'             => $data->price,
-                'weight'            => $data->weight
-
-            ];
-        }
-        return $result;
     }
 
     public function show(int $id)
@@ -113,8 +62,8 @@ class ProductRepository implements ProductInterface, FormatInterface
         $categories = Product::whereProviderId($service_id)
                                 ->get(['category_id']);
         $unique = $categories->unique('category_id')
-                              ->values()
-                              ->pluck('category_id');
+                                ->values()
+                                ->pluck('category_id');
         $result = ProductCategory::whereIn('id',$unique)
                                 ->whereActive(true)
                                 ->get()
@@ -125,12 +74,45 @@ class ProductRepository implements ProductInterface, FormatInterface
                                         'image' => ImageLinker::linker($item->image),
                                     ];
                                 });
-
         return TransJsonResponse::toJson(true,$result,
             'All categories for menu by restaurant id',200);
 
     }
 
+    public function format($data)
+    {
+        $result = [];
 
-
+        if ($data instanceof Provider){
+            $topProduct =  $data->productTop()
+                    ->get([
+                        'id','title','price',
+                        'description','image','weight'
+                    ]) ?? null;
+            $result = [
+                'id'                => $data->id,
+                'title'             => $data->title ?? $data->name,
+                'image'             => ImageLinker::linker($data->image),
+                'rating'            => $data->providerSetting->rating ?? 0,
+                'price_rating'      => $data->providerSetting->rating ?? 0,
+                'time_delivery'     => $data->providerSetting->time_delivery_mean ?? null,
+                'working_hours'     => $data->providerSetting->schedule ?? null,
+                'min_order_value'   => $data->providerSetting->min_order ?? null,
+                'delivery_fee'      => $data->providerSetting->delivery_fee ?? null,
+                'kitchen'           => $data->providerSetting->kitchen ?? null,
+                'top_product'       => $topProduct ?? null,
+            ];
+        }else{
+            $result =  [
+                'id'                => $data->id,
+                'title'             => $data->title ?? $data->name,
+                'image'             => ImageLinker::linker($data->image),
+                'description'       => $data->description ?? null,
+                'has_ingredients'   => $data->has_ingredients,
+                'price'             => $data->price,
+                'weight'            => $data->weight
+            ];
+        }
+        return $result;
+    }
 }

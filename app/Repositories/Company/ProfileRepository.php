@@ -21,37 +21,15 @@ class ProfileRepository implements ProfileInterface, FormatInterface
     public function getCompanyProfile(User $user)
     {
         $company = $this->format($user->company);
-
         return TransJsonResponse::toJson(true,$company,
                             'Get user\'s company',200);
-    }
-
-    public function format($data)
-    {
-            $hasCard = !is_null($data->creditCard) ? true : false;
-            return [
-                'id'                     => $data->id,
-                'image'                  => isset($data->image ) ?
-                                         env('APP_URL_IMAGE').$data->image : null,
-                'company_name'           => $data->name,
-                'phone_number'           => $data->phone_number,
-                'email'                  => $data->email,
-                'type_company'           => $data->categories->type,
-                'website'                => $data->website,
-                'chamber_of_commerce'    => $data->chamber_of_commerce,
-                'hasCard'                => $hasCard,
-                'working_hours'          => $data->schedule,
-                'languages'              => $data->languages()->get(),
-            ];
-
-
     }
 
     public function updateCompanyProfile(Request $request)
     {
         $request->user()
-            ->company
-            ->update(array_filter($request->except('image')));
+                        ->company
+                        ->update(array_filter($request->except('image')));
         $company                         = $request->user()->company;
         $company->image                  = isset($request->image)        ?
                                           ActionSaveImage::updateImage($request->image, $company,'provider'):
@@ -85,9 +63,9 @@ class ProfileRepository implements ProfileInterface, FormatInterface
     public function updateSchedule( Request $request)
     {
         $request->user()
-            ->company
-            ->schedule()
-            ->updateOrCreate(array_filter($request->all()));
+                        ->company
+                        ->schedule()
+                        ->updateOrCreate(array_filter($request->all()));
         $schedule = $request->user()
                             ->company
                             ->schedule;
@@ -98,7 +76,6 @@ class ProfileRepository implements ProfileInterface, FormatInterface
     public function getCreditCard(Request $request)
     {
         $card = $request->user()->company->creditCard ?? null;
-
         return TransJsonResponse::toJson(true, $card,'Get company credit card', 201);
 
     }
@@ -106,17 +83,37 @@ class ProfileRepository implements ProfileInterface, FormatInterface
     public function updateCreditCard(Request $request)
     {
         $request->user()
-                ->company
-                ->creditCard()
-                ->updateOrCreate(
-                    ['provider_id' => $request->user()->company->id],
-                    array_filter($request->all() +
-                    ['provider_id' => $request->user()->company->id]
-                    ));
+                        ->company
+                        ->creditCard()
+                        ->updateOrCreate(
+                            ['provider_id' => $request->user()->company->id],
+                            array_filter($request->all() +
+                            ['provider_id' => $request->user()->company->id]
+                        ));
         $creditCard =  $request->user()
-                                ->company
-                                ->creditCard
-                                ->get()->except('provider_id');
+                                        ->company
+                                        ->creditCard
+                                        ->get()->except('provider_id');
         return TransJsonResponse::toJson(true, $creditCard,'Updated company credit card', 201);
+    }
+    public function format($data)
+    {
+        $hasCard = !is_null($data->creditCard) ? true : false;
+        return [
+            'id'                     => $data->id,
+            'image'                  => isset($data->image ) ?
+                                     env('APP_URL_IMAGE').$data->image : null,
+            'company_name'           => $data->name,
+            'phone_number'           => $data->phone_number,
+            'email'                  => $data->email,
+            'type_company'           => $data->categories->type,
+            'website'                => $data->website,
+            'chamber_of_commerce'    => $data->chamber_of_commerce,
+            'hasCard'                => $hasCard,
+            'working_hours'          => $data->schedule,
+            'languages'              => $data->languages()->get(),
+        ];
+
+
     }
 }

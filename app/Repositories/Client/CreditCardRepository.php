@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CreditCardRepository implements CreditCardInterface,FormatInterface
 {
-
     public function store($data)
     {
         $card = Card::create($data->all() +
@@ -23,7 +22,6 @@ class CreditCardRepository implements CreditCardInterface,FormatInterface
         $result = $this->format($card);
         return TransJsonResponse::toJson(true,$result,'Card was added', 201);
     }
-
     public function format($data)
     {
         return [

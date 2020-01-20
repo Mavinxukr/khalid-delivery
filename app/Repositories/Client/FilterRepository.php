@@ -22,7 +22,6 @@ class FilterRepository implements FilterInterface,FormatInterface
                     ->get('name');
       return TransJsonResponse::toJson(true,$kitchens,'All kitchens',200);
 
-
     }
 
     public function format($data)
@@ -46,8 +45,7 @@ class FilterRepository implements FilterInterface,FormatInterface
                 ->map(function ($item){
                     return $this->format($item);
                 });
-        }
-        if (count($data->all()) > 0){
+        }else{
             $companies->join('setting_providers','providers.id','=','setting_providers.provider_id');
             if ($data->has('kitchen')){
                 $companies->where('setting_providers.kitchen','LIKE','%' . $data->get('kitchen') . '%');
@@ -63,10 +61,10 @@ class FilterRepository implements FilterInterface,FormatInterface
             }
 
             $result = $companies->select('providers.*')
-                                ->get()
-                                ->map(function ($item){
-                                    return $this->format($item);
-                                });
+                ->get()
+                ->map(function ($item){
+                    return $this->format($item);
+                });
         }
 
         return TransJsonResponse::toJson(true, $result,'Company get by filters',200);

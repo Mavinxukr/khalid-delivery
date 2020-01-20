@@ -12,10 +12,14 @@ use App\Models\Product\Product;
 
 class SingleProductRepository implements SingleProductInterface, FormatInterface
 {
-
+    public function show(int $id)
+    {
+        $product = Product::findOrFail($id);
+           return TransJsonResponse::toJson(true,$this->format($product),
+               'Get product by id',200);
+    }
     public function format($data)
     {
-
         if ($data->type === 'service'){
             return [
                 'id'                => $data->id,
@@ -24,8 +28,7 @@ class SingleProductRepository implements SingleProductInterface, FormatInterface
                 'description'       => $data->description,
                 'image'             => ImageLinker::linker($data->image)
             ];
-        }
-        if ($data->type === 'food'){
+        }else{
             $result =  [
                 'id'                => $data->id,
                 'name'              => $data->title,
@@ -33,23 +36,11 @@ class SingleProductRepository implements SingleProductInterface, FormatInterface
                 'description'       => $data->description,
                 'image'             => ImageLinker::linker($data->image),
                 'has_ingredients'   => $data->has_ingredients,
-                'weight'            => $data->weight
+                'weight'            => $data->weight,
+                'ingredients'       => $data->component
             ];
-            if ($data->has_ingredients){
-                $result['ingredients'] = $data->component;
-            }
-            return $result;
         }
-
-
-    }
-
-    public function show(int $id)
-    {
-        $product = Product::findOrFail($id);
-           return TransJsonResponse::toJson(true,$this->format($product),
-               'Get product by id',200);
-
+            return $result;
 
     }
 }

@@ -17,8 +17,7 @@ class AuthRepository implements AuthInterface, FormatInterface
 
     public function register($data)
     {
-        $role = Role::where('name','user')
-                ->first();
+        $role = Role::where('name','user')->first();
         try {
             $user = User::create($data->except('password') + [
                     'password' => bcrypt($data->password)
@@ -31,25 +30,6 @@ class AuthRepository implements AuthInterface, FormatInterface
         }
     }
 
-    public function format($data)
-    {
-        $hasCard = true ? !is_null($data->creditCard) : false;
-
-        return [
-            'id'         => $data->id,
-            'user_name'  => $data->first_name. ' '. $data->last_name ?? '' ,
-            'first_name' => $data->first_name ?? '',
-            'last_name'  => $data->last_name ?? '',
-            'email'      => $data->email,
-            'image'      => ImageLinker::linker($data->image),
-            'role'       => $data->roles()->first()->name ?? null,
-            'token'      => 'Bearer '.$data->createToken('Delivery')
-                            ->accessToken,
-            'has_card'   => $hasCard
-
-        ];
-    }
-
     public function login($data)
     {
      try{
@@ -58,7 +38,6 @@ class AuthRepository implements AuthInterface, FormatInterface
                  'password' => $data->password
              ]);
          $user = Auth::user();
-
          if (!is_null($user)){
              $data =  $this->format($user);
              return TransJsonResponse::toJson(true, $data,'Login success',200);
@@ -77,7 +56,23 @@ class AuthRepository implements AuthInterface, FormatInterface
         }catch (\Exception $exception){
             return TransJsonResponse::toJson(false,null,$exception->getMessage(),400);
         }
+    }
+    public function format($data)
+    {
+        $hasCard = true ? !is_null($data->creditCard) : false;
 
+        return [
+            'id'         => $data->id,
+            'user_name'  => $data->first_name. ' '. $data->last_name ?? '' ,
+            'first_name' => $data->first_name ?? '',
+            'last_name'  => $data->last_name ?? '',
+            'email'      => $data->email,
+            'image'      => ImageLinker::linker($data->image),
+            'role'       => $data->roles()->first()->name ?? null,
+            'token'      => 'Bearer '.$data->createToken('Delivery')
+                    ->accessToken,
+            'has_card'   => $hasCard
 
+        ];
     }
 }

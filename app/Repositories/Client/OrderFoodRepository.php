@@ -14,24 +14,6 @@ use Carbon\Carbon;
 class OrderFoodRepository implements OrderFoodInterface, FormatInterface
 {
 
-    public function format($data)
-    {
-        return [
-            'id'             => $data->id,
-            'name'           => $data->name,
-            'company_name'   => $data->provider->name ?? null,
-            'date'           => Carbon::make($data->date_delivery)->format('Y-m-d'),
-            'time_from'      => $data->date_delivery_from,
-            'address'        => $data->place->address,
-            'city'           => $data->place->city,
-            'price'          => $data->cost,
-            'zip'            => $data->place->postal_code,
-            'country_code'   => $data->place->country,
-            'callback'       => $data->callback_time,
-            'status'         => $data->status ?? 'wait'
-        ];
-    }
-
     public function show(int $id)
     {
         $order = Order::findOrFail($id);
@@ -42,7 +24,7 @@ class OrderFoodRepository implements OrderFoodInterface, FormatInterface
     public function store($data)
     {
         if (count($data->user()->curt) > 0) {
-            $order = Order::create($data->except('quantity') +
+            $order = Order::create($data->all() +
                 [
                     'user_id' => $data->user()->id,
                     'date_delivery_to' => 'empty'
@@ -53,7 +35,7 @@ class OrderFoodRepository implements OrderFoodInterface, FormatInterface
             foreach ($data->user()->curt as $item) {
                 if (!is_null($item->product->provider)) {
                     $providerId = $item->product->provider
-                        ->value('id');
+                                  ->value('id');
                 }
                 $order->cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
@@ -101,5 +83,22 @@ class OrderFoodRepository implements OrderFoodInterface, FormatInterface
         $restore->products()->attach($order->products()->get()->pluck('id'));
 
         return TransJsonResponse::toJson(true, null, 'Restore successfully', 201);
+    }
+    public function format($data)
+    {
+        return [
+            'id'             => $data->id,
+            'name'           => $data->name,
+            'company_name'   => $data->provider->name ?? null,
+            'date'           => Carbon::make($data->date_delivery)->format('Y-m-d'),
+            'time_from'      => $data->date_delivery_from,
+            'address'        => $data->place->address,
+            'city'           => $data->place->city,
+            'price'          => $data->cost,
+            'zip'            => $data->place->postal_code,
+            'country_code'   => $data->place->country,
+            'callback'       => $data->callback_time,
+            'status'         => $data->status ?? 'wait'
+        ];
     }
 }

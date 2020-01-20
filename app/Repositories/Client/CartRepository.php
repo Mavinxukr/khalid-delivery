@@ -11,17 +11,6 @@ use App\Models\Order\Cart;
 
 class CartRepository implements CartInterface, FormatInterface
 {
-
-    public function format($data)
-    {
-       return [
-           'id'         => $data->id,
-           'name'       => $data->product->title,
-           'price'      => $data->product->price,
-           'quantity'   => $data->quantity
-       ];
-    }
-
     public function index($data)
     {
         $result = $data->user()
@@ -40,7 +29,6 @@ class CartRepository implements CartInterface, FormatInterface
         ], $data->all() + [
             'user_id' => $data->user()->id
             ]);
-
          return TransJsonResponse::toJson(true,null,'Successfully add to cart', 201);
 
     }
@@ -58,5 +46,14 @@ class CartRepository implements CartInterface, FormatInterface
     {
         Cart::findOrFail($id)->delete();
         return TransJsonResponse::toJson(true,null,'Successfully delete', 200);
+    }
+    public function format($data)
+    {
+        return [
+            'id'         => $data->id,
+            'name'       => $data->product->title,
+            'price'      => $data->product->price,
+            'quantity'   => $data->quantity
+        ];
     }
 }

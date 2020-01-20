@@ -27,7 +27,6 @@ class PlaceRepository implements PlaceInterface
         $place =  Place::create($request->all()+ [
             'user_id' => $request->user()->id
             ]);
-
         $data =  $this->format($place);
 
         return TransJsonResponse::toJson(true,$data,'Place was added',201);

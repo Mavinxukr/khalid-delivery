@@ -19,7 +19,7 @@ class CreateFeedbackTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('who_id');
             $table->unsignedBigInteger('whom_id');
-            $table->double('star');
+            $table->double('star')->nullable();
             $table->foreign('order_id')
                             ->on('orders')
                             ->references('id')
