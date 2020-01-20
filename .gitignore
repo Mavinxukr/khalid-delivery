@@ -13,3 +13,4 @@ yarn-error.log
 .idea
 apidoc.json
 /public/apidoc/
+.env.example
