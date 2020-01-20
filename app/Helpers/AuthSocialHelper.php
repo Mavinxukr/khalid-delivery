@@ -13,12 +13,12 @@ class AuthSocialHelper
     public static function validateUserAndAuth (string $driver,$socialUser, $localUser = null)
     {
         $updateBy  ['social_driver'] = $driver;
+        $updateBy  ['social_key']    = $socialUser['id'] ?? $socialUser->id;
         $createData = [];
         $nameUser = isset($socialUser->name) ? explode(' ',$socialUser->name) : null ;
 
         if ($driver === 'google'){
             $updateBy ['email']          = $socialUser['email'];
-            $updateBy ['social_key']     = $socialUser['id'];
 
             $createData ['first_name']   = $socialUser['given_name'] ?? null;
             $createData['last_name']     = $socialUser['family_name'] ?? null;
@@ -38,8 +38,6 @@ class AuthSocialHelper
                 }
                 Storage::disk('public')->put($path,file_get_contents($socialUser->avatar_original));
             }
-            $updateBy ['social_key']     = $socialUser->id;
-
             $createData ['first_name']   = $nameUser[0] ?? null;
             $createData['last_name']     = $nameUser[1] ?? null;
             $createData ['email']        = $facebookUser->email ?? null;
@@ -48,8 +46,6 @@ class AuthSocialHelper
             $createData['image']         = $path?? null;
         }
         if ($driver === 'twitter'){
-            $updateBy ['social_key']     = $socialUser->id;
-
             $createData ['first_name']   = $nameUser[0] ?? null;
             $createData['last_name']     = $nameUser[1] ?? null;
             $createData ['email']        = $socialUser->email ?? null;
@@ -59,8 +55,6 @@ class AuthSocialHelper
 
         }
         if ($driver === 'snapchat'){
-            $updateBy ['social_key']     = $socialUser->id;
-
             $createData ['first_name']   = $nameUser[0] ?? null;
             $createData['last_name']     = $nameUser[1] ?? null;
             $createData ['email']        = $socialUser->email ?? null;
