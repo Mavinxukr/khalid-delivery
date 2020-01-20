@@ -6,8 +6,8 @@ namespace App\Repositories\Client;
 
 use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Client\Product\ProductInterface;
-use App\Interfaces\FormatInterface;
+use App\Contracts\Client\Product\ProductInterface;
+use App\Contracts\FormatInterface;
 use App\Models\Category\Category;
 use App\Models\Category\ProductCategory;
 use App\Models\Product\Product;
@@ -54,7 +54,10 @@ class ProductRepository implements ProductInterface, FormatInterface
 
         if ($data instanceof Provider){
             $topProduct =  $data->productTop()
-                    ->get(['id','title','price','description','image']) ?? null;
+                    ->get([
+                        'id','title','price',
+                        'description','image','weight'
+                    ]) ?? null;
 
             $result = [
                 'id'                => $data->id,
@@ -78,6 +81,7 @@ class ProductRepository implements ProductInterface, FormatInterface
                 'description'       => $data->description ?? null,
                 'has_ingredients'   => $data->has_ingredients,
                 'price'             => $data->price,
+                'weight'            => $data->weight
 
             ];
         }

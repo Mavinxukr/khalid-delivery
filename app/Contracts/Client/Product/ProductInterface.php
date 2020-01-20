@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Interfaces\Client\Product;
+namespace App\Contracts\Client\Product;
 
 
 interface ProductInterface

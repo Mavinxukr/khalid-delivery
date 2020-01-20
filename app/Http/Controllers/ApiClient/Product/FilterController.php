@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiClient\Product;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\Client\Product\FilterInterface;
+use App\Contracts\Client\Product\FilterInterface;
 use Illuminate\Http\Request;
 
 class FilterController extends Controller

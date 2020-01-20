@@ -6,8 +6,8 @@ namespace App\Repositories\Client;
 
 use App\Helpers\ActionOverOrder;
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Client\Order\OrderFoodInterface;
-use App\Interfaces\FormatInterface;
+use App\Contracts\Client\Order\OrderFoodInterface;
+use App\Contracts\FormatInterface;
 use App\Models\Order\Order;
 use Carbon\Carbon;
 

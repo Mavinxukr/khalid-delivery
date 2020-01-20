@@ -5,8 +5,8 @@ namespace App\Repositories\Company;
 
 
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Company\Auth\AuthInterface;
-use App\Interfaces\FormatInterface;
+use App\Contracts\Company\Auth\AuthInterface;
+use App\Contracts\FormatInterface;
 use Illuminate\Support\Facades\Auth;
 
 class AuthRepository implements AuthInterface, FormatInterface

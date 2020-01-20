@@ -26,9 +26,10 @@ class OrderPolicy
 
     public function update(User $user, $item)
     {
+
         $roles = $user->roles()->get();
         foreach ($roles as $role){
-            if ($role->name === 'super-admin') return true;
+            if ($role->name === 'super-admin' || $role->name === 'company') return true;
         }
         return false;
     }

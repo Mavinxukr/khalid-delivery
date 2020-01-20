@@ -5,7 +5,7 @@ namespace App\Repositories\Client;
 
 
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Client\Place\PlaceInterface;
+use App\Contracts\Client\Place\PlaceInterface;
 use App\Models\PlaceService\Place;
 
 class PlaceRepository implements PlaceInterface

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\ApiCompany\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientProfileRequest;
 use App\Http\Requests\CompanyCreditCard;
-use App\Interfaces\Company\Profile\ProfileInterface;
+use App\Contracts\Company\Profile\ProfileInterface;
 use Illuminate\Http\Request;
 
 class ProfileCompanyController extends Controller

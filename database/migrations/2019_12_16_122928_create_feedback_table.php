@@ -17,17 +17,18 @@ class CreateFeedbackTable extends Migration
             $table->bigIncrements('id');
             $table->text('comment');
             $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('who_id');
+            $table->unsignedBigInteger('whom_id');
+            $table->double('star');
             $table->foreign('order_id')
                             ->on('orders')
                             ->references('id')
                             ->onDelete('cascade');
-            $table->foreign('user_id')
+            $table->foreign('who_id')
                             ->on('users')
                             ->references('id')
                             ->onDelete('cascade');
-            $table->foreign('company_id')
+            $table->foreign('whom_id')
                             ->on('providers')
                             ->references('id')
                             ->onDelete('cascade');

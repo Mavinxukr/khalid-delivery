@@ -31,8 +31,8 @@ use Illuminate\Database\Eloquent\Model;
 class Feedback extends Model
 {
     protected $fillable = [
-        'comment', 'user_id','order_id',
-        'company_id'
+        'comment', 'who_id','order_id',
+        'whom_id','star'
     ];
 
     protected $hidden = [
@@ -42,6 +42,6 @@ class Feedback extends Model
 
     public function company()
     {
-        return $this->belongsTo(Provider::class,'company_id');
+        return $this->belongsTo(Provider::class,'whom_id');
     }
 }

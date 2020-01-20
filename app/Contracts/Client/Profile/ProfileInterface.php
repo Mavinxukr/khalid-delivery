@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Interfaces\Client\Profile;
+namespace App\Contracts\Client\Profile;
 
 
 use App\User;

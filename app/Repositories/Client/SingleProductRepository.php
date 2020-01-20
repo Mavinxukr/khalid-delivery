@@ -6,8 +6,8 @@ namespace App\Repositories\Client;
 
 use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Client\Product\SingleProductInterface;
-use App\Interfaces\FormatInterface;
+use App\Contracts\Client\Product\SingleProductInterface;
+use App\Contracts\FormatInterface;
 use App\Models\Product\Product;
 
 class SingleProductRepository implements SingleProductInterface, FormatInterface
@@ -32,7 +32,8 @@ class SingleProductRepository implements SingleProductInterface, FormatInterface
                 'price'             => $data->price,
                 'description'       => $data->description,
                 'image'             => ImageLinker::linker($data->image),
-                'has_ingredients'   => $data->has_ingredients
+                'has_ingredients'   => $data->has_ingredients,
+                'weight'            => $data->weight
             ];
             if ($data->has_ingredients){
                 $result['ingredients'] = $data->component;

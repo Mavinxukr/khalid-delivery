@@ -34,5 +34,9 @@ Route::group(["namespace"=>"ApiCompany"],function() {
             Route::post('update-credit-card','Profile\ProfileCompanyController@updateCreditCard');
         });
 
+        //------------------------------ Feedback ---------------------------------//
+        Route::get('feedback','Feedback\FeedbackController@index');
+        Route::get('my-feedback','Feedback\FeedbackController@getMyFeedback');
+        Route::post('feedback/create ','Feedback\FeedbackController@store');
     });
 });

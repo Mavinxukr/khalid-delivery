@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Interfaces\Client\Order;
+namespace App\Contracts\Client\Order;
 
 
 use Illuminate\Support\Facades\Request;

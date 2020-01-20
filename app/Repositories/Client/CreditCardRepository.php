@@ -5,8 +5,8 @@ namespace App\Repositories\Client;
 
 
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Client\CreditCard\CreditCardInterface;
-use App\Interfaces\FormatInterface;
+use App\Contracts\Client\CreditCard\CreditCardInterface;
+use App\Contracts\FormatInterface;
 use App\Models\CreditCard\Card;
 use Illuminate\Support\Facades\Auth;
 

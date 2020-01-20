@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ApiClient\Place;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PlaceRequest;
-use App\Interfaces\Client\Place\PlaceInterface;
+use App\Contracts\Client\Place\PlaceInterface;
 use Illuminate\Http\Request;
 
 class PlaceServiceController extends Controller

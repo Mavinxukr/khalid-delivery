@@ -43,7 +43,6 @@ Route::group(["namespace"=>"ApiClient"],function() {
         Route::post('food-orders/confirm','Order\OrderFoodController@confirmOrder');
         Route::post('food-orders/restore','Order\OrderFoodController@restoreOrder');
         Route::post('food-orders/cancel','Order\OrderFoodController@cancelOrder');
-
         //---------------------------- Place --------------------------------//
         Route::get('places','Place\PlaceServiceController@index');
         Route::post('places','Place\PlaceServiceController@store');
@@ -71,8 +70,3 @@ Route::group(["namespace"=>"ApiClient"],function() {
     });
 });
 
-//---------------------------- API for company ------------------------------//
-
-Route::group(["namespace"=>"ApiClient"],function() {
-
-});

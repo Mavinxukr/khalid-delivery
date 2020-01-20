@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ApiClient\CreditCard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreditCardRequest;
-use App\Interfaces\Client\CreditCard\CreditCardInterface;
+use App\Contracts\Client\CreditCard\CreditCardInterface;
 use App\Models\CreditCard\Card;
 use Illuminate\Http\Request;
 

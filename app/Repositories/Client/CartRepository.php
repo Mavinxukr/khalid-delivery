@@ -5,8 +5,8 @@ namespace App\Repositories\Client;
 
 
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Client\Order\CartInterface;
-use App\Interfaces\FormatInterface;
+use App\Contracts\Client\Order\CartInterface;
+use App\Contracts\FormatInterface;
 use App\Models\Order\Cart;
 
 class CartRepository implements CartInterface, FormatInterface

@@ -6,8 +6,8 @@ namespace App\Repositories\Client;
 
 use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Client\Product\FilterInterface;
-use App\Interfaces\FormatInterface;
+use App\Contracts\Client\Product\FilterInterface;
+use App\Contracts\FormatInterface;
 use App\Models\Category\Category;
 use App\Models\Provider\Kitchen;
 use App\Models\Provider\Provider;

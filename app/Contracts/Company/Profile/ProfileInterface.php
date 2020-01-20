@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Interfaces\Company\Profile;
+namespace App\Contracts\Company\Profile;
 
 
-use App\Interfaces\FormatInterface;
+use App\Contracts\FormatInterface;
 use App\Models\Provider\Provider;
 use App\User;
 use Illuminate\Http\Request;

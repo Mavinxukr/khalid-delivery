@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiClient\Order;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\Client\Order\CartInterface;
+use App\Contracts\Client\Order\CartInterface;
 use Illuminate\Http\Request;
 
 class CurtController extends Controller

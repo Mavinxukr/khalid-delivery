@@ -1,14 +1,14 @@
 <?php
 
 
-namespace App\Interfaces\Client\Order;
+namespace App\Contracts\Client\Order;
 
 
-interface OrderServiceInterface
+interface OrderFoodInterface
 {
-    public function store($data);
+    public function show (int $id);
 
-    public function show(int $id);
+    public function store($data);
 
     public function confirmOrder($data);
 

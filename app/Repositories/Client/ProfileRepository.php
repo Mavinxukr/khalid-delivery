@@ -7,8 +7,8 @@ namespace App\Repositories\Client;
 use App\Helpers\ActionSaveImage;
 use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Client\Profile\ProfileInterface;
-use App\Interfaces\FormatInterface;
+use App\Contracts\Client\Profile\ProfileInterface;
+use App\Contracts\FormatInterface;
 use App\User;
 
 class ProfileRepository implements ProfileInterface, FormatInterface
@@ -16,7 +16,7 @@ class ProfileRepository implements ProfileInterface, FormatInterface
     public function update($data, int $id)
     {
         $user = User::findOrFail($id);
-        $user->edit = true;
+        $user->edit             = true;
         $user->first_name       = $data->first_name ?? $user->first_name;
         $user->last_name        = $data->last_name  ?? $user->last_name;
         $user->phone            = $data->phone      ?? $user->phone;
@@ -51,13 +51,13 @@ class ProfileRepository implements ProfileInterface, FormatInterface
     {
         $hasCard = true ? !is_null($data->creditCard) : false;
         $result =  [
-            'id'          => $data->id,
-            'first_name'  => $data->first_name,
-            'last_name'   => $data->last_name,
-            'email'       => $data->email,
-            'image'       => ImageLinker::linker($data->image),
-            'phone'       => $data->phone,
-            'has_card'    => $hasCard
+            'id'                => $data->id,
+            'first_name'        => $data->first_name,
+            'last_name'         => $data->last_name,
+            'email'             => $data->email,
+            'image'             => ImageLinker::linker($data->image),
+            'phone'             => $data->phone,
+            'has_card'          => $hasCard,
       ];
 
       if (!empty($data->myFeedback)){

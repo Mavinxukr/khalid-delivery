@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Interfaces\Client\Feedback;
+namespace App\Contracts\Client\Feedback;
 
 
 interface FeedbackInterface

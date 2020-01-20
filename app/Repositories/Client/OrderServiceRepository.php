@@ -6,8 +6,8 @@ namespace App\Repositories\Client;
 
 use App\Helpers\ActionOverOrder;
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Client\Order\OrderServiceInterface;
-use App\Interfaces\FormatInterface;
+use App\Contracts\Client\Order\OrderServiceInterface;
+use App\Contracts\FormatInterface;
 use App\Models\Feedback\FirePush;
 use App\Models\Order\CancelOrder;
 use App\Models\Order\Order;

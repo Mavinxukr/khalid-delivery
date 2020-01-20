@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
-use App\Interfaces\Client\Auth\AuthInterface;
-use App\Interfaces\Client\Auth\AuthSocialInterface;
-use App\Interfaces\Client\CreditCard\CreditCardInterface;
-use App\Interfaces\Client\Feedback\FeedbackInterface;
-use App\Interfaces\Client\Order\CartInterface;
-use App\Interfaces\Client\Order\OrderFoodInterface;
-use App\Interfaces\Client\Order\OrderServiceInterface;
-use App\Interfaces\Client\Place\PlaceInterface;
-use App\Interfaces\Client\Product\FilterInterface;
-use App\Interfaces\Client\Product\ProductInterface;
-use App\Interfaces\Client\Product\SingleProductInterface;
-use App\Interfaces\Client\Profile\ProfileInterface;
+use App\Contracts\Client\Auth\AuthInterface;
+use App\Contracts\Client\Auth\AuthSocialInterface;
+use App\Contracts\Client\CreditCard\CreditCardInterface;
+use App\Contracts\Client\Feedback\FeedbackInterface;
+use App\Contracts\Client\Order\CartInterface;
+use App\Contracts\Client\Order\OrderFoodInterface;
+use App\Contracts\Client\Order\OrderServiceInterface;
+use App\Contracts\Client\Place\PlaceInterface;
+use App\Contracts\Client\Product\FilterInterface;
+use App\Contracts\Client\Product\ProductInterface;
+use App\Contracts\Client\Product\SingleProductInterface;
+use App\Contracts\Client\Profile\ProfileInterface;
 use App\Repositories\Client\AuthRepository;
 use App\Repositories\Client\AuthSocialRepository;
 use App\Repositories\Client\CartRepository;

@@ -134,7 +134,7 @@ class User extends Authenticatable
 
     public function myFeedback()
     {
-        return $this->hasMany(Feedback::class)->with('company');
+        return $this->hasMany(Feedback::class,'who_id')->with('company');
     }
 
     public function order()

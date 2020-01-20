@@ -95,6 +95,8 @@ class Product extends Resource
                     ->trueValue(1)
                     ->falseValue(0)
                     ->exceptOnForms(),
+                Number::make('Weight')
+                    ->rules('required'),
                 BelongsTo::make('Category','categories', MenuCategory::class)
                     ->searchable(),
                 NovaDependencyContainer::make([

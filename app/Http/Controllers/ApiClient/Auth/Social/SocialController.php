@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiClient\Auth\Social;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\Client\Auth\AuthSocialInterface;
+use App\Contracts\Client\Auth\AuthSocialInterface;
 use Illuminate\Http\Request;
 
 class SocialController extends Controller

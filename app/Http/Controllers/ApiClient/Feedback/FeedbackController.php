@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiClient\Feedback;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\Client\Feedback\FeedbackInterface;
+use App\Contracts\Client\Feedback\FeedbackInterface;
 use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
@@ -37,6 +37,7 @@ class FeedbackController extends Controller
      * @apiGroup Client Feedback
      * @apiParam {String} comment Comment for finished order
      * @apiParam {Number} order_id Orders' id
+     * @apiParam {Double} star Star (example: 1.5, 2, 4.5 )
      * @apiPermission Authorization
      * @apiHeader  Authorization token
      * @apiSampleRequest  client/feedback/create

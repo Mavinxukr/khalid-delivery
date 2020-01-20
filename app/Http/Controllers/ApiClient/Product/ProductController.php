@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\ApiClient\Product;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\Client\Product\ProductInterface;
-use App\Interfaces\Client\Product\SingleProductInterface;
+use App\Contracts\Client\Product\ProductInterface;
+use App\Contracts\Client\Product\SingleProductInterface;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller

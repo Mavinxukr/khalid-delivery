@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Interfaces\Client\Place;
+namespace App\Contracts\Client\Place;
 
 
 use Illuminate\Support\Facades\Request;

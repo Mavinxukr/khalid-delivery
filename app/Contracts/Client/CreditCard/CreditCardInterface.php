@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Interfaces\Client\CreditCard;
+namespace App\Contracts\Client\CreditCard;
 
 
 interface CreditCardInterface

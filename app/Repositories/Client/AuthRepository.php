@@ -5,8 +5,8 @@ namespace App\Repositories\Client;
 
 use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
-use App\Interfaces\Client\Auth\AuthInterface;
-use App\Interfaces\FormatInterface;
+use App\Contracts\Client\Auth\AuthInterface;
+use App\Contracts\FormatInterface;
 use App\User;
 use Config;
 use Illuminate\Support\Facades\Auth;

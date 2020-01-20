@@ -219,8 +219,7 @@ class Order extends Resource
     public function actions(Request $request)
     {
         return [
-            (new PaymentOrder)
-                ->onlyOnTableRow(),
+            new PaymentOrder,
             (new ConfirmOrder)
                 ->onlyOnTableRow()
         ];
