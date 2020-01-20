@@ -23,7 +23,7 @@ class AuthSocialHelper
 
             $createData ['first_name']   = $socialUser['given_name'] ?? null;
             $createData['last_name']     = $socialUser['family_name'] ?? null;
-            $createData ['email']        = $socialUser['email'];
+            //$createData ['email']        = $socialUser['email'];
             $createData['social_key']    = $socialUser['id'];
             $createData['social_driver'] = $driver;
             $createData['image']         = $socialUser['picture'] ?? null;
@@ -31,7 +31,7 @@ class AuthSocialHelper
         }else {
             $createData ['first_name']   = $nameUser[0] ?? null;
             $createData['last_name']     = $nameUser[1] ?? null;
-            $createData ['email']        = $facebookUser->email ?? null;
+            //$createData ['email']        = $facebookUser->email ?? null;
             $createData['social_key']    = $socialUser->id;
             $createData['social_driver'] = $driver;
             if ($driver === 'facebook') {
