@@ -14,8 +14,9 @@ class AuthSocialHelper
     {
         $updateBy  ['social_driver'] = $driver;
         $updateBy  ['social_key']    = $socialUser['id'] ?? $socialUser->id;
-        $createData = [];
         $nameUser = isset($socialUser->name) ? explode(' ',$socialUser->name) : null ;
+        $createData = [];
+
 
         if ($driver === 'google'){
             $updateBy ['email']          = $socialUser['email'];
@@ -27,45 +28,29 @@ class AuthSocialHelper
             $createData['social_driver'] = $driver;
             $createData['image']         = $socialUser['picture'] ?? null;
 
-        }
-        if ($driver === 'facebook'){
-            if (isset($socialUser->avatar_original)){
-                $name = Str::random('60').'.jpeg';
-                $path = 'image/profile/'. $name;
-                if (!is_null($localUser) &&
-                            file_exists(storage_path('app/public/').$localUser->image)){
-                    Storage::disk('public')->delete($localUser->image);
-                }
-                Storage::disk('public')->put($path,file_get_contents($socialUser->avatar_original));
-            }
+        }else {
             $createData ['first_name']   = $nameUser[0] ?? null;
             $createData['last_name']     = $nameUser[1] ?? null;
             $createData ['email']        = $facebookUser->email ?? null;
             $createData['social_key']    = $socialUser->id;
             $createData['social_driver'] = $driver;
-            $createData['image']         = $path?? null;
+            if ($driver === 'facebook') {
+                if (isset($socialUser->avatar_original)) {
+                    $name = Str::random('60') . '.jpeg';
+                    $path = 'image/profile/' . $name;
+                    if (!is_null($localUser) &&
+                        file_exists(storage_path('app/public/') . $localUser->image)) {
+                        Storage::disk('public')->delete($localUser->image);
+                    }
+                    Storage::disk('public')->put($path, file_get_contents($socialUser->avatar_original));
+                }
+                $createData['image'] = $path ?? null;
+            }else{
+                $createData['image'] = $socialUser->avatar ?? null;
+            }
         }
-        if ($driver === 'twitter'){
-            $createData ['first_name']   = $nameUser[0] ?? null;
-            $createData['last_name']     = $nameUser[1] ?? null;
-            $createData ['email']        = $socialUser->email ?? null;
-            $createData['social_key']    = $socialUser->id;
-            $createData['social_driver'] = $driver;
-            $createData['image']         = $socialUser->avatar?? null;
-
-        }
-        if ($driver === 'snapchat'){
-            $createData ['first_name']   = $nameUser[0] ?? null;
-            $createData['last_name']     = $nameUser[1] ?? null;
-            $createData ['email']        = $socialUser->email ?? null;
-            $createData['social_key']    = $socialUser->id;
-            $createData['social_driver'] = $driver;
-            $createData['image']         = $socialUser->avatar?? null;
-
-        }
-
         $user =  User::updateOrCreate($updateBy,$createData);
 
-        return $user;
+        return 1;
     }
 }
