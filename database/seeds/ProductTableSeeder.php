@@ -20,7 +20,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 1,
             'parent_id' => null,
-            'category_id' => rand(1,4)
+            'category_id' => rand(1,4),
+            'weight' => rand(115,995)
         ]);
         \App\Models\Product\Product::create([
             'title' => 'omar122',
@@ -31,7 +32,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 1,
             'parent_id' => null,
-            'category_id' => rand(1,4)
+            'category_id' => rand(1,4),
+            'weight' => rand(115,995)
         ]);
         \App\Models\Product\Product::create([
             'title' => 'omar122',
@@ -42,7 +44,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 1,
             'parent_id' => null,
-            'category_id' => rand(1,4)
+            'category_id' => rand(1,4),
+            'weight' => rand(115,995)
         ]);
         \App\Models\Product\Product::create([
             'title' => 'pork',
@@ -53,7 +56,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 1,
             'parent_id' => null,
-            'category_id' => rand(1,4)
+            'category_id' => rand(1,4),
+            'weight' => rand(115,995)
         ]);
         \App\Models\Product\Product::create([
             'title' => 'fish',
@@ -64,7 +68,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 1,
             'parent_id' => null,
-            'category_id' => rand(1,4)
+            'category_id' => rand(1,4),
+            'weight' => rand(115,995)
         ]);
 
 
@@ -103,7 +108,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 3,
             'parent_id' => null,
-            'category_id' => rand(5,7)
+            'category_id' => rand(5,7),
+            'weight' => rand(115,995)
 
         ]);
         \App\Models\Product\Product::create([
@@ -115,7 +121,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 3,
             'parent_id' => null,
-            'category_id' => rand(5,7)
+            'category_id' => rand(5,7),
+            'weight' => rand(115,995)
 
         ]);
         \App\Models\Product\Product::create([
@@ -127,7 +134,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 3,
             'parent_id' => null,
-            'category_id' => rand(5,7)
+            'category_id' => rand(5,7),
+            'weight' => rand(115,995)
 
         ]);
         \App\Models\Product\Product::create([
@@ -139,7 +147,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 3,
             'parent_id' => null,
-            'category_id' => rand(5,8)
+            'category_id' => rand(5,8),
+            'weight' => rand(115,995)
 
         ]);
     }

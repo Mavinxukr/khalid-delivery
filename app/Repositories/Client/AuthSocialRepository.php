@@ -13,102 +13,43 @@ use App\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\User as SocialUser;
 use Spatie\Permission\Models\Role;
 
 class AuthSocialRepository implements AuthSocialInterface, FormatInterface
 {
-    private $role;
+    private  $role;
 
-    public function __construct(Role $role)
+    public function __construct()
     {
-        $this->role = Role::whereName('user')->value('id');
+        $this->role = Role::whereName('user')
+                        ->value('id');
     }
-
-    public function authGoogle(string $token)
+    public function authSocial(string $token, string $driver, string  $secret = null)
     {
-        try {
-            $googleUser = Socialite::driver('google')
-                ->userFromToken($token)
-                ->user;
-            $user = User::whereEmail($googleUser['email'])
-                            ->where('social_key', $googleUser['id'])
-                            ->where('social_driver','google')
-                            ->first();
-        }catch (\Exception $exception){
-            return TransJsonResponse::toJson(false, null,
-                'Some error with your google token', 401);
-        }
-       if (is_null($user) || !$user->edit){
-           $user = AuthSocialHelper::validateUserAndAuth('google',$googleUser);
-           $user->roles()->sync($this->role);
-       }
-        $user = $this->format($user);
-        return TransJsonResponse::toJson(true, $user, 'User was created', 201);
+        try{
+            $socialUser = is_null($secret) ? Socialite::driver($driver)->userFromToken($token) :
+                                             Socialite::driver($driver)->userFromTokenAndSecret($token, $secret);
 
-    }
-
-    public function authFacebook(string $token)
-    {
-        try {
-            $facebookUser = Socialite::driver('facebook')
-                ->userFromToken($token);
-            $user = User::where('social_driver','facebook')
-                            ->where('social_key', $facebookUser->id)
-                            ->first();
-        }catch (\Exception $exception){
-            return TransJsonResponse::toJson(false, null,
-                'Some error with your facebook token', 401);
-        }
-        if (is_null($user) || !$user->edit){
-            $user = AuthSocialHelper::validateUserAndAuth('facebook',$facebookUser, $user);
-            $user->roles()->sync($this->role);
-        }
-        $user = $this->format($user);
-        return TransJsonResponse::toJson(true, $user, 'User was created', 201);
-    }
-
-    public function authTwitter(string $token, string $secret)
-    {
-        try {
-            $twitterUser = Socialite::driver('Twitter')
-                ->userFromTokenAndSecret($token, $secret);
-            $user = User::where('social_key',$twitterUser->id)
-                                ->where('social_driver','twitter')
+            $foundUser = User::where('social_key', $socialUser->getId())
+                                ->where('social_driver',$driver)
                                 ->first();
+        return $this->authLogic($socialUser, $foundUser, $driver);
         }catch (\Exception $exception){
             return TransJsonResponse::toJson(false, null,
-                'Some error with your twitter token', 401);
+                "Some error with your $driver token", 401);
         }
-        if (is_null($user) || !$user->edit){
-            $user = AuthSocialHelper::validateUserAndAuth('twitter',$twitterUser );
-            $user->roles()->sync($this->role);
-        }
-        $user = $this->format($user);
-        return TransJsonResponse::toJson(true, $user, 'User was created', 201);
-
     }
-
-    public function authSnapchat(string $token)
+    public function authLogic($socialUser, $localUser, string $driver)
     {
-        try {
-            $snapChatUser = Socialite::driver('snapchat')
-                ->userFromToken($token);
-            $user = User::where('social_key', $snapChatUser->id)
-                            ->where('social_driver','snapchat')
-                            ->first();
-        }catch (\Exception $exception){
-            return TransJsonResponse::toJson(false, null,
-                'Some error with your snapchat token', 401);
+        if (is_null($localUser) || !$localUser->edit){
+            $localUser = AuthSocialHelper::validateUserAndAuth($driver,$socialUser,$localUser);
+            $localUser->roles()->sync($this->role);
         }
-        if (is_null($user) || !$user->edit){
+        $user = $this->format($localUser);
+        return TransJsonResponse::toJson(true, $user, 'User was authorization', 201);
 
-            $user = AuthSocialHelper::validateUserAndAuth('snapchat',$snapChatUser );
-            $user->roles()->sync($this->role);
-        }
-        $user = $this->format($user);
-        return TransJsonResponse::toJson(true, $user, 'User was created', 201);
     }
-
     public function format($data)
     {
         $hasCard = true ? !is_null($data->creditCard) : false;
@@ -123,15 +64,6 @@ class AuthSocialRepository implements AuthSocialInterface, FormatInterface
             'token'      => 'Bearer '.$data->createToken('Delivery')
                             ->accessToken,
             'has_card'   => $hasCard
-
         ];
-    }
-
-    public function authSocial(string $token, string $driver, string  $secret = null)
-    {
-        if ($driver === 'google') return $this->authGoogle($token);
-        if ($driver === 'facebook') return $this->authFacebook($token);
-        if ($driver === 'twitter') return $this->authTwitter($token, $secret);
-        if ($driver === 'snapchat') return $this->authSnapchat($token);
     }
 }
