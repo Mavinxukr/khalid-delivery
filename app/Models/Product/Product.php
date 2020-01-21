@@ -53,6 +53,7 @@ class Product extends Model
 {
     protected $casts = [
         'has_ingredients' => 'boolean',
+        'active'          => 'boolean',
     ];
 
     protected $fillable = [

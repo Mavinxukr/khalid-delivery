@@ -19,7 +19,7 @@ class ProfileRepository implements ProfileInterface, FormatInterface
         $createData['edit'] = true;
         if(isset($data->password)) $createData['password'] = bcrypt($data->password);
         if (isset($data->image))   $createData['image']    =
-                                    ActionSaveImage::updateImage($data->image, $user,'profile');
+                                    ActionSaveImage::updateOrCreateImage($data->image,$user,'profile');
         $user->update(array_filter(
             $data->except('image','password')) + $createData
         );

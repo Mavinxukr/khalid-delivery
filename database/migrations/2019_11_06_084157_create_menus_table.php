@@ -24,6 +24,7 @@ class CreateMenusTable extends Migration
             $table->unsignedBigInteger('provider_id')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->bigInteger('weight')->nullable();
+            $table->boolean('active')->default(true);
             $table->foreign('parent_id')->references('id')
                                                 ->on('products')
                                                 ->onDelete('cascade');

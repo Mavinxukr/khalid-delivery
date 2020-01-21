@@ -32,7 +32,7 @@ class ProfileRepository implements ProfileInterface, FormatInterface
                         ->update(array_filter($request->except('image')));
         $company                         = $request->user()->company;
         $company->image                  = isset($request->image)        ?
-                                          ActionSaveImage::updateImage($request->image, $company,'provider'):
+                                          ActionSaveImage::updateOrCreateImage($request->image,$company,'provider'):
                                           $company->image;
        $company->save();
        $result = $this->format($company);

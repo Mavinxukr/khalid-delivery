@@ -75,7 +75,6 @@ class Product extends Resource
         ];
     }
 
-
     protected function SingleAddMenuFields(Request $request)
     {
         return [
@@ -121,6 +120,10 @@ class Product extends Resource
                 ->help("Upload image")
                 ->rules( 'file'),
             Text::make('Type', 'type')
+                ->exceptOnForms(),
+            Boolean::make('Active')
+                ->trueValue(1)
+                ->falseValue(0)
                 ->exceptOnForms(),
             HasMany::make('Component','component', Component::class)
                 ->canSee(function (){
