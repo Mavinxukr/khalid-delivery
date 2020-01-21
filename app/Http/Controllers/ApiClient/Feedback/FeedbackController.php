@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiClient\Feedback;
 
 use App\Http\Controllers\Controller;
 use App\Contracts\Client\Feedback\FeedbackInterface;
+use App\Http\Requests\FeedbackRequest;
 use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
@@ -43,7 +44,7 @@ class FeedbackController extends Controller
      * @apiSampleRequest  client/feedback/create
      */
 
-    public function store(Request $request)
+    public function store(FeedbackRequest $request)
     {
         return $this->feedback->store($request);
     }

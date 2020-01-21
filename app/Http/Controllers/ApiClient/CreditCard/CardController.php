@@ -17,11 +17,6 @@ class CardController extends Controller
         $this->card = $card;
     }
 
-    public function index()
-    {
-        //
-    }
-
     /**
      * @api {post} client/cards  Store  card  #Screen №6, 21
      * @apiName  Store  card
@@ -43,58 +38,4 @@ class CardController extends Controller
         return $this->card->store($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CreditCard\Card  $card
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Card $card)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CreditCard\Card  $card
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Card $card)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CreditCard\Card  $card
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Card $card)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CreditCard\Card  $card
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Card $card)
-    {
-        //
-    }
-
-    public function checkout()
-    {
-        return view('payment.checkout');
-    }
-
-    public function callbackCheckout(Request $request)
-    {
-        dd($request);
-    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiClient\Order;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderFoodRequest;
 use App\Http\Requests\OrderRequest;
 use App\Contracts\Client\Order\OrderFoodInterface;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class OrderFoodController extends Controller
      * @apiSampleRequest  client/food-orders
      */
 
-    public function store(Request $request)
+    public function store(OrderFoodRequest $request)
     {
         return $this->order->store($request);
     }
@@ -51,7 +52,6 @@ class OrderFoodController extends Controller
         return $this->order->show($id);
 
     }
-
 
     /**
      * @api {post} client/food-orders/confirm  Confirm food order  #Screen №7

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiClient\Order;
 
 use App\Http\Controllers\Controller;
 use App\Contracts\Client\Order\CartInterface;
+use App\Http\Requests\CartRequest;
 use Illuminate\Http\Request;
 
 class CurtController extends Controller
@@ -32,7 +33,6 @@ class CurtController extends Controller
         return $this->cart->index($request);
     }
 
-
     /**
      * @api {post} client/cart  Add to cart #Screen №13,16,39
      * @apiName  Add to cart
@@ -45,7 +45,7 @@ class CurtController extends Controller
      * @apiSampleRequest  client/cart
      */
 
-    public function store(Request $request)
+    public function store(CartRequest $request)
     {
         return $this->cart->store($request);
     }
@@ -63,7 +63,7 @@ class CurtController extends Controller
 
     public function update(Request $request, $id)
     {
-        return $this->cart->update($request, $id);
+        return $this->cart->update($request , $id);
     }
 
     /**

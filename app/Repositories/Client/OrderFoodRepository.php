@@ -23,14 +23,19 @@ class OrderFoodRepository implements OrderFoodInterface, FormatInterface
 
     public function store($data)
     {
-        if (count($data->user()->curt) > 0) {
+        $place = $data->user()
+                        ->place()
+                        ->find($data->place_id);
+        if (is_null($place))
+                    return TransJsonResponse::toJson(false, null,
+                                'Place id not found', 404);
+        if (count($data->user()->curt) > 0 ) {
             $order = Order::create($data->all() +
                 [
                     'user_id' => $data->user()->id,
                     'date_delivery_to' => 'empty'
                 ]
             );
-
             $providerId = null;
             foreach ($data->user()->curt as $item) {
                 if (!is_null($item->product->provider)) {
@@ -39,7 +44,7 @@ class OrderFoodRepository implements OrderFoodInterface, FormatInterface
                 }
                 $order->cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
-                $item->delete();
+                //$item->delete();
             }
             $order->provider_id = $providerId;
             $order->provider_category = 'food';

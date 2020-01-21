@@ -18,6 +18,12 @@ class OrderServiceRepository implements OrderServiceInterface, FormatInterface
 
     public function store($data)
     {
+        $place = $data->user()
+                        ->place()
+                        ->find($data->place_id);
+        if (is_null($place))
+            return TransJsonResponse::toJson(false, null,
+                'Place id not found', 404);
         $order = Order::create($data->all() +
             [
                 'user_id' => $data->user()->id
@@ -58,7 +64,6 @@ class OrderServiceRepository implements OrderServiceInterface, FormatInterface
         return TransJsonResponse::toJson(true, null, $cancel, 201);
 
     }
-
 
     public function restoreOrder(int $id)
     {

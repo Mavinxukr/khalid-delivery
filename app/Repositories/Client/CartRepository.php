@@ -8,6 +8,8 @@ use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Order\CartInterface;
 use App\Contracts\FormatInterface;
 use App\Models\Order\Cart;
+use App\Models\Product\Product;
+use Illuminate\Http\Request;
 
 class CartRepository implements CartInterface, FormatInterface
 {
@@ -23,22 +25,34 @@ class CartRepository implements CartInterface, FormatInterface
 
     public function store($data)
     {
-         Cart::updateOrCreate([
-            'user_id'       => $data->user()->id,
-            'product_id'    => $data->product_id
-        ], $data->all() + [
-            'user_id' => $data->user()->id
-            ]);
-         return TransJsonResponse::toJson(true,null,'Successfully add to cart', 201);
+       $product = Product::findOrFail($data->product_id);
+
+       if ($product->type !== 'service') {
+           Cart::updateOrCreate([
+               'user_id' => $data->user()->id,
+               'product_id' => $data->product_id
+           ],
+               $data->all() +
+               ['user_id' => $data->user()->id]
+           );
+           return TransJsonResponse::toJson(true, null, 'Successfully add to cart', 201);
+       }else{
+           return TransJsonResponse::toJson(false, null,
+                                            'Product with type - service,can not be add to the cart', 400);
+       }
 
     }
 
-    public function update($data, int $id)
+    public function update(Request $request, int $id)
     {
-        Cart::whereId($id)
-                    ->update([
-                        'quantity'  => $data->quantity > 0 ? $data->quantity : 1
-                    ]);
+        $cart =  Cart::findOrFail($id);
+        if ($request->has('quantity') && $request->quantity > 0){
+            $cart->update([
+                'quantity'  => $request->quantity
+            ]);
+        }else{
+            $cart->delete();
+        }
         return TransJsonResponse::toJson(true,null,'Successfully update', 200);
     }
 

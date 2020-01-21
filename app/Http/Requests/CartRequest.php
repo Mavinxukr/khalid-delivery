@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class OrderRequest extends FormRequest
+class CartRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +24,8 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'count_clean'   => 'max:20|numeric',
-            'name' => 'required|max:100',
             'product_id' => 'required|numeric',
-            'place_id' => 'required|numeric',
-            'date_delivery' => 'required|date_format:Y-m-d',
-            'date_delivery_from' => 'required|date_format:"H:i:s"',
-            'date_delivery_to' => 'required|date_format:"H:i:s"',
-            'quantity'  => 'required'
-
+            'quantity'   =>  'required|numeric|max:100'
         ];
     }
 }

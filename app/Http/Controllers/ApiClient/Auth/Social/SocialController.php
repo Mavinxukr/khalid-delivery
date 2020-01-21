@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiClient\Auth\Social;
 
 use App\Http\Controllers\Controller;
 use App\Contracts\Client\Auth\AuthSocialInterface;
+use App\Http\Requests\SocialRequest;
 use Illuminate\Http\Request;
 
 class SocialController extends Controller
@@ -25,7 +26,7 @@ class SocialController extends Controller
      * @apiSampleRequest  client/auth/{google||facebook||twitter||snapchat}
      */
 
-    public function authSocial(Request $request, string $driver)
+    public function authSocial(SocialRequest $request, string $driver)
     {
         return $this->auth->authSocial($request->token, $driver, $request->secret);
     }
