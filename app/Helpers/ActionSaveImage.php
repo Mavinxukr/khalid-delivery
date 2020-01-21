@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class ActionSaveImage
 {
-    public static function updateOrCreateImage($file, $model, string $entity) :string
+    public static function updateOrCreateImage($file, $model, string $entity)
     {
         if (!is_null($file)){
             $ext = explode("/", $file->getClientMimeType());
