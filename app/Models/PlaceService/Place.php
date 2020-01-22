@@ -48,8 +48,7 @@ class Place extends Model
 
     protected $hidden = [
         "created_at", "updated_at","user_id",
-        'postal_code','country','latitude',
-        'longitude'
+        'postal_code'
     ];
 
 
