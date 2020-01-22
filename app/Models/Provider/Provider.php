@@ -45,6 +45,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $product_top_count
  * @property-read \App\Models\Provider\SettingProvider $providerSetting
  * @property-write mixed $raw
+ * @property string $website
+ * @property string $email
+ * @property string $chamber_of_commerce
+ * @property-read \App\Models\Provider\CompanyCreditCard $creditCard
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Provider\Language[] $languages
+ * @property-read int|null $languages_count
+ * @property-read \App\Models\Provider\CompanySchedule $schedule
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read int|null $users_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\Provider whereChamberOfCommerce($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\Provider whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\Provider whereWebsite($value)
  */
 class Provider extends Model
 {

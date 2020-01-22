@@ -27,6 +27,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Feedback\Feedback whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Feedback\Feedback whereUserId($value)
  * @mixin \Eloquent
+ * @property int $who_id
+ * @property int $whom_id
+ * @property float|null $star
+ * @property-read \App\Models\Provider\Provider $company
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Feedback\Feedback whereStar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Feedback\Feedback whereWhoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Feedback\Feedback whereWhomId($value)
  */
 class Feedback extends Model
 {

@@ -24,7 +24,6 @@ class PlaceRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => 'required|unique:places',
             'address'   => 'required|max:100',
             'city'      => 'required',
             'postal_code'      => 'required',

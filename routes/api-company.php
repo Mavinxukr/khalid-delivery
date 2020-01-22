@@ -40,5 +40,11 @@ Route::group(["namespace"=>"ApiCompany"],function() {
 
         //------------------------------ Service ---------------------------------//
         Route::post('create-service','Category\ServiceController@create');
+
+        //------------------------------ Geolocation ---------------------------------//
+
+        Route::post('geo','Place\CompanyPlace@store');
+
+
     });
 });

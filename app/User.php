@@ -71,6 +71,15 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereEdit($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSocialDriver($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSocialKey($value)
+ * @property-read \App\Models\CreditCard\Card $creditCard
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order\Cart[] $curt
+ * @property-read int|null $curt_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Feedback\Feedback[] $myFeedback
+ * @property-read int|null $my_feedback_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order\Order[] $order
+ * @property-read int|null $order_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order\Order[] $orderProfile
+ * @property-read int|null $order_profile_count
  */
 class User extends Authenticatable
 {
@@ -145,6 +154,12 @@ class User extends Authenticatable
     public function orderProfile()
     {
         return $this->hasMany(Order::class)->with('place');
+    }
+
+
+    public function geoLocationCompany()
+    {
+        return $this->hasOne(Place::class);
     }
 
 }

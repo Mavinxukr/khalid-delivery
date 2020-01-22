@@ -42,13 +42,13 @@ class Place extends Model
     protected $fillable = [
         'name', 'user_id','address',
         'city','postal_code','country',
-        'latitude','longitude'
+        'latitude','longitude','provider_type'
     ];
 
 
     protected $hidden = [
         "created_at", "updated_at","user_id",
-        'postal_code'
+        'postal_code','provider_type'
     ];
 
 
