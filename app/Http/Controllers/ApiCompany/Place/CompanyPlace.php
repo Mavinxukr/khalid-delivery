@@ -18,9 +18,9 @@ class CompanyPlace extends Controller
 
     /**
      * @api {post} company/geo Store geolocation company #Screen №4,5,6
-     * @apiName  Store place
+     * @apiName  Store geolocation
      * @apiVersion 1.1.1
-     * @apiGroup Company Place
+     * @apiGroup Company Geolocation
      * @apiParam {String} address Address (Воскресенская улица 38)
      * @apiParam {String} city City (Днепр)
      * @apiParam {String} postal_code Postal Code (49020)
@@ -35,5 +35,22 @@ class CompanyPlace extends Controller
     public function store(PlaceRequest $request)
     {
         return $this->place->store($request);
+    }
+
+
+    /**
+     * @api {get} company/geo Get company geolocation
+     * @apiName  Get company geolocation
+     * @apiVersion 1.1.1
+     * @apiGroup Company Geolocation
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/geo
+     */
+
+
+    public function getCompanyGeo(Request $request)
+    {
+        return $this->place->getCompanyGeo($request);
     }
 }

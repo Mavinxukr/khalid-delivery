@@ -4,7 +4,9 @@
 namespace App\Contracts\Client\Order;
 
 
-interface OrderFoodInterface
+use App\Contracts\FormatInterface;
+
+interface OrderFoodInterface extends FormatInterface
 {
     public function show (int $id);
 

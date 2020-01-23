@@ -11,7 +11,7 @@ use App\Models\Feedback\Feedback;
 use App\Models\Feedback\FeedbackTemplate;
 use App\Models\Order\Order;
 
-class FeedbackRepository implements FeedbackInterface, FormatInterface
+class FeedbackRepository implements FeedbackInterface
 {
 
     public function index()

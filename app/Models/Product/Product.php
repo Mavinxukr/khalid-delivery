@@ -77,7 +77,7 @@ class Product extends Model
 
     protected $hidden = [
         'parent_id','updated_at','created_at',
-        'category_id','provider_id',
+        'category_id','provider_id','pivot'
     ];
 
     public function getImageAttribute($value)

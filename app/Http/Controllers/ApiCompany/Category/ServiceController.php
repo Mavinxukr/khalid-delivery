@@ -35,4 +35,21 @@ class ServiceController extends Controller
     {
         return $this->service->create($request);
     }
+
+
+    /**
+     * @api {post} company/suggest-category Suggest category #Screen 12
+     * @apiName  Suggest category
+     * @apiVersion 1.1.1
+     * @apiGroup Company  Category
+     * @apiParam {String} title Title
+     * @apiParam {Text} cause Cause
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/suggest-category
+     */
+
+    public function storeSuggestCategory(Request $request)
+    {
+        return $this->service->storeSuggestCategory($request);
+    }
 }

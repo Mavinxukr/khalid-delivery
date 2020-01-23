@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductCategory extends Model
 {
     protected $fillable = [
-        'id', 'active','image'
+        'id', 'active','image',
+        'cause','type'
     ];
 }

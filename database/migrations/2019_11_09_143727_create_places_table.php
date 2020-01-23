@@ -24,7 +24,7 @@ class CreatePlacesTable extends Migration
             $table->string('longitude');
             $table->string('provider_type');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('provider_id');
+            $table->unsignedBigInteger('provider_id')->nullable();
             $table->foreign('user_id')
                                             ->references('id')
                                             ->on('users')

@@ -4,7 +4,9 @@
 namespace App\Contracts\Client\Feedback;
 
 
-interface FeedbackInterface
+use App\Contracts\FormatInterface;
+
+interface FeedbackInterface extends FormatInterface
 {
     public function index();
 

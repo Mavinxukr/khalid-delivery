@@ -12,7 +12,7 @@ use Config;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
-class AuthRepository implements AuthInterface, FormatInterface
+class AuthRepository implements AuthInterface
 {
 
     public function register($data)

@@ -4,7 +4,9 @@
 namespace App\Contracts\Client\Order;
 
 
-interface OrderServiceInterface
+use App\Contracts\FormatInterface;
+
+interface OrderServiceInterface extends FormatInterface
 {
     public function store($data);
 

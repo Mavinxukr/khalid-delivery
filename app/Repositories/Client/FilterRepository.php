@@ -13,7 +13,7 @@ use App\Models\Provider\Kitchen;
 use App\Models\Provider\Provider;
 use Illuminate\Support\Facades\Request;
 
-class FilterRepository implements FilterInterface,FormatInterface
+class FilterRepository implements FilterInterface
 {
 
     public function getKitchen()

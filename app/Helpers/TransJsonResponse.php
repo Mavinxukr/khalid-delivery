@@ -13,6 +13,5 @@ class TransJsonResponse
             'message'   => $message,
             'data'      => $data
         ],$code);
-
     }
 }

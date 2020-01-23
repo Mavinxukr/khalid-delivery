@@ -4,7 +4,9 @@
 namespace App\Contracts\Client\CreditCard;
 
 
-interface CreditCardInterface
+use App\Contracts\FormatInterface;
+
+interface CreditCardInterface extends FormatInterface
 {
     public function store($data);
 

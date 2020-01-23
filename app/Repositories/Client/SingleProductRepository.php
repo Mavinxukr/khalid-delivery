@@ -10,7 +10,7 @@ use App\Contracts\Client\Product\SingleProductInterface;
 use App\Contracts\FormatInterface;
 use App\Models\Product\Product;
 
-class SingleProductRepository implements SingleProductInterface, FormatInterface
+class SingleProductRepository implements SingleProductInterface
 {
     public function show(int $id)
     {

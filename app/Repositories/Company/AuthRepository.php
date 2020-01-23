@@ -9,7 +9,7 @@ use App\Contracts\Company\Auth\AuthInterface;
 use App\Contracts\FormatInterface;
 use Illuminate\Support\Facades\Auth;
 
-class AuthRepository implements AuthInterface, FormatInterface
+class AuthRepository implements AuthInterface
 {
     public function login($data)
     {

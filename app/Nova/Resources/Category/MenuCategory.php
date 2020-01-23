@@ -68,6 +68,9 @@ class MenuCategory extends Resource
                 ->sortable()
                 ->help("Upload image")
                 ->rules( 'file'),
+            Text::make('Cause')
+                ->exceptOnForms()
+                ->hideFromIndex()
         ];
     }
 

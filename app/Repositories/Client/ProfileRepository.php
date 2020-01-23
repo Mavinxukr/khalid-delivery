@@ -11,7 +11,7 @@ use App\Contracts\Client\Profile\ProfileInterface;
 use App\Contracts\FormatInterface;
 use App\User;
 
-class ProfileRepository implements ProfileInterface, FormatInterface
+class ProfileRepository implements ProfileInterface
 {
     public function update($data, int $id)
     {

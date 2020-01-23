@@ -11,7 +11,7 @@ use App\Contracts\FormatInterface;
 use App\Models\Order\Order;
 use Carbon\Carbon;
 
-class OrderFoodRepository implements OrderFoodInterface, FormatInterface
+class OrderFoodRepository implements OrderFoodInterface
 {
 
     public function show(int $id)
@@ -44,7 +44,7 @@ class OrderFoodRepository implements OrderFoodInterface, FormatInterface
                 }
                 $order->cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
-                //$item->delete();
+                $item->delete();
             }
             $order->provider_id = $providerId;
             $order->provider_category = 'food';

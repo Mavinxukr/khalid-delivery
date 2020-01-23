@@ -33,7 +33,7 @@ class CreateOrdersTable extends Migration
             $table->enum('type_cleaning',['house','office','flat'])->nullable();
             $table->bigInteger('interval')->default(0);
             $table->mediumText('comment')->nullable();
-            $table->enum('status',['wait','new','late','confirm','cancel'])->default('wait');
+            $table->enum('status',['wait','new','confirm','cancel','done'])->default('wait');
             $table->foreign('place_id')->references('id')
                 ->on('places')
                 ->onDelete('cascade');

@@ -11,7 +11,7 @@ use App\Models\Order\Cart;
 use App\Models\Product\Product;
 use Illuminate\Http\Request;
 
-class CartRepository implements CartInterface, FormatInterface
+class CartRepository implements CartInterface
 {
     public function index($data)
     {

@@ -134,11 +134,11 @@ class Order extends Resource
                 ->exceptOnForms(),
             Badge::make('Status')
                 ->colors([
-                    'wait'      => 'black',
+                    'wait'      => 'brown',
                     'new'       => 'red',
-                    'late'      => 'blue',
                     'confirm'   => 'green',
-                    'cancel'    => 'grey'
+                    'cancel'    => 'peru',
+                    'done'      => 'aqua'
                 ])
                 ->exceptOnForms(),
             Text::make('Name')

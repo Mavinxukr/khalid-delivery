@@ -3,6 +3,7 @@
 namespace App\Models\Feedback;
 
 use App\Models\Provider\Provider;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -38,17 +39,23 @@ use Illuminate\Database\Eloquent\Model;
 class Feedback extends Model
 {
     protected $fillable = [
-        'comment', 'who_id','order_id',
-        'whom_id','star'
+        'comment', 'who_id','whom_id',
+        'order_id'
     ];
 
     protected $hidden = [
         'order_id','user_id','company_id',
-        'created_at','updated_at'
+
     ];
 
     public function company()
     {
         return $this->belongsTo(Provider::class,'whom_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'who_id');
+    }
+
 }

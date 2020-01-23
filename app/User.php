@@ -80,6 +80,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $order_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order\Order[] $orderProfile
  * @property-read int|null $order_profile_count
+ * @property-read \App\Models\PlaceService\Place $geoLocationCompany
  */
 class User extends Authenticatable
 {
@@ -154,12 +155,6 @@ class User extends Authenticatable
     public function orderProfile()
     {
         return $this->hasMany(Order::class)->with('place');
-    }
-
-
-    public function geoLocationCompany()
-    {
-        return $this->hasOne(Place::class);
     }
 
 }

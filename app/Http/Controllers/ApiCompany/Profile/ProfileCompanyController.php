@@ -139,7 +139,7 @@ class ProfileCompanyController extends Controller
     }
 
     /**
-     * @api {post} company/company-profile/update-credit-card  Update or Create company profile credit card
+     * @api {post} company/company-profile/update-credit-card  Update or Create company profile credit card  #Screen 13
      * @apiName  Update or Create company profile credit card
      * @apiVersion 1.1.1
      * @apiGroup Company  Profile
@@ -158,4 +158,5 @@ class ProfileCompanyController extends Controller
     {
         return $this->profile->updateCreditCard($request);
     }
+
 }
