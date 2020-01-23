@@ -16,7 +16,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as SocialUser;
 use Spatie\Permission\Models\Role;
 
-class AuthSocialRepository implements AuthSocialInterface, FormatInterface
+class AuthSocialRepository implements AuthSocialInterface
 {
     private  $role;
 

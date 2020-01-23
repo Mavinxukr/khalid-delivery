@@ -30,6 +30,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\SettingProvider whereTimeDeliveryMean($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\SettingProvider whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $tags
+ * @property string $rating
+ * @property string $price_rating
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\SettingProvider wherePriceRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\SettingProvider whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\SettingProvider whereTags($value)
  */
 class SettingProvider extends Model
 {

@@ -3,6 +3,7 @@
 namespace App\Models\Feedback;
 
 use App\Models\Provider\Provider;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -27,21 +28,34 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Feedback\Feedback whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Feedback\Feedback whereUserId($value)
  * @mixin \Eloquent
+ * @property int $who_id
+ * @property int $whom_id
+ * @property float|null $star
+ * @property-read \App\Models\Provider\Provider $company
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Feedback\Feedback whereStar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Feedback\Feedback whereWhoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Feedback\Feedback whereWhomId($value)
  */
 class Feedback extends Model
 {
     protected $fillable = [
-        'comment', 'who_id','order_id',
-        'whom_id','star'
+        'comment', 'who_id','whom_id',
+        'order_id'
     ];
 
     protected $hidden = [
         'order_id','user_id','company_id',
-        'created_at','updated_at'
+
     ];
 
     public function company()
     {
         return $this->belongsTo(Provider::class,'whom_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'who_id');
+    }
+
 }

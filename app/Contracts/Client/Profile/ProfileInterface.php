@@ -4,9 +4,10 @@
 namespace App\Contracts\Client\Profile;
 
 
+use App\Contracts\FormatInterface;
 use App\User;
 
-interface ProfileInterface
+interface ProfileInterface extends FormatInterface
 {
     public function update($data, int  $id);
 

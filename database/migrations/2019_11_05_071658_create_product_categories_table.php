@@ -18,6 +18,7 @@ class CreateProductCategoriesTable extends Migration
             $table->boolean('active')->default(1);
             $table->string('type');
             $table->string('image')->nullable();
+            $table->text('cause')->nullable();
             $table->timestamps();
         });
     }

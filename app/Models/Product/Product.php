@@ -48,6 +48,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $type
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\Product whereType($value)
  * @property-write mixed $raw
+ * @property bool $has_ingredients
+ * @property int|null $parent_id
+ * @property int|null $weight
+ * @property bool $active
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product\Product[] $component
+ * @property-read int|null $component_count
+ * @property-read \App\Models\Product\Product|null $parent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\Product whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\Product whereHasIngredients($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\Product whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\Product whereWeight($value)
  */
 class Product extends Model
 {
@@ -66,7 +77,7 @@ class Product extends Model
 
     protected $hidden = [
         'parent_id','updated_at','created_at',
-        'category_id','provider_id',
+        'category_id','provider_id','pivot'
     ];
 
     public function getImageAttribute($value)

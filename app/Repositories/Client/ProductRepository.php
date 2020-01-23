@@ -14,7 +14,7 @@ use App\Models\Product\Product;
 use App\Models\Provider\Provider;
 use phpDocumentor\Reflection\Types\Null_;
 
-class ProductRepository implements ProductInterface, FormatInterface
+class ProductRepository implements ProductInterface
 {
 
     public function indexServices(string $type)

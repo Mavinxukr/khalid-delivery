@@ -9,7 +9,7 @@ use App\Models\Provider\Provider;
 use App\User;
 use Illuminate\Http\Request;
 
-interface ProfileInterface
+interface ProfileInterface extends FormatInterface
 {
     public function getCompanyProfile(User $data);
 

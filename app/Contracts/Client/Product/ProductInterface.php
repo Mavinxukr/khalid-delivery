@@ -4,7 +4,9 @@
 namespace App\Contracts\Client\Product;
 
 
-interface ProductInterface
+use App\Contracts\FormatInterface;
+
+interface ProductInterface extends FormatInterface
 {
     public function indexServices(string $type);
     public function show(int $id);

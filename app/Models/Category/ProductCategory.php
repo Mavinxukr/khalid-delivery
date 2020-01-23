@@ -22,10 +22,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category\ProductCategory whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-write mixed $raw
+ * @property string|null $image
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category\ProductCategory whereImage($value)
  */
 class ProductCategory extends Model
 {
     protected $fillable = [
-        'id', 'active','image'
+        'id', 'active','image',
+        'cause','type'
     ];
 }

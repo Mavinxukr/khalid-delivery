@@ -2,6 +2,8 @@
 
 namespace App\Models\PlaceService;
 
+use App\Models\Order\Order;
+use App\Models\Provider\Provider;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,24 +38,39 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaceService\Place whereLongitude($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaceService\Place wherePostalCode($value)
  * @property-write mixed $raw
+ * @property string $provider_type
+ * @property int $provider_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaceService\Place whereProviderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaceService\Place whereProviderType($value)
  */
 class Place extends Model
 {
     protected $fillable = [
         'name', 'user_id','address',
         'city','postal_code','country',
-        'latitude','longitude'
+        'latitude','longitude','provider_type',
+        'provider_id'
     ];
 
 
     protected $hidden = [
         "created_at", "updated_at","user_id",
-        'postal_code'
+        'postal_code','provider_type',
+        'provider_id'
     ];
-
 
     public function user()
     {
         return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Provider::class,'provider_id');
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
     }
 }

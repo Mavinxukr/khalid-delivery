@@ -4,7 +4,9 @@
 namespace App\Contracts\Client\Product;
 
 
-interface FilterInterface
+use App\Contracts\FormatInterface;
+
+interface FilterInterface extends FormatInterface
 {
     public function getKitchen();
 

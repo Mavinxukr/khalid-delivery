@@ -3,7 +3,9 @@
 namespace App\Models\Provider;
 
 use App\Models\Category\Category;
+use App\Models\Feedback\Feedback;
 use App\Models\Payment\Payment;
+use App\Models\PlaceService\Place;
 use App\Models\Product\Product;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -45,6 +47,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $product_top_count
  * @property-read \App\Models\Provider\SettingProvider $providerSetting
  * @property-write mixed $raw
+ * @property string $website
+ * @property string $email
+ * @property string $chamber_of_commerce
+ * @property-read \App\Models\Provider\CompanyCreditCard $creditCard
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Provider\Language[] $languages
+ * @property-read int|null $languages_count
+ * @property-read \App\Models\Provider\CompanySchedule $schedule
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read int|null $users_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\Provider whereChamberOfCommerce($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\Provider whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider\Provider whereWebsite($value)
  */
 class Provider extends Model
 {
@@ -67,46 +81,44 @@ class Provider extends Model
     {
         return $this->belongsTo(Category::class,'category_id','id');
     }
-
     public function providerSetting()
     {
         return $this->hasOne(SettingProvider::class);
     }
-
     public function productTop()
     {
         return $this->hasMany(Product::class,'provider_id')
                     ->orderBy('id','DESC')
                     ->take(3);
     }
-
     public function product()
     {
         return $this->hasMany(Product::class,'provider_id');
     }
-
     public function languages()
     {
         return $this->belongsToMany(Language::class,'provider_language');
     }
-
-
     public function schedule()
     {
         return $this->hasOne(CompanySchedule::class);
     }
-
-
     public function users()
     {
         return $this->hasMany(User::class,'company_id');
     }
-
-
     public function creditCard()
     {
         return $this->hasOne(CompanyCreditCard::class);
     }
+    public function geoLocation()
+    {
+        return $this->hasOne(Place::class);
+    }
 
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class,'whom_id');
+    }
 
 }

@@ -4,7 +4,9 @@
 namespace App\Contracts\Company\Auth;
 
 
-interface AuthInterface
+use App\Contracts\FormatInterface;
+
+interface AuthInterface extends FormatInterface
 {
     public function login($data);
     public function logout($data);

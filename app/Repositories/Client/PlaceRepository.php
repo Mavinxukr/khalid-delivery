@@ -25,7 +25,8 @@ class PlaceRepository implements PlaceInterface
     public function store($request)
     {
         $place =  Place::create($request->all()+ [
-            'user_id' => $request->user()->id
+            'user_id'           => $request->user()->id,
+            'provider_type'     => 'user'
             ]);
         $data =  $this->format($place);
 

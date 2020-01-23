@@ -15,7 +15,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
-class ProfileRepository implements ProfileInterface, FormatInterface
+class ProfileRepository implements ProfileInterface
 {
 
     public function getCompanyProfile(User $user)
@@ -96,6 +96,7 @@ class ProfileRepository implements ProfileInterface, FormatInterface
                                         ->get()->except('provider_id');
         return TransJsonResponse::toJson(true, $creditCard,'Updated company credit card', 201);
     }
+
     public function format($data)
     {
         $hasCard = !is_null($data->creditCard) ? true : false;
@@ -112,8 +113,10 @@ class ProfileRepository implements ProfileInterface, FormatInterface
             'hasCard'                => $hasCard,
             'working_hours'          => $data->schedule,
             'languages'              => $data->languages()->get(),
+            'count_feedback'         => $data->feedback->count()
         ];
 
 
     }
+
 }

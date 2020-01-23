@@ -32,13 +32,34 @@ Route::group(["namespace"=>"ApiCompany"],function() {
             Route::post('update-language','Profile\ProfileCompanyController@updateLanguage');
             Route::post('update-schedule','Profile\ProfileCompanyController@updateSchedule');
             Route::post('update-credit-card','Profile\ProfileCompanyController@updateCreditCard');
+            //------------------------------ Feedback ---------------------------------//
+            Route::get('feedback','Feedback\FeedbackController@index');
+            Route::get('my-feedback','Feedback\FeedbackController@getMyFeedback');
+            Route::post('feedback/create ','Feedback\FeedbackController@store');
         });
-        //------------------------------ Feedback ---------------------------------//
-        Route::get('feedback','Feedback\FeedbackController@index');
-        Route::get('my-feedback','Feedback\FeedbackController@getMyFeedback');
-        Route::post('feedback/create ','Feedback\FeedbackController@store');
 
         //------------------------------ Service ---------------------------------//
         Route::post('create-service','Category\ServiceController@create');
+
+        //------------------------------ Suggest category ---------------------------------//
+
+        Route::post('suggest-category','Category\ServiceController@storeSuggestCategory');
+
+        //------------------------------ Geolocation ---------------------------------//
+        Route::post('geo','Place\CompanyPlace@store');
+        Route::get('geo','Place\CompanyPlace@getCompanyGeo');
+
+        //------------------------------ Service order ---------------------------------//
+        Route::get('get-service-order','Order\OrderServiceController@getServiceOrder');
+        Route::get('get-service-order/{id}','Order\OrderServiceController@getServiceOrderById');
+        Route::get('get-service-order-by-filters','Order\OrderServiceController@getServiceOrderByFilters');
+        //------------------------------ Food order ----------------------------------------//
+        Route::get('get-food-order','Order\OrderFoodController@getFoodOrder');
+        Route::get('get-food-order/{id}','Order\OrderFoodController@getOrderById');
+        Route::get('get-food-order/{order_id}/{product_id} ','Order\OrderFoodController@getProductInOrderById');
+        //------------------------------ Action over service order ---------------------------------//
+        Route::post('take-service-order','Order\ActionServiceOrderController@takeServiceOrder');
+        Route::patch('cancel-service-order/{id}','Order\ActionServiceOrderController@cancelServiceOrder');
+
     });
 });

@@ -33,14 +33,16 @@ class UsersTableDataSeeder extends Seeder
             'last_name' => 'test',
             'email' => 'company@gmail.com',
             'password' => bcrypt('111111'),
-            'phone'     => '000-000-00-00'
+            'phone'     => '000-000-00-00',
+            'company_id' => 2
         ]);
         User::create([
             'first_name' => 'Edik',
             'last_name' => 'Mobile',
             'email' => 'edikcompany@gmail.com',
             'password' => bcrypt('111111'),
-            'phone'     => '000-000-00-00'
+            'phone'     => '000-000-00-00',
+            'company_id' => 2
         ]);
         User::create([
             'first_name' => 'Pasha',

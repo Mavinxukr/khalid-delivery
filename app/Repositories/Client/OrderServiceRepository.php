@@ -13,7 +13,7 @@ use App\Models\Order\CancelOrder;
 use App\Models\Order\Order;
 use Carbon\Carbon;
 
-class OrderServiceRepository implements OrderServiceInterface, FormatInterface
+class OrderServiceRepository implements OrderServiceInterface
 {
 
     public function store($data)

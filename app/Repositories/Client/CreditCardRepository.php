@@ -10,7 +10,7 @@ use App\Contracts\FormatInterface;
 use App\Models\CreditCard\Card;
 use Illuminate\Support\Facades\Auth;
 
-class CreditCardRepository implements CreditCardInterface,FormatInterface
+class CreditCardRepository implements CreditCardInterface
 {
     public function store($data)
     {
