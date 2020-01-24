@@ -34,7 +34,7 @@ class ActionOverOrder
     public static function cancelOrder($request)
     {
         $order = Order::findOrFail($request->id);
-        if ($order->status !== 'wait' && $order->status !== 'cancel'){
+        if (!in_array($order->status,['wait','cancel'])){
             $timeNow = Carbon::now()->toDateTimeString();
             $confirmTime = $order->cancelOrderTime->confirm_time;
             if ($confirmTime >= $timeNow){

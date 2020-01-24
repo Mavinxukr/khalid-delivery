@@ -67,6 +67,9 @@ Route::group(["namespace"=>"ApiClient"],function() {
         Route::get('feedback','Feedback\FeedbackController@index');
         Route::get('/my-feedback','Feedback\FeedbackController@getMyFeedback');
         Route::post('/feedback/create ','Feedback\FeedbackController@store');
+
+        //------------------------------ Checkout ---------------------------------//
+        Route::post('checkout','Checkout\OrderCheckoutController@checkout');
     });
 });
 

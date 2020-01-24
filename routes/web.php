@@ -15,6 +15,11 @@ Route::get('/', function () {
     return redirect('admin');
 });
 
+
+Route::get('phpinfo',function (){
+    return phpinfo();
+});
+
 Route::get('google','ApiClient\Auth\AuthController@google');
 Route::get('callback/google','ApiClient\Auth\AuthController@googleCallback');
 

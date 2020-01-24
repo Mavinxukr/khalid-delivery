@@ -48,4 +48,9 @@ return [
         'redirect' => env('SNAPCHAT_REDIRECT_URI')
     ],
 
+    'checkout_pay' => [
+        'sk_test_key' => env('CHECKOUT_SK_KEY'),
+        'pk_test_key' => env('CHECKOUT_PK_KEY')
+    ],
+
 ];
