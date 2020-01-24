@@ -53,15 +53,25 @@ class OrderServiceRepository implements OrderServiceInterface
     }
     public function confirmOrder($request)
     {
-        $confirm  = ActionOverOrder::confirmOrder($request);
-        return TransJsonResponse::toJson(true, null, $confirm, 201);
+        try {
+            $confirm  = ActionOverOrder::confirmOrder($request);
+            return TransJsonResponse::toJson(true, null, $confirm, 201);
+        }catch (\Exception $exception){
+            return TransJsonResponse::toJson(false, null, $exception->getMessage(), 400);
+        }
+
     }
 
 
     public function cancelOrder($request)
     {
-        $cancel  = ActionOverOrder::cancelOrder($request);
-        return TransJsonResponse::toJson(true, null, $cancel, 201);
+        try {
+            $cancel  = ActionOverOrder::cancelOrder($request);
+            return TransJsonResponse::toJson(true, null, $cancel, 201);
+        }catch (\Exception $exception){
+            return TransJsonResponse::toJson(false, null, $exception->getMessage(), 400);
+        }
+
 
     }
 
