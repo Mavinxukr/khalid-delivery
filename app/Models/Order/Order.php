@@ -97,9 +97,8 @@ class Order extends Model
     protected $hidden = [
         'place_id','user_id','provider_id',
         'paid','created_at','updated_at',
-        'product_id','interval','debt','date_delivery',
-        'date_delivery_from','date_delivery_to',
-        'callback_time','quantity','count_clean',
+        'product_id','interval','debt',
+        'quantity','count_clean',
         'type_cleaning','comment'
     ];
 
