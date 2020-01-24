@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
 class ActionOverOrder
 {
-    public static function confirmOrder($request) : string
+    public static function confirmOrder($request)
     {
         $order =  Order::whereId($request->id)
                         ->whereUserId($request->user()->id)
@@ -24,7 +24,7 @@ class ActionOverOrder
                 $order->save();
                 return 'Order was confirmed';
             } else {
-                return 'You already confirm this order';
+                 throw new \Exception('You already confirm this order');
             }
         }else{
             return abort(404);
@@ -40,17 +40,15 @@ class ActionOverOrder
             if ($confirmTime >= $timeNow){
                 $order->status = 'cancel';
                 $order->save();
-                $message = 'Your order was canceled without commissions !';
+                return 'Your order was canceled without commissions !';
             }else{
-                $message = 'You can not cancel order, because already less than 30 min before start order !';
+                throw new \Exception('You can not cancel order, because already less than 30 min before start order !');
             }
-            return $message;
         }else{
             if ($order->status === 'wait'){
-                return 'This order does not confirm yet';
+                throw new \Exception('This order does not confirm yet');
             }else{
-                return
-                    'You already cancel this order';
+                throw new \Exception('You already cancel this order');
             }
 
         }
