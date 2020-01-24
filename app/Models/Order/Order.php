@@ -99,7 +99,7 @@ class Order extends Model
         'paid','created_at','updated_at',
         'product_id','interval','debt',
         'quantity','count_clean',
-        'type_cleaning','comment'
+        'type_cleaning','comment','date_delivery'
     ];
 
 

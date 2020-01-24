@@ -54,7 +54,20 @@ class ProfileRepository implements ProfileInterface
             'phone'             => $data->phone,
             'has_card'          => $hasCard,
             'feedbacks'         => $data->myFeedback()->get(),
-            'orders'            => $data->orderProfile()->get(),
+            'orders'            => $data->orderProfile()->get()
+                                                        ->map(function ($i){
+                                            return [
+                                                'id'                 => $i->id,
+                                                'provider_category'  => $i->provider_category,
+                                                'date_delivery'      => $i->date_delivery->toDateString(),
+                                                'date_delivery_from' => $i->date_delivery_from,
+                                                'date_delivery_to'   => $i->date_delivery_to,
+                                                'callback_time'      => $i->callback_time,
+                                                'cost'               => $i->cost,
+                                                'status'             => $i->status,
+                                                'place'              => $i->place,
+                                            ];
+                                    }),
         ];
         return $result;
     }

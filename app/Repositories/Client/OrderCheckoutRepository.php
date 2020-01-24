@@ -26,7 +26,7 @@ class OrderCheckoutRepository implements OrderCheckoutInterface
             $method = new TokenSource($request->card_token);
 
             // Prepare the payment parameters
-            $payment = new Payment($method, 'GBP');
+            $payment = new Payment($method, 'AED');
             $payment->amount = 1000; // = 10.00
 
 
