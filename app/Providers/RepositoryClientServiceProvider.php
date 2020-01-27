@@ -61,6 +61,5 @@ class RepositoryClientServiceProvider extends ServiceProvider
         $this->app->bind(CartInterface::class, CartRepository::class);
         $this->app->bind(FilterInterface::class, FilterRepository::class);
         $this->app->bind(OrderFoodInterface::class,OrderFoodRepository::class);
-        $this->app->bind(OrderCheckoutInterface::class,OrderCheckoutRepository::class);
     }
 }
