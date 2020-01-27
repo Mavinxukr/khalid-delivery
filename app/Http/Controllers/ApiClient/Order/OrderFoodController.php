@@ -59,6 +59,7 @@ class OrderFoodController extends Controller
      * @apiVersion 1.1.1
      * @apiGroup Client Order - Food
      * @apiParam {Number} id Order id
+     * @apiParam {String} card_token Card token from SDK
      * @apiPermission Authorization
      * @apiHeader  Authorization token
      * @apiSampleRequest   client/food-orders/confirm
@@ -66,6 +67,9 @@ class OrderFoodController extends Controller
 
     public function confirmOrder(Request $request)
     {
+        $request->validate([
+            'card_token'    => 'required'
+        ]);
         return $this->order->confirmOrder($request);
     }
 

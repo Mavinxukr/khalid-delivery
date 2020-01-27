@@ -16,32 +16,30 @@ class CreateCheckoutsTable extends Migration
         Schema::create('checkouts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('order_id');
             $table->string('card_token');
+            $table->string('source_id');
+            $table->string('source_type');
+            $table->string('source_scheme');
+            $table->string('source_card_type');
+            $table->string('source_card_category');
+            $table->string('source_issuer');
+            $table->string('source_issuer_country');
+            $table->string('checkout_id');
+            $table->string('checkout_action_id');
+            $table->string('status');
             $table->double('sum');
             $table->string('currency');
             $table->foreign('user_id')
                             ->references('id')
                             ->on('users')
                             ->onDelete('cascade');
-            $table->timestamps();
-        });
-
-        Schema::create('checkout_order', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('checkout_id');
-            $table->unsignedBigInteger('order_id');
-            $table->foreign('checkout_id')
-                            ->references('id')
-                            ->on('checkouts')
-                            ->onDelete('cascade');
             $table->foreign('order_id')
-                            ->references('id')
-                            ->on('orders')
-                            ->onDelete('cascade');
+                ->references('id')
+                ->on('orders')
+                ->onDelete('cascade');
             $table->timestamps();
         });
-
-
 
     }
 
@@ -53,6 +51,5 @@ class CreateCheckoutsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('checkouts');
-        Schema::dropIfExists('checkout_order');
     }
 }

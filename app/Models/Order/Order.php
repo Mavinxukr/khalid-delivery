@@ -2,6 +2,7 @@
 
 namespace App\Models\Order;
 
+use App\Models\Checkout\Checkout;
 use App\Models\Feedback\FirePush;
 use App\Models\PlaceService\Place;
 use App\Models\Product\Product;
@@ -132,5 +133,10 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class,'order_products');
+    }
+
+    public function checkout()
+    {
+        return $this->hasOne(Checkout::class);
     }
 }
