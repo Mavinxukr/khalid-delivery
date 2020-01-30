@@ -21,8 +21,8 @@ class CreateSettingProvidersTable extends Migration
             $table->string('min_order')->nullable();
             $table->string('delivery_fee')->nullable();
             $table->string('tags')->nullable();
-            $table->string('rating');
-            $table->string('price_rating');
+            $table->integer('rating');
+            $table->integer('price_rating');
             $table->foreign('provider_id')
                             ->on('providers')
                             ->references('id')

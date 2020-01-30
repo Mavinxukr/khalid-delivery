@@ -37,7 +37,7 @@ class FilterController extends Controller
      * @apiGroup Client Filters
      * @apiPermission Authorization
      * @apiHeader  Authorization token
-     * @apiSampleRequest client/filter?kitchen=italy&rating=3&price_rating=5&tag=not_noisy
+     * @apiSampleRequest client/filter?kitchen=italy&rating=3,5&price_rating=1,5&tag=not_noisy
      */
 
     public function getByFilters(Request $request)

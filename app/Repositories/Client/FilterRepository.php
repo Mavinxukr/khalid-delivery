@@ -51,10 +51,28 @@ class FilterRepository implements FilterInterface
                 $companies->where('setting_providers.kitchen','LIKE','%' . $data->get('kitchen') . '%');
             }
             if ($data->has('rating')){
-                $companies->where('setting_providers.rating','=',$data->get('rating'));
+
+                $arrRating = explode(',',$data->rating);
+
+                $from = $arrRating[0];
+                $to = isset($arrRating[1]) ? $arrRating[1] : null;
+
+
+                $companies->where('setting_providers.rating','>=',$from);
+
+                if (!is_null($to)){
+                    $companies->where('setting_providers.rating','<=',$to);
+                }
             }
             if ($data->has('price_rating')){
-                $companies->where('setting_providers.price_rating','=',$data->get('price_rating'));
+                $arrRating = explode(',',$data->price_rating);
+
+                $from = $arrRating[0];
+                $to = isset($arrRating[1]) ? $arrRating[1] : null;
+                $companies->where('setting_providers.price_rating','>=',$from);
+                if (!is_null($to)){
+                    $companies->where('setting_providers.price_rating','<=',$to);
+                }
             }
             if ($data->has('tag')){
                 $companies->where('setting_providers.tags','LIKE','%' .  $data->get('tag') . '%');
