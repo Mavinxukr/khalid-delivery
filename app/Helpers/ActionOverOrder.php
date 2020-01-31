@@ -19,16 +19,16 @@ class ActionOverOrder extends CheckoutHelper
                         ->first();
         if (!is_null($order)) {
             if ($order->status == 'wait') {
-                $checkout = self::checkoutOrder($request, $order);
+              /*  $checkout = self::checkoutOrder($request, $order);
                 if (isset($checkout->http_code) and $checkout->http_code < 400){
-                    self::addToCheckout($checkout, $request, $order);
+                    self::addToCheckout($checkout, $request, $order);*/
                     self::validateCancel($order);
                     $order->status = 'new';
                     $order->save();
                     return 'Order was confirmed';
-                }else{
+              /*  }else{
                     throw new \Exception('Problems with payment or card token expired - repeat the request !');
-                }
+                }*/
             } else {
                  throw new \Exception('You already confirm this order');
             }
@@ -44,14 +44,14 @@ class ActionOverOrder extends CheckoutHelper
             $timeNow = Carbon::now()->toDateTimeString();
             $confirmTime = $order->cancelOrderTime->confirm_time;
             if ($confirmTime >= $timeNow){
-                $checkout = self::refundOrder($request, $order);
-                if (isset($checkout->http_code) and $checkout->http_code < 400){
+                //$checkout = self::refundOrder($request, $order);
+               // if (isset($checkout->http_code) and $checkout->http_code < 400){
                     $order->status = 'cancel';
                     $order->save();
                     return 'Your order was canceled without commissions !';
-                }else{
-                    throw new \Exception('You already refund this order !');
-                }
+               // }else{
+                    //throw new \Exception('You already refund this order !');
+                //}
             }else{
                 throw new \Exception('You can not cancel order, because already less than 30 min before start order !');
             }

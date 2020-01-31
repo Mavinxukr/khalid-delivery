@@ -7,9 +7,12 @@ namespace App\Repositories\Client;
 use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Feedback\FeedbackInterface;
 use App\Contracts\FormatInterface;
+use App\Models\Feedback\CompanyFeedback;
 use App\Models\Feedback\Feedback;
 use App\Models\Feedback\FeedbackTemplate;
 use App\Models\Order\Order;
+use App\Models\Provider\Provider;
+use Illuminate\Http\Request;
 
 class FeedbackRepository implements FeedbackInterface
 {
@@ -62,6 +65,14 @@ class FeedbackRepository implements FeedbackInterface
 
     public function format($data)
     {
+        if ($data instanceof Provider){
+            return [
+                'id'    => $data->id,
+                'name'  => $data->name,
+                'image' => $data->image
+            ];
+        }
+
         if ($data  instanceof Feedback){
             return [
                 'company_name'  => $data->company->name,
@@ -75,5 +86,25 @@ class FeedbackRepository implements FeedbackInterface
             ];
         }
 
+    }
+
+    public function getCompanyForFeedback(Request $request)
+    {
+        $company = collect($request->user()->orderForFeedback)->map(function ($item){
+            return $this->format($item->provider);
+        });
+        return TransJsonResponse::toJson(true,$company,'All company for feedback', 200);
+    }
+
+
+    public function storeCompanyFeedback(Request $request)
+    {
+
+        CompanyFeedback::create([
+            'name'          => $request->comment,
+            'provider_id'   => $request->company_id,
+            'star'          =>$request->star
+        ]);
+        return TransJsonResponse::toJson(true,null,'Successfully created', 200);
     }
 }
