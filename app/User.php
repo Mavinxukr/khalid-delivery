@@ -152,6 +152,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function orderForFeedback()
+    {
+        return $this->hasMany(Order::class)->with('provider');
+    }
+
     public function orderProfile()
     {
         return $this->hasMany(Order::class)->with('place');

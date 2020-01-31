@@ -38,7 +38,6 @@ class FeedbackController extends Controller
      * @apiGroup Client Feedback
      * @apiParam {String} comment Comment for finished order
      * @apiParam {Number} order_id Orders' id
-     * @apiParam {Double} star Star (example: 1.5, 2, 4.5 )
      * @apiPermission Authorization
      * @apiHeader  Authorization token
      * @apiSampleRequest  client/feedback/create
@@ -63,4 +62,39 @@ class FeedbackController extends Controller
     {
         return $this->feedback->myFeedback($request);
     }
+
+    /**
+     * @api {get} client/get-company-for-feedback  Get company for feedback  #Screen №32
+     * @apiName   Get company for feedback
+     * @apiVersion 1.1.1
+     * @apiGroup Client Feedback
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  client/get-company-for-feedback
+     */
+
+    public function getCompanyForFeedback(Request $request)
+    {
+        return $this->feedback->getCompanyForFeedback($request);
+    }
+
+    /**
+     * @api {post} client/store-company-feedback  Store company  feedback  #Screen №32
+     * @apiName   Store company  feedback
+     * @apiVersion 1.1.1
+     * @apiGroup Client Feedback
+     * @apiParam {String} comment Comment
+     * @apiParam {Double} star Star ( 1 ,2.5,4.5....)
+     * @apiParam {Number} company_id Company Id
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  client/store-company-feedback
+     */
+
+    public function storeCompanyFeedback(Request $request)
+    {
+        return $this->feedback->storeCompanyFeedback($request);
+    }
+
+
 }
