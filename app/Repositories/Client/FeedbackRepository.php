@@ -67,9 +67,10 @@ class FeedbackRepository implements FeedbackInterface
     {
         if ($data instanceof Provider){
             return [
-                'id'    => $data->id,
-                'name'  => $data->name,
-                'image' => $data->image
+                'id'            => $data->id,
+                'name'          => $data->name,
+                'image'         => $data->image,
+                'description'   => $data->description
             ];
         }
 
@@ -81,8 +82,8 @@ class FeedbackRepository implements FeedbackInterface
             ];
         }else{
             return  [
-                'id'        => $data->id,
-                'comment'   => $data->body ?? $data->comment
+                'id'            => $data->id,
+                'comment'       => $data->body ?? $data->comment
             ];
         }
 
