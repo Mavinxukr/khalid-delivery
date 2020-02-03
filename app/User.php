@@ -154,7 +154,8 @@ class User extends Authenticatable
 
     public function orderForFeedback()
     {
-        return $this->hasMany(Order::class)->with('provider');
+        return $this->hasMany(Order::class)->with('provider')
+                                ->WhereNotNull('provider_id');
     }
 
     public function orderProfile()

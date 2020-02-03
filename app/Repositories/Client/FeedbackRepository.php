@@ -99,7 +99,6 @@ class FeedbackRepository implements FeedbackInterface
 
     public function storeCompanyFeedback(Request $request)
     {
-
         CompanyFeedback::create([
             'name'          => $request->comment,
             'provider_id'   => $request->company_id,
