@@ -15,15 +15,12 @@ class AuthSocialHelper
     public static function validateUserAndAuth (string $driver,$socialUser, $localUser = null) : User
     {
 
-        $verifyArr = ['google','apple'];
         $updateBy['social_driver']    = $driver;
         $updateBy['social_key']       = $socialUser->getId();
         $nameUser                     = !empty($socialUser->getName()) ?
                                          explode(' ',$socialUser->getName()) : null ;
-        $updateBy['email']            = $driver === in_array($driver,$verifyArr) ? $socialUser->getEmail() : null;
+        $updateBy['email']            = $driver === 'google' ? $socialUser->getEmail() : null;
 
-
-        dd($updateBy, in_array($driver,$verifyArr), $socialUser->getEmail() );
         $createData['first_name']     =  $nameUser[0] ?? null;
         $createData['last_name']      =  $nameUser[1]  ?? null;
         $createData['social_key']     =  $socialUser->getId();
