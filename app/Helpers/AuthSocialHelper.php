@@ -14,6 +14,7 @@ class AuthSocialHelper
 
     public static function validateUserAndAuth (string $driver,$socialUser, $localUser = null) : User
     {
+        dd(12);
         $verifyArr = ['google','apple'];
         $updateBy['social_driver']    = $driver;
         $updateBy['social_key']       = $socialUser->getId();

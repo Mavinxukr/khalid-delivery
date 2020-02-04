@@ -39,11 +39,9 @@ class AuthSocialRepository implements AuthSocialInterface
     public function authLogic($socialUser, $localUser, string $driver)
     {
         if (is_null($localUser) || !$localUser->edit){
-            dd(1);
             $localUser = AuthSocialHelper::validateUserAndAuth($driver,$socialUser,$localUser);
             $localUser->roles()->sync($this->role);
         }
-        dd(2);
         $user = $this->format($localUser);
         return TransJsonResponse::toJson(true, $user, 'User was authorization', 201);
 
