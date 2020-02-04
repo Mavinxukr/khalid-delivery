@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
+
 class AuthController extends Controller
 {
 
@@ -125,7 +126,6 @@ class AuthController extends Controller
     public function apple()
     {
         return Socialite::driver("sign-in-with-apple")
-            ->stateless()
             ->redirect();
     }
 
