@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92dca2441cdaee8f7a6f9cd2e16817e7",
+    "content-hash": "f39270cae837a8924662d0dc964c7f07",
     "packages": [
         {
             "name": "alexbowers/nova-categorise-resources",
@@ -1417,6 +1417,59 @@
             ],
             "description": "Add Apple's new single-signon feature to your site with ease.",
             "time": "2019-10-14T18:57:27+00:00"
+        },
+        {
+            "name": "genealabs/laravel-socialiter",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GeneaLabs/laravel-socialiter.git",
+                "reference": "c1de90b19e3ef85c2e5b330617677486c81fba3c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GeneaLabs/laravel-socialiter/zipball/c1de90b19e3ef85c2e5b330617677486c81fba3c",
+                "reference": "c1de90b19e3ef85c2e5b330617677486c81fba3c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^6.2",
+                "illuminate/database": "^6.2",
+                "illuminate/support": "^6.2",
+                "laravel/socialite": "^4.2"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "^2.7",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\GeneaLabs\\LaravelSocialiter\\Providers\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Socialiter": "\\GeneaLabs\\LaravelSocialiter\\Facades\\Socialiter"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GeneaLabs\\LaravelSocialiter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike Bronner",
+                    "email": "hello@genealabs.com"
+                }
+            ],
+            "description": "Automatically manager user persistence and resolution for any Laravel Socialite provider.",
+            "time": "2019-11-28T20:15:51+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",

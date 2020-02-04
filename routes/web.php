@@ -32,3 +32,6 @@ Route::get('callback/twitter','ApiClient\Auth\AuthController@twitterCallback');
 Route::get('snapchat','ApiClient\Auth\AuthController@snapchat');
 Route::get('callback/snapchat','ApiClient\Auth\AuthController@snapchatCallback');
 
+
+Route::get('apple','ApiClient\Auth\AuthController@apple');
+Route::get('callback/apple','ApiClient\Auth\AuthController@appleCallback');
