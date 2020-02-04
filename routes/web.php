@@ -34,4 +34,4 @@ Route::get('callback/snapchat','ApiClient\Auth\AuthController@snapchatCallback')
 
 
 Route::get('apple','ApiClient\Auth\AuthController@apple');
-Route::get('callback/apple','ApiClient\Auth\AuthController@appleCallback');
+Route::post('callback/apple','ApiClient\Auth\AuthController@appleCallback');
