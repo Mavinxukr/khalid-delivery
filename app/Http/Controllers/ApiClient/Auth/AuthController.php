@@ -134,7 +134,13 @@ class AuthController extends Controller
     {
         $user = Socialite::driver("sign-in-with-apple")
             ->user();
-        dd($user);
+
+        $user1 = Socialite::driver("sign-in-with-apple")
+                ->userFromToken($user->token);
+
+        dd($user1);
+
+
     }
 
 
