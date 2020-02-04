@@ -41,7 +41,6 @@ class AuthSocialRepository implements AuthSocialInterface
     public function authLogic($socialUser, $localUser, string $driver)
     {
         if (is_null($localUser) || !$localUser->edit){
-            dd($socialUser, $localUser);
             $localUser = AuthSocialHelper::validateUserAndAuth($driver,$socialUser,$localUser);
             $localUser->roles()->sync($this->role);
         }
