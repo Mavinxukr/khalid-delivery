@@ -17,13 +17,13 @@ class SocialController extends Controller
     }
 
     /**
-     * @api {post} client/auth/{google||facebook||twitter||snapchat}  Auth  with social #Screen 0.4
+     * @api {post} client/auth/{google||facebook||twitter||snapchat||apple}  Auth  with social #Screen 0.4
      * @apiName  Auth  with social
      * @apiVersion 1.1.1
      * @apiGroup Client  Auth
      * @apiParam {String} token Token from SDK
      * @apiParam {String} secret Secret  from SDK !!! Only for auth with twitter
-     * @apiSampleRequest  client/auth/{google||facebook||twitter||snapchat}
+     * @apiSampleRequest  client/auth/{google||facebook||twitter||snapchat||apple}
      */
 
     public function authSocial(SocialRequest $request, string $driver)

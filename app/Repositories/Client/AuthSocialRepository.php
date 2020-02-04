@@ -24,6 +24,7 @@ class AuthSocialRepository implements AuthSocialInterface
     public function authSocial(string $token, string $driver, string  $secret = null)
     {
         try{
+            if ($driver === 'apple') $driver = 'sign-in-with-apple';
             $socialUser = is_null($secret) ? Socialite::driver($driver)->userFromToken($token) :
                                              Socialite::driver($driver)->userFromTokenAndSecret($token, $secret);
 

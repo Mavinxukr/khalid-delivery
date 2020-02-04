@@ -134,15 +134,7 @@ class AuthController extends Controller
     {
         $user = Socialite::driver("sign-in-with-apple")
             ->user();
-
         dd($user);
-
-        $token = 'eyJraWQiOiJBSURPUEsxIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoiY29tLmFwcGFkbWlucG9ydGFsIiwiZXhwIjoxNTgwODE4NTk1LCJpYXQiOjE1ODA4MTc5OTUsInN1YiI6IjAwMTA2OS45ODMyY2NmNTgyZjE0MzE0OGQwYzc1ZDU1NGI4NDc5Yy4xMTAxIiwiYXRfaGFzaCI6IjU3S2tiSGZRaS11YVNfcjZ0NHVKc2ciLCJlbWFpbCI6Imt4NmQ2YWRodHdAcHJpdmF0ZXJlbGF5LmFwcGxlaWQuY29tIiwiZW1haWxfdmVyaWZpZWQiOiJ0cnVlIiwiaXNfcHJpdmF0ZV9lbWFpbCI6InRydWUiLCJhdXRoX3RpbWUiOjE1ODA4MTc5OTR9.iB6s7fCZl0hsV2I_SDHsZRSNK-vCd5XDO4HFHuieUaiKA8nuD6DsJnJK6Qzj96pUj1R8xFPDmabqONGMpdytnSzk8Q_I7S-yyvDYdfT9eT-n-LaxIPe8FMz2FlfE0PGA7xCiHhSVpYucW-p6k3mhX4qfU9vEEV37qeCHZd06nytbPZqxMBHad8K1hsMJlzso7Jvf-oy9HlvgUagWJ8UhNetlT0llNI0dAUnKJF3jT_CKLpgJwhyUxWEiSYkryQfsFJNIYeRchyrmns8y1xBqcsOQDAnvnL5TXf8ODRzIYXI4JX8TyUs2N4YtFikGitiRnKlUbwI_ye-ubMPCndaoQA';
-
-        dd($user->getUserByToken($token));
-
-
     }
-
 
 }
