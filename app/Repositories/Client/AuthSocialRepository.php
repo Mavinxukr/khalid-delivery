@@ -8,12 +8,8 @@ use App\Helpers\AuthSocialHelper;
 use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Auth\AuthSocialInterface;
-use App\Contracts\FormatInterface;
 use App\User;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-use Laravel\Socialite\Two\User as SocialUser;
 use Spatie\Permission\Models\Role;
 
 class AuthSocialRepository implements AuthSocialInterface

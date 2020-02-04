@@ -53,4 +53,10 @@ return [
         'pk_test_key' => env('CHECKOUT_PK_KEY')
     ],
 
+    'apple' => [
+        'client_id' => env('APPLE_CLIENT_ID'),
+        'client_secret' => env('APPLE_CLIENT_SECRET'),
+        'redirect' => env('APPLE_REDIRECT'),
+    ]
+
 ];

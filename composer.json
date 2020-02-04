@@ -24,6 +24,7 @@
         "epartment/nova-dependency-container": "^1.2",
         "fideloper/proxy": "^4.0",
         "genealabs/laravel-sign-in-with-apple": "^0.3.1",
+        "genealabs/laravel-socialiter": "^0.1.1",
         "inspheric/nova-defaultable": "^1.2",
         "inspheric/nova-indicator-field": "^1.41",
         "kabbouchi/nova-logs-tool": "^0.1.4",

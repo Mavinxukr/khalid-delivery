@@ -88,7 +88,6 @@ class FeedbackRepository implements FeedbackInterface
         }
 
     }
-
     public function getCompanyForFeedback(Request $request)
     {
         $company = collect($request->user()->orderForFeedback)->map(function ($item){
@@ -96,7 +95,6 @@ class FeedbackRepository implements FeedbackInterface
         });
         return TransJsonResponse::toJson(true,$company,'All company for feedback', 200);
     }
-
 
     public function storeCompanyFeedback(Request $request)
     {
