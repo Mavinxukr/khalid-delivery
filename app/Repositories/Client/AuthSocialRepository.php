@@ -30,7 +30,6 @@ class AuthSocialRepository implements AuthSocialInterface
             $foundUser = User::where('social_key', $socialUser->getId())
                                 ->where('social_driver',$driver)
                                 ->first();
-            dd($foundUser);
         return $this->authLogic($socialUser, $foundUser, $driver);
         }catch (\Exception $exception){
             return TransJsonResponse::toJson(false, null,
@@ -39,6 +38,7 @@ class AuthSocialRepository implements AuthSocialInterface
     }
     public function authLogic($socialUser, $localUser, string $driver)
     {
+        dd(1);
         if (is_null($localUser) || !$localUser->edit){
             $localUser = AuthSocialHelper::validateUserAndAuth($driver,$socialUser,$localUser);
             $localUser->roles()->sync($this->role);
