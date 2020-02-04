@@ -26,7 +26,6 @@ class AuthSocialHelper
         $createData['social_key']     =  $socialUser->getId();
         $createData['social_driver']  =  $driver;
         $createData['image']          =  $socialUser->getAvatar() ?? null;
-        $createData['email']          =  $socialUser->getEmail() ?? null;
 
         $user                         =  User::updateOrCreate($updateBy,$createData);
 
