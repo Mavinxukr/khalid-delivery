@@ -27,10 +27,10 @@ class AuthSocialRepository implements AuthSocialInterface
             $socialUser = is_null($secret) ? Socialite::driver($driver)->userFromToken($token) :
                                              Socialite::driver($driver)->userFromTokenAndSecret($token, $secret);
 
+            dd($socialUser);
             $foundUser = User::where('social_key', $socialUser->getId())
                                 ->where('social_driver',$driver)
                                 ->first();
-
         return $this->authLogic($socialUser, $foundUser, $driver);
         }catch (\Exception $exception){
             return TransJsonResponse::toJson(false, null,
@@ -39,7 +39,6 @@ class AuthSocialRepository implements AuthSocialInterface
     }
     public function authLogic($socialUser, $localUser, string $driver)
     {
-        dd($localUser);
         if (is_null($localUser) || !$localUser->edit){
             $localUser = AuthSocialHelper::validateUserAndAuth($driver,$socialUser,$localUser);
             $localUser->roles()->sync($this->role);
