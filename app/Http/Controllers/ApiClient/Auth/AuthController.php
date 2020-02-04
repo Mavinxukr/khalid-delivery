@@ -125,14 +125,14 @@ class AuthController extends Controller
 
     public function apple()
     {
-        return Socialite::driver("sign-in-with-apple")
+        return Socialite::driver("apple")
             ->redirect();
     }
 
 
     public function appleCallback()
     {
-        $user = Socialite::driver("sign-in-with-apple")
+        $user = Socialite::driver("apple")
             ->user();
         dd($user);
     }
