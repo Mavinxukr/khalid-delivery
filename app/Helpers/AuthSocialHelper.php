@@ -18,7 +18,7 @@ class AuthSocialHelper
         $updateBy['social_key']       = $socialUser->getId();
         $nameUser                     = !empty($socialUser->getName()) ?
                                          explode(' ',$socialUser->getName()) : null ;
-        $updateBy['email']            = $driver === 'google' ? $socialUser->getEmail() : null;
+        $updateBy['email']            = $driver === 'google' || $driver === 'apple'? $socialUser->getEmail() : null;
 
         $createData['first_name']     =  $nameUser[0] ?? null;
         $createData['last_name']      =  $nameUser[1]  ?? null;
