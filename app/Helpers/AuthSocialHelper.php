@@ -15,8 +15,6 @@ class AuthSocialHelper
     public static function validateUserAndAuth (string $driver,$socialUser, $localUser = null) : User
     {
         $verifyArr = ['google','apple'];
-        dd(in_array($driver,$verifyArr) ,$socialUser->getEmail());
-
         $updateBy['social_driver']    = $driver;
         $updateBy['social_key']       = $socialUser->getId();
         $nameUser                     = !empty($socialUser->getName()) ?
@@ -28,6 +26,7 @@ class AuthSocialHelper
         $createData['social_key']     =  $socialUser->getId();
         $createData['social_driver']  =  $driver;
         $createData['image']          =  $socialUser->getAvatar() ?? null;
+        $createData['email']          =  $socialUser->getEmail() ?? null;
         $user                         =  User::updateOrCreate($updateBy,$createData);
 
         return $user;
