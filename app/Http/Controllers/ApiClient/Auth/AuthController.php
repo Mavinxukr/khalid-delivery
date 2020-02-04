@@ -133,7 +133,7 @@ class AuthController extends Controller
     public function appleCallback()
     {
         $user = Socialite::driver("sign-in-with-apple")
-            ->getTokenUrl();
+            ->user();
 
         dd($user);
 
