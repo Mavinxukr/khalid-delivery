@@ -149,7 +149,7 @@ class User extends Authenticatable
 
     public function order()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class)->orderByDesc('id');
     }
 
     public function orderForFeedback()
