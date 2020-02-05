@@ -121,9 +121,9 @@ class Order extends Resource
             Select::make('Status')
                 ->options([
                     '2' => 'new',
-                    '3' => 'late',
-                    '4' => 'confirm',
-                    '5' => 'cancel'
+                    '3' => 'confirm',
+                    '4' => 'cancel',
+                    '5' => 'done'
                 ])
                 ->hideFromIndex()
                 ->hideFromDetail()
@@ -159,8 +159,7 @@ class Order extends Resource
             Time::make('Time To','date_delivery_to')
                 ->format('HH:mm:ss')
                 ->rules('required'),
-            Textarea::make('Comment')
-                ->rules('required'),
+            Textarea::make('Comment'),
             Number::make('Cost')
                 ->exceptOnForms(),
             BelongsToMany::make('Product','products', Product::class)
