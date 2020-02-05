@@ -160,7 +160,7 @@ class User extends Authenticatable
 
     public function orderProfile()
     {
-        return $this->hasMany(Order::class)->with('place');
+        return $this->hasMany(Order::class)->orderByDesc('id')->with('place');
     }
 
 }
