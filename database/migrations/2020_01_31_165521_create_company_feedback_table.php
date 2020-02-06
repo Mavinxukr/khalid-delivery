@@ -18,10 +18,16 @@ class CreateCompanyFeedbackTable extends Migration
             $table->string('name');
             $table->double('star');
             $table->unsignedBigInteger('provider_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('provider_id')
                     ->references('id')
                     ->on('providers')
                     ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
