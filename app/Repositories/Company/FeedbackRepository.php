@@ -67,7 +67,8 @@ class FeedbackRepository implements FeedbackInterface
                 'comment'   => $data->name,
                 'date'      => $data->created_at->diffForHumans(),
                 'user'      => $data->user,
-                'user_image'=> $data->user_image
+                'user_image'=> $data->user_image,
+                'star'      => $data->star
             ];
         }
 
