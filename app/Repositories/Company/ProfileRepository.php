@@ -113,7 +113,8 @@ class ProfileRepository implements ProfileInterface
             'hasCard'                => $hasCard,
             'working_hours'          => $data->schedule,
             'languages'              => $data->languages()->get(),
-            'count_feedback'         => $data->feedback->count()
+            'count_feedback'         => $data->companyFeedback->count(),
+            'rating'                 => $data->companyFeedback->avg('star')
         ];
 
 
