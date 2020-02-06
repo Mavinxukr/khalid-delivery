@@ -101,7 +101,8 @@ class FeedbackRepository implements FeedbackInterface
         CompanyFeedback::create([
             'name'          => $request->comment,
             'provider_id'   => $request->company_id,
-            'star'          =>$request->star
+            'star'          =>$request->star,
+            'user_id'       => $request->user()->id
         ]);
         return TransJsonResponse::toJson(true,null,'Successfully created', 200);
     }

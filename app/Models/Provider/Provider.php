@@ -3,6 +3,7 @@
 namespace App\Models\Provider;
 
 use App\Models\Category\Category;
+use App\Models\Feedback\CompanyFeedback;
 use App\Models\Feedback\Feedback;
 use App\Models\Payment\Payment;
 use App\Models\PlaceService\Place;
@@ -119,6 +120,12 @@ class Provider extends Model
     public function feedback()
     {
         return $this->hasMany(Feedback::class,'whom_id');
+    }
+
+
+    public function companyFeedback()
+    {
+        return $this->hasMany(CompanyFeedback::class,'provider_id');
     }
 
 }

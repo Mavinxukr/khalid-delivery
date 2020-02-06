@@ -8,6 +8,7 @@ use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Contracts\Company\Feedback\FeedbackInterface;
 use App\Contracts\FormatInterface;
+use App\Models\Feedback\CompanyFeedback;
 use App\Models\Feedback\Feedback;
 use App\Models\Feedback\FeedbackTemplate;
 use App\Models\Order\Order;
@@ -40,8 +41,10 @@ class FeedbackRepository implements FeedbackInterface
     {
         $myFeedback =  $request->user()
                                 ->company
-                                ->feedback
+                                ->companyFeedback
                                 ->map(function ($feedback){
+                                    $feedback->user = $feedback->owner->first_name;
+                                    $feedback->user_image = ImageLinker::linker($feedback->owner->image);
                                     return $this->format($feedback);
                         });
         return TransJsonResponse::toJson(true, $myFeedback,'Get my feedback', 200);
@@ -56,7 +59,19 @@ class FeedbackRepository implements FeedbackInterface
                 'date_feedback' => $data->created_at->toDateString(),
                 'who_avatar'    => ImageLinker::linker($data->user->image)
             ];
-        }else{
+        }
+
+        if ($data  instanceof CompanyFeedback){
+            return  [
+                'id'        => $data->id,
+                'comment'   => $data->name,
+                'date'      => $data->created_at->diffForHumans(),
+                'user'      => $data->user,
+                'user_image'=> $data->user_image
+            ];
+        }
+
+        else{
             return  [
                 'id'        => $data->id,
                 'comment'   => $data->body ?? $data->comment
