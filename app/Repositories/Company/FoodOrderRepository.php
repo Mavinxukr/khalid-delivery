@@ -18,21 +18,15 @@ class FoodOrderRepository implements FoodOrderInterface
 
     public function getAllOrder(Request $request)
     {
-        if (!is_null($request->user()->company->geoLocation)) {
-            $orderIds = GeoLocationHelper::getOrderIds($request, 'food');
-            $orders = Order::whereIn('id', $orderIds)
+            $orders = Order::whereProviderId($request->user()->company->id)
                 ->whereIn('status', [$request->status])
-                ->where('provider_id', '=', $request->user()->company->id)
                 ->get()
                 ->map(function ($item) use ($request) {
                     return $this->format($item);
                 });
             return TransJsonResponse::toJson(true, $orders,
-                'Show orders by your geolocation', 200);
-        }else{
-            return TransJsonResponse::toJson(false, null,
-                'You have not geolocation', 400);
-        }
+                'Show your order by need status', 200);
+
     }
 
     public function getOrderById(Request $request, int $id)
@@ -56,6 +50,40 @@ class FoodOrderRepository implements FoodOrderInterface
         return TransJsonResponse::toJson(true, $product,'Show product in order by id', 200);
     }
 
+
+    public function takeFoodOrder(Request $request)
+    {
+        $order =  Order::findOrFail($request->order_id);
+
+        if ($order->status === 'new'){
+            $order ->update([
+                'status'    => 'confirm'
+            ]);
+            return TransJsonResponse::toJson(true, null,'Food order confirm success', 200);
+        }else{
+            return TransJsonResponse::toJson(false, null,
+                "Food order not confirm, because order status  - $order->status ", 400);
+        }
+    }
+
+    public function doneFoodOrder(Request $request)
+    {
+        $order =  Order::findOrFail($request->order_id);
+
+        if ($order->status === 'confirm'){
+            $order ->update([
+                'status'    => 'done'
+            ]);
+
+            //here need to send push-notify
+            return TransJsonResponse::toJson(true, null,'Food order done success', 200);
+        }else{
+            return TransJsonResponse::toJson(false, null,
+                "Food order not done, because order status  - $order->status ", 400);
+        }
+    }
+
+
     public function format($data)
     {
         if ($data->flag){
@@ -77,7 +105,20 @@ class FoodOrderRepository implements FoodOrderInterface
                 'image'              => ImageLinker::linker($data->products()->value('image'))
             ];
         }
-
     }
 
+    public function cancelFoodOrder(Request $request, int $id)
+    {
+        $order =  Order::findOrFail($id);
+        if ($order->status === 'confirm'){
+            $order ->update([
+                'status'    => 'new'
+            ]);
+            //here need to send push-notify
+            return TransJsonResponse::toJson(true, null,'Food order cancel success', 200);
+        }else{
+            return TransJsonResponse::toJson(false, null,
+                "Food order not done, because order status  - $order->status ", 400);
+        }
+    }
 }

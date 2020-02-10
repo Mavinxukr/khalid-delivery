@@ -55,8 +55,11 @@ Route::group(["namespace"=>"ApiCompany"],function() {
         Route::get('get-service-order-by-filters','Order\OrderServiceController@getServiceOrderByFilters');
         //------------------------------ Food order ----------------------------------------//
         Route::get('get-food-order','Order\OrderFoodController@getFoodOrder');
+        Route::post('take-food-order','Order\OrderFoodController@takeFoodOrder');
+        Route::post('done-food-order','Order\OrderFoodController@doneFoodOrder');
         Route::get('get-food-order/{id}','Order\OrderFoodController@getOrderById');
         Route::get('get-food-order/{order_id}/{product_id} ','Order\OrderFoodController@getProductInOrderById');
+        Route::patch('cancel-food-order/{id}','Order\OrderFoodController@cancelFoodOrder');
         //------------------------------ Action over service order ---------------------------------//
         Route::post('take-service-order','Order\ActionServiceOrderController@takeServiceOrder');
         Route::patch('cancel-service-order/{id}','Order\ActionServiceOrderController@cancelServiceOrder');

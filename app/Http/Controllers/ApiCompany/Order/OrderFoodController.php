@@ -20,6 +20,7 @@ class OrderFoodController extends Controller
      * @apiName  Get food order
      * @apiVersion 1.1.1
      * @apiParam {String} status Status (Available statuses: confirm - this is for In progress orders, </br>
+     *                                                       new - which  need to confirm             </br>
      *                                                       done - this is for Archives  orders )
      * @apiGroup Company Food Order
      * @apiPermission Authorization
@@ -60,5 +61,53 @@ class OrderFoodController extends Controller
     public function getProductInOrderById(Request $request, int $order_id, int $product_id)
     {
         return $this->order->getProductInOrderById($request, $order_id, $product_id);
+    }
+
+    /**
+     * @api {post}  company/take-food-order Take food order #Screen №20
+     * @apiName  Take food order
+     * @apiVersion 1.1.1
+     * @apiGroup Company Food Order
+     * @apiParam {Number} order_id Order Id
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/take-food-order
+     */
+
+    public function takeFoodOrder(Request $request)
+    {
+        return $this->order->takeFoodOrder($request);
+    }
+
+    /**
+     * @api {patch} company/cancel-food-order/{id} Cancel food order
+     * @apiName  Cancel food order
+     * @apiVersion 1.1.1
+     * @apiGroup Company Food  Order
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/cancel-food-order/{id}
+     */
+
+
+    public function cancelFoodOrder(Request $request,$id)
+    {
+        return $this->order->cancelFoodOrder($request,$id);
+    }
+
+    /**
+     * @api {post}  company/done-food-order Done food order
+     * @apiName  Done food order
+     * @apiVersion 1.1.1
+     * @apiGroup Company Food Order
+     * @apiParam {Number} order_id Order Id
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/done-food-order
+     */
+
+    public function doneFoodOrder(Request $request)
+    {
+        return $this->order->doneFoodOrder($request);
     }
 }
