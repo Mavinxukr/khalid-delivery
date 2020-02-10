@@ -24,7 +24,7 @@ class ClientProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone_number'  => 'regex:/^\+[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{3}$/'
+            'phone_number'  => 'nullable|regex:/^\+[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{3}$/'
 
         ];
     }
