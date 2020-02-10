@@ -25,7 +25,7 @@ class FoodOrderRepository implements FoodOrderInterface
                     return $this->format($item);
                 });
             return TransJsonResponse::toJson(true, $orders,
-                'Show your order by need status', 200);
+                'Show your orders', 200);
 
     }
 
@@ -102,7 +102,8 @@ class FoodOrderRepository implements FoodOrderInterface
                 'date_delivery'      => $data->date_delivery->toDateString(),
                 'date_delivery_from' => $data->date_delivery_from,
                 'cost'               => $data->cost,
-                'image'              => ImageLinker::linker($data->products()->value('image'))
+                'image'              => ImageLinker::linker($data->products()->value('image')),
+                'status'             => $data->status
             ];
         }
     }
