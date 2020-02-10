@@ -39,10 +39,18 @@ class UsersTableDataSeeder extends Seeder
         User::create([
             'first_name' => 'Edik',
             'last_name' => 'Mobile',
-            'email' => 'edikcompany@gmail.com',
+            'email' => 'edikcompanyservice@gmail.com',
             'password' => bcrypt('111111'),
             'phone'     => '000-000-00-00',
             'company_id' => 2
+        ]);
+        User::create([
+            'first_name' => 'Edik',
+            'last_name' => 'Mobile',
+            'email' => 'edikcompanyfood@gmail.com',
+            'password' => bcrypt('111111'),
+            'phone'     => '000-000-00-00',
+            'company_id' => 1
         ]);
         User::create([
             'first_name' => 'Pasha',
@@ -58,8 +66,6 @@ class UsersTableDataSeeder extends Seeder
             'password' => bcrypt('111111'),
             'phone'     => '000-000-00-00'
         ]);
-
-
 
     }
 }
