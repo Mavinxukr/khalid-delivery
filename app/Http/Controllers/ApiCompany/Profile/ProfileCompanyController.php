@@ -36,10 +36,12 @@ class ProfileCompanyController extends Controller
      * @apiName  Update company profile
      * @apiVersion 1.1.1
      * @apiGroup Company  Profile
-     * @apiParam {String} phone_number Phone
+     * @apiParam {String} phone_number Phone (+380-00-99-33-111)
      * @apiParam {String} name Company_name
+     * @apiParam {String} company_number Company number
      * @apiParam {String} email Email
      * @apiParam {String} website Website
+     * @apiParam {String} company_number Website
      * @apiParam {String} chamber_of_commerce Chamber of commerce
      * @apiParam {Number} category_id Category Id (1 - food , 2 - service , 3 - market)
      * @apiParam {File} image Image

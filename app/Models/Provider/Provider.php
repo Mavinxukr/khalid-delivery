@@ -65,7 +65,7 @@ class Provider extends Model
 {
     protected $fillable = [
         'balance','category_id','phone_number',
-        'name','email','website',
+        'name','email','website','company_number',
         'chamber_of_commerce','image'
     ];
 

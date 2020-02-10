@@ -65,7 +65,7 @@ class ProfileRepository implements ProfileInterface
         $request->user()
                         ->company
                         ->schedule()
-                        ->updateOrCreate(['id' => $request->user()->company],
+                        ->updateOrCreate(['provider_id' => $request->user()->company->id],
                             array_filter($request->all()));
         $schedule = $request->user()
                             ->company
@@ -104,6 +104,7 @@ class ProfileRepository implements ProfileInterface
             'id'                     => $data->id,
             'image'                  => isset($data->image ) ?
                                      env('APP_URL_IMAGE').$data->image : null,
+            'company_id'             => $data->company_number,
             'company_name'           => $data->name,
             'phone_number'           => $data->phone_number,
             'email'                  => $data->email,
