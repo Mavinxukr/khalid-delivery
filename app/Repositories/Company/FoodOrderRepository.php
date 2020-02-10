@@ -19,7 +19,7 @@ class FoodOrderRepository implements FoodOrderInterface
     public function getAllOrder(Request $request)
     {
             $orders = Order::whereProviderId($request->user()->company->id)
-                ->whereIn('status', [$request->status])
+                //->whereIn('status', [$request->status])
                 ->get()
                 ->map(function ($item) use ($request) {
                     return $this->format($item);
