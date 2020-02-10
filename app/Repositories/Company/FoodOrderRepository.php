@@ -92,7 +92,8 @@ class FoodOrderRepository implements FoodOrderInterface
                 'name'               => $data->title,
                 'cost'               => $data->price,
                 'image'              => ImageLinker::linker($data->image),
-                'category'           => $data->categories->type
+                'category'           => $data->categories->type,
+                'description'        => $data->description
             ];
         }else{
             return [
@@ -102,7 +103,8 @@ class FoodOrderRepository implements FoodOrderInterface
                 'date_delivery'      => $data->date_delivery->toDateString(),
                 'date_delivery_from' => $data->date_delivery_from,
                 'cost'               => $data->cost,
-                'image'              => ImageLinker::linker($data->products()->value('image'))
+                'image'              => ImageLinker::linker($data->products()->value('image')),
+                'status'             => $data->status
             ];
         }
     }
@@ -120,5 +122,17 @@ class FoodOrderRepository implements FoodOrderInterface
             return TransJsonResponse::toJson(false, null,
                 "Food order not done, because order status  - $order->status ", 400);
         }
+    }
+
+    public function getFoodOrderWithOutStatus(Request $request)
+    {
+        $orders = Order::whereProviderId($request->user()->company->id)
+            ->get()
+            ->map(function ($item) use ($request) {
+                return $this->format($item);
+            });
+        return TransJsonResponse::toJson(true, $orders,
+            'Show your order with no status', 200);
+
     }
 }

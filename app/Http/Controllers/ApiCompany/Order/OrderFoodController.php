@@ -110,4 +110,19 @@ class OrderFoodController extends Controller
     {
         return $this->order->doneFoodOrder($request);
     }
+
+    /**
+     * @api {get}  company/get-food-order-no-status Get food order no status
+     * @apiName  Get food order no status
+     * @apiVersion 1.1.1
+     * @apiGroup Company Food Order
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/get-food-order-no-status
+     */
+
+    public function getOrderWithOutStatus(Request $request)
+    {
+        return $this->order->getFoodOrderWithOutStatus($request);
+    }
 }
