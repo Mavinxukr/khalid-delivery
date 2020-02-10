@@ -65,11 +65,11 @@ class ProfileRepository implements ProfileInterface
         $request->user()
                         ->company
                         ->schedule()
-                        ->updateOrCreate(array_filter($request->all()));
+                        ->updateOrCreate(['id' => $request->user()->company],
+                            array_filter($request->all()));
         $schedule = $request->user()
                             ->company
                             ->schedule;
-
         return TransJsonResponse::toJson(true, $schedule,'Updated company schedule', 201);
     }
 
