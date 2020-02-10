@@ -19,6 +19,9 @@ class OrderFoodController extends Controller
      * @api {get} company/get-food-order Get food order #Screen №11
      * @apiName  Get food order
      * @apiVersion 1.1.1
+     * @apiParam {String} status Status (Available statuses: confirm - this is for In progress orders, </br>
+     *                                                       new - which  need to confirm             </br>
+     *                                                       done - this is for Archives  orders )
      * @apiGroup Company Food Order
      * @apiPermission Authorization
      * @apiHeader  Authorization token
