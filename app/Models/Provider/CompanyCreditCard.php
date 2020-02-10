@@ -36,14 +36,14 @@ use Illuminate\Database\Eloquent\Model;
 class CompanyCreditCard extends Model
 {
     protected $fillable = [
-        'provider_id','holder_name',
-        'number_card','expire_month',
-        'expire_year','cvv_code',
-        'zip_code',''
+        'provider_id','number_card','name_company',
+        'address_company','account_number_company',
+        'bank_name_company','iban_number_company',
+        'swift_number_company'
     ];
 
     protected $hidden = [
-        'created_at','updated_at'
+        'created_at','updated_at','provider_id'
     ];
 
 

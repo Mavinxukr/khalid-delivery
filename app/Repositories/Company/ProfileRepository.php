@@ -93,7 +93,7 @@ class ProfileRepository implements ProfileInterface
         $creditCard =  $request->user()
                                         ->company
                                         ->creditCard
-                                        ->get()->except('provider_id');
+                                        ->get();
         return TransJsonResponse::toJson(true, $creditCard,'Updated company credit card', 201);
     }
 

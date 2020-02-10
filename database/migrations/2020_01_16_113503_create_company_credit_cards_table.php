@@ -16,12 +16,13 @@ class CreateCompanyCreditCardsTable extends Migration
         Schema::create('company_credit_cards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('provider_id');
-            $table->string('holder_name');
-            $table->string('number_card');
-            $table->string('expire_month');
-            $table->string('expire_year');
-            $table->string('cvv_code');
-            $table->string('zip_code')->nullable();
+            $table->string('number_card')->nullable();
+            $table->string('name_company')->nullable();
+            $table->string('address_company')->nullable();
+            $table->string('account_number_company')->nullable();
+            $table->string('bank_name_company')->nullable();
+            $table->string('iban_number_company')->nullable();
+            $table->string('swift_number_company')->nullable();
             $table->foreign('provider_id')
                 ->references('id')
                 ->on('providers')

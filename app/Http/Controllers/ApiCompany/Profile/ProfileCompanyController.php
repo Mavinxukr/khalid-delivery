@@ -145,18 +145,19 @@ class ProfileCompanyController extends Controller
      * @apiName  Update or Create company profile credit card
      * @apiVersion 1.1.1
      * @apiGroup Company  Profile
-     * @apiParam {String} holder_name Holder name
      * @apiParam {String} number_card Number card (format: 2222-2222-2222-2222)
-     * @apiParam {Number} expire_month Expire month (format: 01)
-     * @apiParam {Number} expire_year Expire year (format: 22)
-     * @apiParam {Number} cvv_code Cvv code (format: 123)
-     * @apiParam {String} zip_code Zip code (format: 12345)
+     * @apiParam {String} name_company Name company
+     * @apiParam {String} address_company Address company
+     * @apiParam {String} account_number_company Account number company
+     * @apiParam {String} bank_name_company Bank name company
+     * @apiParam {String} iban_number_company Iban number company
+     * @apiParam {String} swift_number_company Swift number company
      * @apiPermission Authorization
      * @apiHeader  Authorization token
      * @apiSampleRequest  company/company-profile/update-credit-card
      */
 
-    public function updateCreditCard(CompanyCreditCard $request)
+    public function updateCreditCard(Request $request)
     {
         return $this->profile->updateCreditCard($request);
     }
