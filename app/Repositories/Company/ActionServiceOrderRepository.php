@@ -49,4 +49,20 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
 
     public function format($data){}
 
+    public function doneFoodOrder(Request $request)
+    {
+        $order =  Order::findOrFail($request->order_id);
+
+        if ($order->status === 'confirm'){
+            $order ->update([
+                'status'    => 'done'
+            ]);
+
+            //here need to send push-notify
+            return TransJsonResponse::toJson(true, null,'Service order done success', 200);
+        }else{
+            return TransJsonResponse::toJson(false, null,
+                "Service order not done, because order status  - $order->status ", 400);
+        }
+    }
 }

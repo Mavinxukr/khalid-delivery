@@ -46,4 +46,20 @@ class ActionServiceOrderController extends Controller
     {
         return $this->order->cancel($request, $id);
     }
+
+    /**
+     * @api {post}  company/done-service-order Done service order
+     * @apiName  Done service order
+     * @apiVersion 1.1.1
+     * @apiGroup Company Action  Order
+     * @apiParam {Number} order_id Order Id
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/done-service-order
+     */
+
+    public function doneFoodOrder(Request $request)
+    {
+        return $this->order->doneFoodOrder($request);
+    }
 }
