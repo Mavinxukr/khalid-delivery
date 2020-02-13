@@ -47,7 +47,9 @@ class FoodOrderRepository implements FoodOrderInterface
       $product =  Order::findOrFail($order_id)
                         ->products()
                         ->findOrFail($product_id);
-        return TransJsonResponse::toJson(true, $product,'Show product in order by id', 200);
+      $product->flag = true;
+
+        return TransJsonResponse::toJson(true, $this->format($product),'Show product in order by id', 200);
     }
 
 
