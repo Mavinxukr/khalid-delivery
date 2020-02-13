@@ -67,25 +67,21 @@ class Provider extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+                ->sortable(),
             PhoneNumber::make('Phone Number')
                 ->format('+380-##-##-##-###')
                 ->placeholder('Example: 12-34-56-789')
                 ->disableValidation()
                 ->useMaskPlaceholder()
                 ->linkOnIndex()
-                ->linkOnDetail()
-                ->rules('required'),
+                ->linkOnDetail(),
             Text::make('Website')
-                ->sortable()
-                ->rules('required', 'max:255'),
+                ->sortable(),
             Text::make('Email')
                 ->sortable()
                 ->rules('required', 'max:255'),
             Text::make('Description')
-                ->sortable()
-                ->rules('required', 'max:254'),
+                ->sortable(),
             SearchableSelect::make('Provider type','category_id')
                 ->resource(Category::class)
                 ->help("Need chose category")
@@ -94,8 +90,7 @@ class Provider extends Resource
                 ->hideFromDetail(),
             BelongsTo::make('Category','categories', Category::class)
                 ->exceptOnForms(),
-            Text::make('Chamber of commerce')
-                ->rules('required'),
+            Text::make('Chamber of commerce'),
             Boolean::make('Active')
                 ->trueValue(1)
                 ->falseValue(0)

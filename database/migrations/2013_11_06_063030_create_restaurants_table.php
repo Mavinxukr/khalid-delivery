@@ -15,9 +15,9 @@ class CreateRestaurantsTable extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->longText('description');
-            $table->string('phone_number');
+            $table->string('name')->nullable();
+            $table->longText('description')->nullable();
+            $table->string('phone_number')->nullable();
             $table->double('balance')->default(0.0);
             $table->longText('image')->nullable();
             $table->boolean('active')->default(1);
