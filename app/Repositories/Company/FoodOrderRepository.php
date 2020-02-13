@@ -95,7 +95,8 @@ class FoodOrderRepository implements FoodOrderInterface
                 'cost'               => $data->price,
                 'image'              => ImageLinker::linker($data->image),
                 'category'           => $data->categories->type,
-                'description'        => $data->description
+                'description'        => $data->description,
+                'weight'             => $data->weight
             ];
         }else{
             return [
