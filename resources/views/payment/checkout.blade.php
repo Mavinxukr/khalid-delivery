@@ -8,42 +8,20 @@
     <title>Checkout</title>
 </head>
 <body>
-<script id="widget-wfp-script" language="javascript" type="text/javascript" src="https://secure.wayforpay.com/server/pay-widget.js"></script>
-<script type="text/javascript">
-    var wayforpay = new Wayforpay();
-    var pay = function () {
-        wayforpay.run({
-                merchantAccount : "test_merch_n1",
-                merchantDomainName : "www.market.ua",
-                authorizationType : "SimpleSignature",
-                merchantSignature : "b95932786cbe243a76b014846b63fe92",
-                orderReference : "DH783023",
-                orderDate : "1415379863",
-                amount : "1547.36",
-                currency : "UAH",
-                productName : "Процессор Intel Core i5-4670 3.4GHz",
-                productPrice : "1000",
-                productCount : "1",
-                clientFirstName : "Вася",
-                clientLastName : "Васечкин",
-                clientEmail : "some@mail.com",
-                clientPhone: "380631234567",
-                language: "UA"
-            },
-            function (response) {
-                // on approved
-            },
-            function (response) {
-                // on declined
-            },
-            function (response) {
-                // on pending or in processing
-            }
-        );
-    }
+<script src="https://www.paytabs.com/express/v4/paytabs-express-checkout.js"
+        id="paytabs-express-checkout"
+        data-secret-key="hptS4rVoHq1hlGyOETImUGBCW60PuakLzOEDgz1YZ3flJO9oHSKCymeusejXoEIXsmBJVCHVGXgqLpOtiz5QVjkoxElWj4UMrvvn"
+        data-merchant-id="10053283"
+        data-url-redirect="http://example.com/callback/"
+        data-amount="10.0"
+        data-currency="SAR"
+        data-title="John Doe"
+        data-product-names="Iphone"
+        data-order-id="25"
+        data-customer-phone-number="5486253"
+        data-customer-email-address="john.deo@paytabs.com"
+        data-customer-country-code="973"
+>
 </script>
-
-
-<button type="button" onclick="pay();">Оплатить</button>
 </body>
 </html>

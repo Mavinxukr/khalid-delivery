@@ -35,3 +35,6 @@ Route::get('callback/snapchat','ApiClient\Auth\AuthController@snapchatCallback')
 
 Route::get('apple','ApiClient\Auth\AuthController@apple');
 Route::post('callback/apple','ApiClient\Auth\AuthController@appleCallback');
+
+
+Route::view('/checkout','payment.checkout');
