@@ -12,7 +12,7 @@
         id="paytabs-express-checkout"
         data-secret-key="hptS4rVoHq1hlGyOETImUGBCW60PuakLzOEDgz1YZ3flJO9oHSKCymeusejXoEIXsmBJVCHVGXgqLpOtiz5QVjkoxElWj4UMrvvn"
         data-merchant-id="10053283"
-        data-url-redirect="http://example.com/callback/"
+        data-url-redirect="https://www.appadminportal.com/callback/"
         data-amount="10.0"
         data-currency="SAR"
         data-title="John Doe"
