@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 Route::get('phpinfo',function (){
-    return phpinfo();
+    echo phpinfo();
 });
 
 Route::get('google','ApiClient\Auth\AuthController@google');

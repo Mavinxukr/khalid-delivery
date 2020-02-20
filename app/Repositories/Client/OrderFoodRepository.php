@@ -39,8 +39,7 @@ class OrderFoodRepository implements OrderFoodInterface
             $providerId = null;
             foreach ($data->user()->curt as $item) {
                 if (!is_null($item->product->provider)) {
-                    $providerId = $item->product->provider
-                                  ->value('id');
+                    $providerId = $item->product->provider->id;
                 }
                 $order->cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
