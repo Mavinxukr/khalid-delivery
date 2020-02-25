@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f39270cae837a8924662d0dc964c7f07",
+    "content-hash": "b732a9edf96b2677bcceb1f6cf65967a",
     "packages": [
         {
             "name": "alexbowers/nova-categorise-resources",
@@ -3660,6 +3660,54 @@
                 "php"
             ],
             "time": "2019-11-08T13:50:10+00:00"
+        },
+        {
+            "name": "onecentlin/laravel-adminer",
+            "version": "4.7.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/onecentlin/laravel-adminer.git",
+                "reference": "564283f927c76c70ad958690c23b6f796353e002"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/onecentlin/laravel-adminer/zipball/564283f927c76c70ad958690c23b6f796353e002",
+                "reference": "564283f927c76c70ad958690c23b6f796353e002",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "~5.0|~6.0",
+                "illuminate/routing": "~5.0|~6.0",
+                "illuminate/support": "~5.0|~6.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Onecentlin\\Adminer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Winnie Lin",
+                    "email": "onecentlin@gmail.com"
+                }
+            ],
+            "description": "Laravel Adminer Database Manager",
+            "keywords": [
+                "adminer",
+                "database",
+                "laravel5",
+                "laravel6",
+                "management",
+                "mysql",
+                "sqlite"
+            ],
+            "time": "2020-02-15T17:31:01+00:00"
         },
         {
             "name": "opis/closure",

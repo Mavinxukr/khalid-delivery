@@ -35,6 +35,7 @@
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
         "michielfb/laravel-nova-time-field": "^1.0",
+        "onecentlin/laravel-adminer": "^4.7",
         "owenmelbz/nova-radio-field": "^0.0.5",
         "pragmarx/artisan-tool": "^0.4.0",
         "sloveniangooner/searchable-select": "^1.3",

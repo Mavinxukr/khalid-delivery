@@ -59,6 +59,9 @@ class OrderFoodController extends Controller
      * @apiVersion 1.1.1
      * @apiGroup Client Order - Food
      * @apiParam {Number} id Order id
+     * @apiParam {String} transaction_id Transaction id
+     * @apiParam {String} status Status code from payment
+     * @apiParam {String} message Message  from payment
      * @apiPermission Authorization
      * @apiHeader  Authorization token
      * @apiSampleRequest   client/food-orders/confirm

@@ -13,22 +13,19 @@ class ActionOverOrder extends CheckoutHelper
 {
     public static function confirmOrder($request)
     {
-
         $order =  Order::whereId($request->id)
                         ->whereUserId($request->user()->id)
                         ->first();
         if (!is_null($order)) {
             if ($order->status == 'wait') {
-              /*  $checkout = self::checkoutOrder($request, $order);
-                if (isset($checkout->http_code) and $checkout->http_code < 400){
-                    self::addToCheckout($checkout, $request, $order);*/
-                    self::validateCancel($order);
-                    $order->status = 'new';
-                    $order->save();
-                    return 'Order was confirmed';
-              /*  }else{
-                    throw new \Exception('Problems with payment or card token expired - repeat the request !');
-                }*/
+                    $checkout = self::checkoutOrder($request, $order);
+                    if (!$checkout) {
+                        throw new \Exception('Error with you payment ! ');
+                    }
+                self::validateCancel($order);
+                $order->status = 'new';
+                $order->save();
+                return 'Order was confirmed';
             } else {
                  throw new \Exception('You already confirm this order');
             }
@@ -45,13 +42,9 @@ class ActionOverOrder extends CheckoutHelper
             $confirmTime = $order->cancelOrderTime->confirm_time;
             if ($confirmTime >= $timeNow){
                 //$checkout = self::refundOrder($request, $order);
-               // if (isset($checkout->http_code) and $checkout->http_code < 400){
                     $order->status = 'cancel';
                     $order->save();
                     return 'Your order was canceled without commissions !';
-               // }else{
-                    //throw new \Exception('You already refund this order !');
-                //}
             }else{
                 throw new \Exception('You can not cancel order, because already less than 30 min before start order !');
             }
