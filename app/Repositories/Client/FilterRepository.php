@@ -89,9 +89,9 @@ class FilterRepository implements FilterInterface
         return TransJsonResponse::toJson(true, $result,'Company get by filters',200);
     }
 
-    public function getRatingsPrices(string $type)
+    public function getRatingsPrices()
     {
-        $category = Category::whereType($type)->first();
+        $category = Category::whereType('food')->first();
         $arrayRating = [
             1 => 0,
             2 => 0,
