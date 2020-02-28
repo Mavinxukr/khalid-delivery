@@ -47,33 +47,18 @@ class FilterController extends Controller
 
 
     /**
-     * @api {get} client/filter/ratings/{type} Get ratings
-     * @apiName  Get ratings
+     * @api {get} client/filter/ratings-prices/{type} Get ratings prices all
+     * @apiName  Get ratings prices all
      * @apiVersion 1.1.1
      * @apiGroup Client Filters
      * @apiPermission Authorization
      * @apiHeader  Authorization token
-     * @apiSampleRequest client/filter/ratings/{type}
+     * @apiSampleRequest client/filter/ratings-prices/{type}
      */
 
-    public function getRatings(string $type)
+    public function getRatingsPrices(string $type)
     {
-        return $this->filter->getRatings($type);
+        return $this->filter->getRatingsPrices($type);
     }
 
-
-    /**
-     * @api {get} client/filter/prices/{type} Get prices
-     * @apiName  Get prices
-     * @apiVersion 1.1.1
-     * @apiGroup Client Filters
-     * @apiPermission Authorization
-     * @apiHeader  Authorization token
-     * @apiSampleRequest client/filter/prices/{type}
-     */
-
-    public function getPrices (string $type)
-    {
-        return $this->filter->getPrices($type);
-    }
 }

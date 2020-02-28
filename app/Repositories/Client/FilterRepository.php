@@ -89,10 +89,17 @@ class FilterRepository implements FilterInterface
         return TransJsonResponse::toJson(true, $result,'Company get by filters',200);
     }
 
-    public function getRatings(string $type)
+    public function getRatingsPrices(string $type)
     {
         $category = Category::whereType($type)->first();
-        $arr = [
+        $arrayRating = [
+            1 => 0,
+            2 => 0,
+            3 => 0,
+            4 => 0,
+            5 => 0
+        ];
+        $arrayRatingPrice = [
             1 => 0,
             2 => 0,
             3 => 0,
@@ -101,28 +108,12 @@ class FilterRepository implements FilterInterface
         ];
         $companies = Provider::where('category_id',$category->id)->get();
         foreach ($companies as $company){
-            $arr[$company->providerSetting->rating] += 1;
+            $arrayRating[$company->providerSetting->rating] += 1;
         }
-        return TransJsonResponse::toJson(true, $arr,'Get all  rating sum',200);
-
-
-
-    }
-
-    public function getPrices(string $type)
-    {
-        $category = Category::whereType($type)->first();
-        $arr = [
-            1 => 0,
-            2 => 0,
-            3 => 0,
-            4 => 0,
-            5 => 0
-        ];
-        $companies = Provider::where('category_id',$category->id)->get();
         foreach ($companies as $company){
-            $arr[$company->providerSetting->price_rating] += 1;
+            $arrayRatingPrice[$company->providerSetting->price_rating] += 1;
         }
-        return TransJsonResponse::toJson(true, $arr,'Get all  rating sum',200);
+        $result = collect( ['rating' => $arrayRating, 'rating_price' => $arrayRatingPrice]);
+        return TransJsonResponse::toJson(true, $result,'Get all  rating sum',200);
     }
 }
