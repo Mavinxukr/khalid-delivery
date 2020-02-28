@@ -53,6 +53,8 @@ Route::group(["namespace"=>"ApiClient"],function() {
         //-----------------------------Filters ------------------------------------//
         Route::prefix('filter')->group(function (){
             Route::get('kitchens','Product\FilterController@getKitchen');
+            Route::get('ratings/{type}','Product\FilterController@getRatings');
+            Route::get('prices/{type}','Product\FilterController@getPrices');
             Route::get('/','Product\FilterController@getByFilters');
         });
         //---------------------------- Service  --------------------------------//

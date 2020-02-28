@@ -11,6 +11,7 @@ use App\Contracts\FormatInterface;
 use App\Models\Category\Category;
 use App\Models\Provider\Kitchen;
 use App\Models\Provider\Provider;
+use DB;
 use Illuminate\Support\Facades\Request;
 
 class FilterRepository implements FilterInterface
@@ -86,5 +87,42 @@ class FilterRepository implements FilterInterface
         }
 
         return TransJsonResponse::toJson(true, $result,'Company get by filters',200);
+    }
+
+    public function getRatings(string $type)
+    {
+        $category = Category::whereType($type)->first();
+        $arr = [
+            1 => 0,
+            2 => 0,
+            3 => 0,
+            4 => 0,
+            5 => 0
+        ];
+        $companies = Provider::where('category_id',$category->id)->get();
+        foreach ($companies as $company){
+            $arr[$company->providerSetting->rating] += 1;
+        }
+        return TransJsonResponse::toJson(true, $arr,'Get all  rating sum',200);
+
+
+
+    }
+
+    public function getPrices(string $type)
+    {
+        $category = Category::whereType($type)->first();
+        $arr = [
+            1 => 0,
+            2 => 0,
+            3 => 0,
+            4 => 0,
+            5 => 0
+        ];
+        $companies = Provider::where('category_id',$category->id)->get();
+        foreach ($companies as $company){
+            $arr[$company->providerSetting->price_rating] += 1;
+        }
+        return TransJsonResponse::toJson(true, $arr,'Get all  rating sum',200);
     }
 }

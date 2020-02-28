@@ -44,4 +44,36 @@ class FilterController extends Controller
     {
         return $this->filter->getByFilters($request);
     }
+
+
+    /**
+     * @api {get} client/filter/ratings/{type} Get ratings
+     * @apiName  Get ratings
+     * @apiVersion 1.1.1
+     * @apiGroup Client Filters
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest client/filter/ratings/{type}
+     */
+
+    public function getRatings(string $type)
+    {
+        return $this->filter->getRatings($type);
+    }
+
+
+    /**
+     * @api {get} client/filter/prices/{type} Get prices
+     * @apiName  Get prices
+     * @apiVersion 1.1.1
+     * @apiGroup Client Filters
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest client/filter/prices/{type}
+     */
+
+    public function getPrices (string $type)
+    {
+        return $this->filter->getPrices($type);
+    }
 }
