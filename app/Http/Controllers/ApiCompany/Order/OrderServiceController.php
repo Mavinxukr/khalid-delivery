@@ -32,8 +32,8 @@ class OrderServiceController extends Controller
 
 
     /**
-     * @api {get} company/get-service-order-no-geo Get service order #Screen №21
-     * @apiName  Get service order
+     * @api {get} company/get-service-order-no-geo Get service order no geo #Screen №21
+     * @apiName  Get service order no geo
      * @apiVersion 1.1.1
      * @apiGroup Company Service Order
      * @apiPermission Authorization
