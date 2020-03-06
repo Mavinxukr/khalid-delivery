@@ -33,6 +33,9 @@ class ServiceOrderRepository implements ServiceOrderInterface
         }
     }
 
+
+
+
     public function getOneOrder(Request $request, int $id)
     {
        $order = Order::whereId($id)
@@ -103,4 +106,16 @@ class ServiceOrderRepository implements ServiceOrderInterface
         ];
     }
 
+    public function getAllOrderNoGeo(Request $request)
+    {
+            $orders = Order::where('provider_id', '=', $request->user()->company->id)
+                ->whereIn('status', ['new', 'confirm'])
+                ->get()
+                ->map(function ($item) use ($request) {
+                    $item->company_id = $request->user()->company->id;
+                    return $this->format($item);
+                });
+            return TransJsonResponse::toJson(true, $orders,
+                'Show orders', 200);
+    }
 }

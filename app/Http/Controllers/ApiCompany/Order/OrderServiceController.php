@@ -30,6 +30,23 @@ class OrderServiceController extends Controller
         return $this->order->getAllOrder($request);
     }
 
+
+    /**
+     * @api {get} company/get-service-order-no-geo Get service order #Screen №21
+     * @apiName  Get service order
+     * @apiVersion 1.1.1
+     * @apiGroup Company Service Order
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/get-service-order-no-geo
+     */
+
+
+    public function getAllOrderNoGeo(Request $request)
+    {
+        return $this->order->getAllOrderNoGeo($request);
+    }
+
     /**
      * @api {get} company/get-service-order/{id} Get service order by id #Screen №22
      * @apiName  Get service order by id

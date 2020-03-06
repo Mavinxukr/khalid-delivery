@@ -51,6 +51,7 @@ Route::group(["namespace"=>"ApiCompany"],function() {
 
         //------------------------------ Service order ---------------------------------//
         Route::get('get-service-order','Order\OrderServiceController@getServiceOrder');
+        Route::get('get-service-order-no-geo','Order\OrderServiceController@getAllOrderNoGeo');
         Route::get('get-service-order/{id}','Order\OrderServiceController@getServiceOrderById');
         Route::get('get-service-order-by-filters','Order\OrderServiceController@getServiceOrderByFilters');
         Route::post('done-service-order','Order\OrderFoodController@doneFoodOrder');

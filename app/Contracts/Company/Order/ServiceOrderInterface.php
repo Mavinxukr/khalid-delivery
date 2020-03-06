@@ -11,6 +11,8 @@ interface ServiceOrderInterface extends FormatInterface
 {
     public function getAllOrder(Request $request);
 
+    public function getAllOrderNoGeo(Request $request);
+
     public function getOneOrder(Request $request, int $id);
 
     public function getAllOrderByFilters(Request $request);
