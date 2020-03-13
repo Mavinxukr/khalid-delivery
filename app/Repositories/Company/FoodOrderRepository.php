@@ -107,7 +107,9 @@ class FoodOrderRepository implements FoodOrderInterface
                 'date_delivery_from' => $data->date_delivery_from,
                 'cost'               => $data->cost,
                 'image'              => ImageLinker::linker($data->products()->value('image')),
-                'status'             => $data->status
+                'status'             => $data->status,
+                'comment'            => $data->comment,
+                'callback_time'      => $data->callback_time
             ];
         }
     }
