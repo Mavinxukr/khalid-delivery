@@ -20,7 +20,7 @@ class ActionOverOrder extends CheckoutHelper
             if ($order->status == 'wait') {
                     $checkout = self::checkoutOrder($request, $order);
                     if (!$checkout) {
-                        throw new \Exception('Error with you payment ! ');
+                        throw new \Exception("Error with you payment ! \n {$order->checkout->message}");
                     }
                 self::validateCancel($order);
                 $order->status = 'new';
@@ -41,7 +41,7 @@ class ActionOverOrder extends CheckoutHelper
             $timeNow = Carbon::now()->toDateTimeString();
             $confirmTime = $order->cancelOrderTime->confirm_time;
             if ($confirmTime >= $timeNow){
-                //$checkout = self::refundOrder($request, $order);
+                    //self::refundOrder($request, $order);
                     $order->status = 'cancel';
                     $order->save();
                     return 'Your order was canceled without commissions !';

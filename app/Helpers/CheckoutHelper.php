@@ -11,6 +11,7 @@ use Checkout\Models\Payments\Payment;
 use Checkout\Models\Payments\Refund;
 use Checkout\Models\Payments\TokenSource;
 use Illuminate\Http\Request;
+use Ixudra\Curl\Facades\Curl;
 
 class CheckoutHelper
 {
@@ -27,7 +28,7 @@ class CheckoutHelper
            'order_id'   => $order->id,
            'transaction_id' => $request->transaction_id
        ]);
-       return $request->status < 200 ? true : false;
+       return $request->status <= 100 ? true : false;
     }
 
     public static function refundOrder(Request $request, Order $order)
@@ -37,14 +38,21 @@ class CheckoutHelper
                                 ->findOrFail($order->id);
         $orderCheckout = $userOrder->checkout;
         try {
-            $secretKey =   config('services.checkout_pay.sk_test_key');
-            $checkout = new CheckoutApi($secretKey);
-            $refund = new Refund($userOrder->checkout->checkout_id);
-            $refundOrder = $checkout->payments()->refund($refund);
+            $response = Curl::to('https://www.paytabs.com/apiv2/refund_process')
+                            ->withData([
+                                'merchant_email' => 'khalid@appadminportal.com',
+                                'secret_key'     => 'hptS4rVoHq1hlGyOETImUGBCW60PuakLzOEDgz1YZ3flJO9oHSKCymeusejXoEIXsmBJVCHVGXgqLpOtiz5QVjkoxElWj4UMrvvn',
+                                'refund_amount'  => $orderCheckout->sum,
+                                'refund_reason'  => 'Cancel order',
+                                'transaction_id' => $orderCheckout->transaction_id,
+                                'order_id'       => $userOrder->id
+                            ])
+                            ->asJson()
+                            ->post();
+
             $orderCheckout->status = 'Refunded';
-            $orderCheckout->checkout_action_id = $refundOrder->action_id;
+           // $orderCheckout->message = 'Refunded';
             $orderCheckout->save();
-            return $refundOrder;
         }catch (\Exception $exception){
             return TransJsonResponse::toJson(false,null, $exception->getMessage(), 400);
         }

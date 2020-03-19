@@ -27,6 +27,7 @@
         "genealabs/laravel-socialiter": "^0.1.1",
         "inspheric/nova-defaultable": "^1.2",
         "inspheric/nova-indicator-field": "^1.41",
+        "ixudra/curl": "^6.19",
         "kabbouchi/nova-logs-tool": "^0.1.4",
         "laravel/framework": "^6.5",
         "laravel/nova": "~2.0",
