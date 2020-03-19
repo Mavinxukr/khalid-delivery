@@ -9,7 +9,8 @@ class Checkout extends Model
 {
     protected  $fillable = [
       'status','sum', 'message',
-        'currency','user_id', 'order_id'
+        'currency','user_id', 'order_id',
+        'transaction_id'
     ];
 
 }

@@ -24,7 +24,8 @@ class CheckoutHelper
            'sum'        => $order->cost,
            'message'    => $request->message,
            'user_id'    => $request->user()->id,
-           'order_id'   => $order->id
+           'order_id'   => $order->id,
+           'transaction_id' => $request->transaction_id
        ]);
        return $request->status < 200 ? true : false;
     }

@@ -69,7 +69,6 @@ class OrderFoodController extends Controller
 
     public function confirmOrder(Request $request)
     {
-
         return $this->order->confirmOrder($request);
     }
 

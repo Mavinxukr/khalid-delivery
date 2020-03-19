@@ -20,6 +20,7 @@ class CreateCheckoutsTable extends Migration
             $table->string('message')->nullable();
             $table->string('status')->nullable();
             $table->double('sum');
+            $table->string('transaction_id');
             $table->string('currency')->default('AED');
             $table->foreign('user_id')
                             ->references('id')

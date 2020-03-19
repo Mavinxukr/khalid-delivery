@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Onecentlin\Adminer\ServiceProvider::class,
+        Onecentlin\Adminer\ServiceProvider::class,
 
         /*
          * Package Service Providers...
