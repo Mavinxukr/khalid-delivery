@@ -110,7 +110,8 @@ class ProductRepository implements ProductInterface
                 'description'       => $data->description ?? null,
                 'has_ingredients'   => $data->has_ingredients,
                 'price'             => $data->price,
-                'weight'            => $data->weight
+                'weight'            => $data->weight,
+                'top_product'       => $data->component ?? null,
             ];
         }
         return $result;

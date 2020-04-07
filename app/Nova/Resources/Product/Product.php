@@ -103,9 +103,16 @@ class Product extends Resource
                         ->exceptOnForms(),
                 ])->dependsOn('has_ingredients',false),
             ])->dependsOn('type', 'food'),
+
             NovaDependencyContainer::make([
-                Number::make('Price for hour','price')
+                Boolean::make('Has ingredients','has_ingredients')
+                    ->trueValue(1)
+                    ->falseValue(0)
                     ->exceptOnForms(),
+                NovaDependencyContainer::make([
+                    Number::make('Price for hour','price')
+                        ->exceptOnForms(),
+                ])->dependsOn('has_ingredients',false),
             ])->dependsOn('type', 'service'),
             BelongsTo::make('Company','provider', Provider::class)
                 ->searchable(),
@@ -127,7 +134,9 @@ class Product extends Resource
                 ->exceptOnForms(),
             HasMany::make('Component','component', Component::class)
                 ->canSee(function (){
-                    return $this->type === 'food';
+                    return
+                        $this->type === 'food' && $this->has_ingredients ||
+                        $this->type === 'service' && $this->has_ingredients;
                 }),
         ];
     }
