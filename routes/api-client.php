@@ -73,6 +73,9 @@ Route::group(["namespace"=>"ApiClient"],function() {
 
         //------------------------------ Checkout ---------------------------------//
         Route::post('checkout','Checkout\OrderCheckoutController@checkout');
+
+        //-------------------------------- Query -----------------------------------//
+        Route::get('query', 'Query\QueryController@index');
     });
 });
 

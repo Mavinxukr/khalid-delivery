@@ -13,6 +13,7 @@ use App\Contracts\Client\Order\OrderServiceInterface;
 use App\Contracts\Client\Place\PlaceInterface;
 use App\Contracts\Client\Product\FilterInterface;
 use App\Contracts\Client\Product\ProductInterface;
+use App\Contracts\Client\Query\QueryInterface;
 use App\Contracts\Client\Product\SingleProductInterface;
 use App\Contracts\Client\Profile\ProfileInterface;
 use App\Repositories\Client\AuthRepository;
@@ -27,6 +28,7 @@ use App\Repositories\Client\OrderServiceRepository;
 use App\Repositories\Client\PlaceRepository;
 use App\Repositories\Client\ProductRepository;
 use App\Repositories\Client\ProfileRepository;
+use App\Repositories\Client\QueryRepository;
 use App\Repositories\Client\SingleProductRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -61,5 +63,6 @@ class RepositoryClientServiceProvider extends ServiceProvider
         $this->app->bind(CartInterface::class, CartRepository::class);
         $this->app->bind(FilterInterface::class, FilterRepository::class);
         $this->app->bind(OrderFoodInterface::class,OrderFoodRepository::class);
+        $this->app->bind(QueryInterface::class,QueryRepository::class);
     }
 }
