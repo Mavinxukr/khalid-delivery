@@ -17,8 +17,7 @@ class CreateFeesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('count');
-            $table->boolean('active')->default(1);
-            $table->string('time');
+            $table->string('type');
             $table->timestamps();
         });
     }

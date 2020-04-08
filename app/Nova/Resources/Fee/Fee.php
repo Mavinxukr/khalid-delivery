@@ -52,23 +52,29 @@ class Fee extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
             Text::make('Name')
-                ->rules('required'),
-            Number::make('Percent fee','count', function ($value) use($request){
+                ->readonly(),
+            Text::make('Type', 'type')
+                ->readonly()
+                ->hideFromIndex(),
+            Number::make('Fee','count', function ($value) use($request){
                 if ($request->editing){
                     return $value;
                 }else{
-                    return "$value%";
+                    if($this->type === 'percents'){
+                        return "$value%";
+                    }else{
+                        return "$value$";
+                    }
                 }
             })
                 ->rules('required'),
-            DateTime::make('Time')
-                ->rules('required'),
-            Boolean::make('Active')
-                ->trueValue(1)
-                ->falseValue(0),
-        ];
+            ];
+    }
+
+    public static function redirectAfterUpdate(NovaRequest $request, $resource)
+    {
+        return '/resources/fees';
     }
 
     /**

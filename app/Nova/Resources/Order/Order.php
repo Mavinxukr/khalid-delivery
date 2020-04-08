@@ -162,6 +162,10 @@ class Order extends Resource
             Textarea::make('Comment'),
             Number::make('Cost')
                 ->exceptOnForms(),
+            Number::make('Service received', 'service_received')
+                ->exceptOnForms(),
+            Number::make('Company received', 'company_received')
+                ->exceptOnForms(),
             BelongsToMany::make('Product','products', Product::class)
                 ->canSee(function (){
                     return $this->provider_category === 'food';

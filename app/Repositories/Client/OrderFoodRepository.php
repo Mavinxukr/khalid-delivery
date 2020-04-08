@@ -9,10 +9,12 @@ use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Order\OrderFoodInterface;
 use App\Contracts\FormatInterface;
 use App\Models\Order\Order;
+use App\Traits\FeeTrait;
 use Carbon\Carbon;
 
 class OrderFoodRepository implements OrderFoodInterface
 {
+    use FeeTrait;
 
     public function show(int $id)
     {
@@ -37,14 +39,26 @@ class OrderFoodRepository implements OrderFoodInterface
                 ]
             );
             $providerId = null;
+            $cost = 0;
             foreach ($data->user()->curt as $item) {
                 if (!is_null($item->product->provider)) {
                     $providerId = $item->product->provider->id;
                 }
-                $order->cost += $item->product->price * $item->quantity;
+                $cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
                 $item->delete();
             }
+
+            if($cost){
+                $costs = $this->calculateCost($cost);
+
+                $order->cost = $costs['cost'];
+                $order->service_received = $costs['service_received'];
+                $order->company_received = $costs['company_received'];
+            }else{
+                $order->cost = $cost;
+            }
+
             $order->provider_id = $providerId;
             $order->provider_category = 'food';
             $order->debt = $order->cost;
@@ -109,6 +123,38 @@ class OrderFoodRepository implements OrderFoodInterface
             'country_code'   => $data->place->country,
             'callback'       => $data->callback_time,
             'status'         => $data->status ?? 'wait'
+        ];
+    }
+
+    public function calculateCost($cost)
+    {
+        $markupCast = ($cost / 100 * $this->getFee('food', 'markup'));
+        $cents = round(($markupCast - floor($markupCast)) * 100);
+        $centsFloor = $cents % 10;
+        $cents = $cents - $centsFloor;
+
+        if($centsFloor < 5){
+            $cents = ($cents + 5) / 100;
+        }else{
+            $cents = ($cents + 10) / 100;
+        }
+
+        $orderCost = $cost + floor($markupCast) + $cents + $this->getFee('food', 'charge');
+        $orderCost = $orderCost + ($orderCost / 100 * $this->getFee('food', 'vat'));
+
+        $serviceReceivedCost = ($cost / 100 * $this->getFee('food', 'received'));
+        $serviceReceivedCost = $serviceReceivedCost +
+            ($serviceReceivedCost / 100 * $this->getFee('food', 'vat'));
+
+        $companyReceivedCost = ($cost / 100 * (100 - $this->getFee('food', 'received'))) +
+            $this->getFee('food', 'charge') + floor($markupCast) + $cents;
+        $companyReceivedCost = $companyReceivedCost +
+            ($companyReceivedCost  / 100 * $this->getFee('food', 'vat'));
+
+        return [
+            'cost'              => round($orderCost, 2),
+            'service_received'  => round($serviceReceivedCost, 2),
+            'company_received'  => round($companyReceivedCost, 2),
         ];
     }
 }

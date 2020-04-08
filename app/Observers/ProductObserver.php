@@ -10,7 +10,6 @@ class ProductObserver
     public function created(Product $product)
     {
       if(!is_null($product->parent_id)){
-          //$product->parent()->increment('price', $product->price);
           $parent = $product->parent;
           $parent->update([
               'price' => $parent->component()->sum('price'),
