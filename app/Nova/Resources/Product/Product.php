@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
@@ -112,7 +113,14 @@ class Product extends Resource
                 NovaDependencyContainer::make([
                     Number::make('Price for hour','price')
                         ->exceptOnForms(),
+                    Text::make('Query', 'query')
+                        ->rules(['required']),
+
+                    Select::make('Answer Type', 'answer_type')
+                        ->options(['count', 'boolean'])
+                        ->rules(['required']),
                 ])->dependsOn('has_ingredients',false),
+
             ])->dependsOn('type', 'service'),
             BelongsTo::make('Company','provider', Provider::class)
                 ->searchable(),
@@ -186,5 +194,10 @@ class Product extends Resource
         return [
             new ImportProduct
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('type', '!=','ingredient');
     }
 }
