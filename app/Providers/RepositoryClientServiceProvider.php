@@ -6,6 +6,7 @@ use App\Contracts\Client\Auth\AuthInterface;
 use App\Contracts\Client\Auth\AuthSocialInterface;
 use App\Contracts\Client\Checkout\OrderCheckoutInterface;
 use App\Contracts\Client\CreditCard\CreditCardInterface;
+use App\Contracts\Client\FAQ\FaqInterface;
 use App\Contracts\Client\Feedback\FeedbackInterface;
 use App\Contracts\Client\Order\CartInterface;
 use App\Contracts\Client\Order\OrderFoodInterface;
@@ -20,6 +21,7 @@ use App\Repositories\Client\AuthRepository;
 use App\Repositories\Client\AuthSocialRepository;
 use App\Repositories\Client\CartRepository;
 use App\Repositories\Client\CreditCardRepository;
+use App\Repositories\Client\FaqRepository;
 use App\Repositories\Client\FeedbackRepository;
 use App\Repositories\Client\FilterRepository;
 use App\Repositories\Client\OrderCheckoutRepository;
@@ -64,5 +66,6 @@ class RepositoryClientServiceProvider extends ServiceProvider
         $this->app->bind(FilterInterface::class, FilterRepository::class);
         $this->app->bind(OrderFoodInterface::class,OrderFoodRepository::class);
         $this->app->bind(QueryInterface::class,QueryRepository::class);
+        $this->app->bind(FaqInterface::class,FaqRepository::class);
     }
 }

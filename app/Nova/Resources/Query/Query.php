@@ -37,11 +37,11 @@ class Query extends Resource
         'id',
     ];
 
-    public static $category = "Query";
+    public static $category = "Order";
 
     public static function label()
     {
-        return 'Query';
+        return 'Order Details';
     }
 
     /**
@@ -111,5 +111,10 @@ class Query extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('type', 'query');
     }
 }

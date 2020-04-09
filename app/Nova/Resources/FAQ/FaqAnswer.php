@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Nova\Resources\Query;
+namespace App\Nova\Resources\FAQ;
 
-use App\Nova\Resources\FAQ\Faq;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
@@ -10,14 +9,14 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
 
-class Answer extends Resource
+class FaqAnswer extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Models\Query\Query';
+    public static $model = 'App\Models\FAQ\Faq';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -35,7 +34,7 @@ class Answer extends Resource
         'id',
     ];
 
-    public static $category = "Order";
+    public static $category = "FAQ";
 
     /**
      * Get the fields displayed by the resource.
@@ -47,7 +46,7 @@ class Answer extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Query', 'parent', Query::class),
+            BelongsTo::make('Query', 'parent', Faq::class),
             Text::make('Answer', 'value')->rules(['required']),
         ];
     }
@@ -95,7 +94,6 @@ class Answer extends Resource
     {
         return [];
     }
-
 
     public static function indexQuery(NovaRequest $request, $query)
     {

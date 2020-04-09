@@ -15,6 +15,11 @@ class OrderObserver
             $order->company_received = $order->cost / 100 * (100 - $this->getFee($order, 'received'));
             $order->save();
         }
+
+        if($order->debt != $order->service_received){
+            $order->debt = $order->service_received;
+            $order->save();
+        }
     }
 
     private function getFee($order, $name){

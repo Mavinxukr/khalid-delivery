@@ -41,7 +41,7 @@ class OrderServiceRepository implements OrderServiceInterface
         }
 
         $order->provider_category   =  $type;
-        $order->debt                =  $order->cost;
+        $order->debt                =  $order->cost / 100 * $this->getFee($type, 'received');
         $order->save();
         $response =  $this->format($order);
         return TransJsonResponse::toJson(true,$response,'Order was created',201);

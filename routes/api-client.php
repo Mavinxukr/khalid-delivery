@@ -76,6 +76,9 @@ Route::group(["namespace"=>"ApiClient"],function() {
 
         //-------------------------------- Query -----------------------------------//
         Route::get('query', 'Query\QueryController@index');
+
+        //--------------------------------- FAQ ------------------------------------//
+        Route::get('faq', 'FAQ\FaqController@index');
     });
 });
 
