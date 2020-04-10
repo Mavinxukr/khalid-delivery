@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Nova\Resources\Product;
+namespace App\Nova\Resources\Order;
 
-use App\Nova\Resource;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use App\Nova\Resources\Product\Product;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Resource;
 
-class Component extends Resource
+class OrderDetail extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Models\Product\Product';
+    public static $model = 'App\Models\Order\OrderDetail';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -37,7 +36,6 @@ class Component extends Resource
         'id',
     ];
 
-    public static $category = "Product";
     /**
      * Get the fields displayed by the resource.
      *
@@ -46,42 +44,11 @@ class Component extends Resource
      */
     public function fields(Request $request)
     {
-        $type = null;
-        if(!is_null($request->viaResourceId))
-            $type = \App\Models\Product\Product::findOrFail($request->viaResourceId)->type;
-
         return [
             ID::make()->sortable(),
-            \Laravel\Nova\Fields\Text::make( 'Title','title')
-                ->rules('required', 'max:100'),
-            Text::make('Description','description')
-                ->rules('required', 'max:300'),
-            Number::make('Price')
-                ->rules('required'),
-
-            Text::make('Query', 'query')
-                ->rules(['required'])
-                ->canSee(function () use ($type){
-                        return !is_null($type) && $type == 'service' || $this->query;
-                })->hideFromIndex(),
-
-            Select::make('Answer Type', 'answer_type')
-                ->options([
-                    'count' => 'count',
-                    'boolean' => 'boolean',
-                    'boolean&count' => 'boolean&count'
-                ])
-                ->rules(['required'])
-                ->canSee(function () use ($type){
-                    return !is_null($type) && $type == 'service' || $this->answer_type;
-                })->hideFromIndex(),
-
-            Image::make('Image')
-                ->disk('public')
-                ->path('image/product/')
-                ->sortable()
-                ->help("Upload image")
-                ->rules( 'file'),
+            BelongsTo::make('Product', 'product', Product::class),
+            Text::make('Answer', 'answer'),
+            Number::make('Count', 'count'),
         ];
     }
 
@@ -127,11 +94,6 @@ class Component extends Resource
     public function actions(Request $request)
     {
         return [];
-    }
-
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-        return $query->where('type', 'ingredient');
     }
 
     public static function availableForNavigation(Request $request)
