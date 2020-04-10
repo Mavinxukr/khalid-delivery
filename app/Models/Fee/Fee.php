@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Fee extends Model
 {
-    protected $casts = [
-        'time'  => 'datetime:YYYY-MM-DD HH:mm:ss',
+    protected $fillable = [
+        'name', 'count', 'type'
     ];
 }

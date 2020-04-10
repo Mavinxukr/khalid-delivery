@@ -6,6 +6,7 @@ use App\Models\CreditCard\Card;
 use App\Models\Feedback\Feedback;
 use App\Models\Order\Cart;
 use App\Models\Order\Order;
+use App\Models\Order\PreOrder;
 use App\Models\PlaceService\Place;
 use App\Models\Product\Product;
 use App\Models\Provider\Provider;
@@ -163,4 +164,8 @@ class User extends Authenticatable
         return $this->hasMany(Order::class)->orderByDesc('id')->with('place');
     }
 
+    public function preOrder()
+    {
+        return $this->hasMany(PreOrder::class);
+    }
 }

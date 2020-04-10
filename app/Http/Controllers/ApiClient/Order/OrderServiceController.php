@@ -23,6 +23,7 @@ class OrderServiceController extends Controller
      * @apiGroup Client Order - Service
      * @apiParam {String} name Name
      * @apiParam {string} product_id Service ID from api - Show services
+     * @apiParam {string} pre_order_id PreOrder ID from api - Store Answers in Pre Order
      * @apiParam {Number} place_id Place ID from api - Get users' places
      * @apiParam {String} date_delivery Date (format 2019-11-29)
      * @apiParam {String} date_delivery_from Time (format 14:00:00)
@@ -42,6 +43,7 @@ class OrderServiceController extends Controller
     {
         return $this->order->store($request);
     }
+
     /**
      * @api {get} client/orders/{id}  Show order #Screen №5, 7
      * @apiName  Show order

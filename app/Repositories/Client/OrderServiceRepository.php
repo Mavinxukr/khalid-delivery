@@ -11,10 +11,12 @@ use App\Contracts\FormatInterface;
 use App\Models\Feedback\FirePush;
 use App\Models\Order\CancelOrder;
 use App\Models\Order\Order;
+use App\Traits\FeeTrait;
 use Carbon\Carbon;
 
 class OrderServiceRepository implements OrderServiceInterface
 {
+    use FeeTrait;
 
     public function store($data)
     {
@@ -32,13 +34,21 @@ class OrderServiceRepository implements OrderServiceInterface
 
         $type = $order->product->type;
         if ($type  == 'service'){
+            $preOrder = $order->preOrder;
+            if(!is_null($preOrder) && !is_null($order->product->component)){
+                    $price = $preOrder->price;
+            }else{
+                    $price = $order->product->price;
+            }
+
             $order->provider_id     =  null ;
-            $order->cost =  $order->count_clean *
-                    ($order->product->price * $order->quantity) ;
+            $cost = ($order->count_clean * ($price * $order->quantity)) +
+                $this->getFee($type, 'charge');
+            $order->cost =  $cost + ($cost / 100 * $this->getFee($type, 'vat'));
         }
 
         $order->provider_category   =  $type;
-        $order->debt                =  $order->cost;
+        $order->debt                =  $order->cost / 100 * $this->getFee($type, 'received');
         $order->save();
         $response =  $this->format($order);
         return TransJsonResponse::toJson(true,$response,'Order was created',201);

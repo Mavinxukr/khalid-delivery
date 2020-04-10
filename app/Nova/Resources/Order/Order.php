@@ -120,10 +120,10 @@ class Order extends Resource
                 ->exceptOnForms(),
             Select::make('Status')
                 ->options([
-                    '2' => 'new',
-                    '3' => 'confirm',
-                    '4' => 'cancel',
-                    '5' => 'done'
+                    'new'       => 'new',
+                    'confirm'   => 'confirm',
+                    'cancel'    => 'cancel',
+                    'done'      => 'done'
                 ])
                 ->hideFromIndex()
                 ->hideFromDetail()
@@ -161,6 +161,10 @@ class Order extends Resource
                 ->rules('required'),
             Textarea::make('Comment'),
             Number::make('Cost')
+                ->exceptOnForms(),
+            Number::make('Service received', 'service_received')
+                ->exceptOnForms(),
+            Number::make('Company received', 'company_received')
                 ->exceptOnForms(),
             BelongsToMany::make('Product','products', Product::class)
                 ->canSee(function (){

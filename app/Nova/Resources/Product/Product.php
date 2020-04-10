@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
@@ -103,9 +104,27 @@ class Product extends Resource
                         ->exceptOnForms(),
                 ])->dependsOn('has_ingredients',false),
             ])->dependsOn('type', 'food'),
+
             NovaDependencyContainer::make([
-                Number::make('Price for hour','price')
+                Boolean::make('Has ingredients','has_ingredients')
+                    ->trueValue(1)
+                    ->falseValue(0)
                     ->exceptOnForms(),
+                NovaDependencyContainer::make([
+                    Number::make('Price for hour','price')
+                        ->exceptOnForms(),
+                    Text::make('Query', 'query')
+                        ->rules(['required']),
+
+                    Select::make('Answer Type', 'answer_type')
+                        ->options([
+                            'count' => 'count',
+                            'boolean' => 'boolean',
+                            'boolean&count' => 'boolean&count'
+                        ])
+                        ->rules(['required']),
+                ])->dependsOn('has_ingredients',false),
+
             ])->dependsOn('type', 'service'),
             BelongsTo::make('Company','provider', Provider::class)
                 ->searchable(),
@@ -127,7 +146,9 @@ class Product extends Resource
                 ->exceptOnForms(),
             HasMany::make('Component','component', Component::class)
                 ->canSee(function (){
-                    return $this->type === 'food';
+                    return
+                        $this->type === 'food' && $this->has_ingredients ||
+                        $this->type === 'service' && $this->has_ingredients;
                 }),
         ];
     }
@@ -177,5 +198,10 @@ class Product extends Resource
         return [
             new ImportProduct
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('type', '!=','ingredient');
     }
 }

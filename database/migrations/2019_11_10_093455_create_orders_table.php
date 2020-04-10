@@ -27,13 +27,18 @@ class CreateOrdersTable extends Migration
             $table->string('callback_time')->nullable();
             $table->bigInteger('quantity')->nullable();
             $table->bigInteger('count_clean')->nullable();
-            $table->bigInteger('debt')->nullable();
-            $table->bigInteger('paid')->default(0);
-            $table->bigInteger('cost')->nullable();
+            $table->float('debt', 10, 2)->nullable();
+            $table->float('paid', 10, 2)->default(0);
+            $table->float('cost', 10, 2)->nullable();
             $table->enum('type_cleaning',['house','office','flat'])->nullable();
             $table->bigInteger('interval')->default(0);
             $table->mediumText('comment')->nullable();
             $table->enum('status',['wait','new','confirm','cancel','done'])->default('wait');
+
+            $table->float('service_received', 10, 2)->nullable();
+            $table->float('company_received', 10, 2)->nullable();
+            $table->unsignedBigInteger('pre_order_id')->nullable();
+
             $table->foreign('place_id')->references('id')
                 ->on('places')
                 ->onDelete('cascade');
@@ -46,6 +51,10 @@ class CreateOrdersTable extends Migration
             $table->foreign('provider_id')->references('id')
                 ->on('providers')
                 ->onDelete('cascade');
+
+            $table->foreign('pre_order_id')
+                ->references('id')
+                ->on('pre_orders');
             $table->timestamps();
         });
     }

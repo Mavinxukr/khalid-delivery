@@ -3,11 +3,14 @@
 namespace App\Nova\Resources\Product;
 
 use App\Nova\Resource;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Component extends Resource
 {
@@ -43,6 +46,10 @@ class Component extends Resource
      */
     public function fields(Request $request)
     {
+        $type = null;
+        if(!is_null($request->viaResourceId))
+            $type = \App\Models\Product\Product::findOrFail($request->viaResourceId)->type;
+
         return [
             ID::make()->sortable(),
             \Laravel\Nova\Fields\Text::make( 'Title','title')
@@ -51,6 +58,24 @@ class Component extends Resource
                 ->rules('required', 'max:300'),
             Number::make('Price')
                 ->rules('required'),
+
+            Text::make('Query', 'query')
+                ->rules(['required'])
+                ->canSee(function () use ($type){
+                        return !is_null($type) && $type == 'service' || $this->query;
+                })->hideFromIndex(),
+
+            Select::make('Answer Type', 'answer_type')
+                ->options([
+                    'count' => 'count',
+                    'boolean' => 'boolean',
+                    'boolean&count' => 'boolean&count'
+                ])
+                ->rules(['required'])
+                ->canSee(function () use ($type){
+                    return !is_null($type) && $type == 'service' || $this->answer_type;
+                })->hideFromIndex(),
+
             Image::make('Image')
                 ->disk('public')
                 ->path('image/product/')
@@ -102,5 +127,10 @@ class Component extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('type', 'ingredient');
     }
 }

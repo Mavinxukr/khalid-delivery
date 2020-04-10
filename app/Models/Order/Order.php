@@ -91,7 +91,8 @@ class Order extends Model
         'type_cleaning','interval', 'comment','name',
         'place_id','paid','debt','date_delivery_from',
         'date_delivery_to','callback_time','user_id',
-        'type_cleaning','product_id'
+        'type_cleaning','product_id', 'service_received',
+        'company_received', 'pre_order_id',
     ];
 
 
@@ -100,7 +101,8 @@ class Order extends Model
         'paid','created_at','updated_at',
         'product_id','interval','debt',
         'quantity','count_clean',
-        'type_cleaning','comment','date_delivery'
+        'type_cleaning','comment','date_delivery',
+        'service_received', 'company_received',
     ];
 
 
@@ -138,5 +140,10 @@ class Order extends Model
     public function checkout()
     {
         return $this->hasOne(Checkout::class);
+    }
+
+    public function preOrder()
+    {
+        return $this->belongsTo(PreOrder::class, 'pre_order_id');
     }
 }

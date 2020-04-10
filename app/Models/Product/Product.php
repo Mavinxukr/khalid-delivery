@@ -71,7 +71,7 @@ class Product extends Model
         'title','description',
         'price','image','category_id',
         'provider_id','type','parent_id',
-        'weight','active'
+        'weight','active', 'query', 'answer_type',
     ];
 
 

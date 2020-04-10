@@ -1,38 +1,29 @@
 <?php
 
-namespace App\Nova\Resources\Fee;
+namespace App\Nova\Resources\FAQ;
 
-use App\Nova\Resource;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Resource;
 
-class Fee extends Resource
+class FaqAnswer extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Models\Fee\Fee';
+    public static $model = 'App\Models\FAQ\Faq';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static function label()
-    {
-        return 'Fee';
-    }
-
-    public static $category = "Fee";
-
-    public static $group = 'Fees';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -43,6 +34,8 @@ class Fee extends Resource
         'id',
     ];
 
+    public static $category = "FAQ";
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -52,29 +45,10 @@ class Fee extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Name')
-                ->readonly(),
-            Text::make('Type', 'type')
-                ->readonly()
-                ->hideFromIndex(),
-            Number::make('Fee','count', function ($value) use($request){
-                if ($request->editing){
-                    return $value;
-                }else{
-                    if($this->type === 'percents'){
-                        return "$value%";
-                    }else{
-                        return "$value$";
-                    }
-                }
-            })
-                ->rules('required'),
-            ];
-    }
-
-    public static function redirectAfterUpdate(NovaRequest $request, $resource)
-    {
-        return '/resources/fees';
+            ID::make()->sortable(),
+            BelongsTo::make('Query', 'parent', Faq::class),
+            Text::make('Answer', 'value')->rules(['required']),
+        ];
     }
 
     /**
@@ -119,5 +93,10 @@ class Fee extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('type', 'answer');
     }
 }

@@ -73,6 +73,17 @@ Route::group(["namespace"=>"ApiClient"],function() {
 
         //------------------------------ Checkout ---------------------------------//
         Route::post('checkout','Checkout\OrderCheckoutController@checkout');
+
+        //-------------------------------- Query -----------------------------------//
+        Route::get('query', 'Query\QueryController@index');
+
+        //--------------------------------- FAQ ------------------------------------//
+        Route::get('faq', 'FAQ\FaqController@index');
+
+        //------------------------------- PreOrder ---------------------------------//
+        Route::post('pre-order', 'Order\PreOrderController@store');
+        Route::post('pre-order/{id}', 'Order\PreOrderController@update');
+
     });
 });
 
