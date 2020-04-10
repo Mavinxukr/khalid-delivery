@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\Fee\Fee;
 use App\Models\Message\SmsToUser;
 use App\Models\Order\Order;
+use App\Models\Order\OrderDetail;
+use App\Models\Order\PreOrder;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
@@ -20,7 +22,8 @@ class AuthServiceProvider extends ServiceProvider
         SmsToUser::class => 'App\Policies\LogPolicy',
         Order::class => 'App\Policies\OrderPolicy',
         Fee::class => 'App\Policies\FeePolicy',
-
+        PreOrder::class => 'App\Policies\PreOrderPolicy',
+        OrderDetail::class => 'App\Policies\OrderDetailPolicy',
     ];
 
     /**

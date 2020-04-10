@@ -99,4 +99,9 @@ class FaqAnswer extends Resource
     {
         return $query->where('type', 'answer');
     }
+
+    public static function availableForNavigation(Request $request)
+    {
+        return false;
+    }
 }
