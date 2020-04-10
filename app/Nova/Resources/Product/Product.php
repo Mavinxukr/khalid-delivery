@@ -117,7 +117,11 @@ class Product extends Resource
                         ->rules(['required']),
 
                     Select::make('Answer Type', 'answer_type')
-                        ->options(['count', 'boolean'])
+                        ->options([
+                            'count' => 'count',
+                            'boolean' => 'boolean',
+                            'boolean&count' => 'boolean&count'
+                        ])
                         ->rules(['required']),
                 ])->dependsOn('has_ingredients',false),
 

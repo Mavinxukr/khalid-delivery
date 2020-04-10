@@ -26,7 +26,7 @@ class CreateMenusTable extends Migration
             $table->bigInteger('weight')->nullable();
             $table->boolean('active')->default(true);
             $table->string('query')->nullable();
-            $table->enum('answer_type', ['count', 'boolean'])->nullable();
+            $table->enum('answer_type', ['count', 'boolean', 'boolean&count'])->nullable();
             $table->foreign('parent_id')->references('id')
                                                 ->on('products')
                                                 ->onDelete('cascade');

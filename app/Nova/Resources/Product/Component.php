@@ -66,7 +66,11 @@ class Component extends Resource
                 })->hideFromIndex(),
 
             Select::make('Answer Type', 'answer_type')
-                ->options(['count', 'boolean'])
+                ->options([
+                    'count' => 'count',
+                    'boolean' => 'boolean',
+                    'boolean&count' => 'boolean&count'
+                ])
                 ->rules(['required'])
                 ->canSee(function () use ($type){
                     return !is_null($type) && $type == 'service' || $this->answer_type;
