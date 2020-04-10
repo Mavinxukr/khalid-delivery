@@ -20,6 +20,12 @@ class OrderObserver
             $order->debt = $order->service_received;
             $order->save();
         }
+
+        if(!is_null($order->preOrder) &&
+            !is_null($order->status) &&
+            $order->preOrder->status != $order->status){
+                $order->preOrder()->update(['status' => $order->status]);
+        }
     }
 
     private function getFee($order, $name){

@@ -37,6 +37,7 @@ class CreateOrdersTable extends Migration
 
             $table->float('service_received', 10, 2)->nullable();
             $table->float('company_received', 10, 2)->nullable();
+            $table->unsignedBigInteger('pre_order_id')->nullable();
 
             $table->foreign('place_id')->references('id')
                 ->on('places')
@@ -50,6 +51,10 @@ class CreateOrdersTable extends Migration
             $table->foreign('provider_id')->references('id')
                 ->on('providers')
                 ->onDelete('cascade');
+
+            $table->foreign('pre_order_id')
+                ->references('id')
+                ->on('pre_orders');
             $table->timestamps();
         });
     }

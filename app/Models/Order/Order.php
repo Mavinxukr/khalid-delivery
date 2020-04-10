@@ -92,7 +92,7 @@ class Order extends Model
         'place_id','paid','debt','date_delivery_from',
         'date_delivery_to','callback_time','user_id',
         'type_cleaning','product_id', 'service_received',
-        'company_received',
+        'company_received', 'pre_order_id',
     ];
 
 
@@ -140,5 +140,10 @@ class Order extends Model
     public function checkout()
     {
         return $this->hasOne(Checkout::class);
+    }
+
+    public function preOrder()
+    {
+        return $this->belongsTo(PreOrder::class, 'pre_order_id');
     }
 }

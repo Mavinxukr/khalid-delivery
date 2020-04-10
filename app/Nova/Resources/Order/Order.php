@@ -120,10 +120,10 @@ class Order extends Resource
                 ->exceptOnForms(),
             Select::make('Status')
                 ->options([
-                    '2' => 'new',
-                    '3' => 'confirm',
-                    '4' => 'cancel',
-                    '5' => 'done'
+                    'new'       => 'new',
+                    'confirm'   => 'confirm',
+                    'cancel'    => 'cancel',
+                    'done'      => 'done'
                 ])
                 ->hideFromIndex()
                 ->hideFromDetail()

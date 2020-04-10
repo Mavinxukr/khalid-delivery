@@ -79,6 +79,11 @@ Route::group(["namespace"=>"ApiClient"],function() {
 
         //--------------------------------- FAQ ------------------------------------//
         Route::get('faq', 'FAQ\FaqController@index');
+
+        //------------------------------- PreOrder ---------------------------------//
+        Route::post('pre-order', 'Order\PreOrderController@store');
+        Route::post('pre-order/{id}', 'Order\PreOrderController@update');
+
     });
 });
 

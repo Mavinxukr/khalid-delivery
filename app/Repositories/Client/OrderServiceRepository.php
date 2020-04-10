@@ -34,8 +34,15 @@ class OrderServiceRepository implements OrderServiceInterface
 
         $type = $order->product->type;
         if ($type  == 'service'){
+            $preOrder = $order->preOrder;
+            if(!is_null($preOrder) && !is_null($order->product->component)){
+                    $price = $preOrder->price;
+            }else{
+                    $price = $order->product->price;
+            }
+
             $order->provider_id     =  null ;
-            $cost = ($order->count_clean * ($order->product->price * $order->quantity)) +
+            $cost = ($order->count_clean * ($price * $order->quantity)) +
                 $this->getFee($type, 'charge');
             $order->cost =  $cost + ($cost / 100 * $this->getFee($type, 'vat'));
         }
