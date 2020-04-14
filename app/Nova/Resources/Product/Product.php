@@ -3,6 +3,7 @@
 namespace App\Nova\Resources\Product;
 
 
+use App\Helpers\ImageLinker;
 use App\Nova\Actions\ImportProduct;
 use App\Nova\Resource;
 use App\Nova\Resources\Category\MenuCategory;
@@ -134,9 +135,15 @@ class Product extends Resource
                 ->rules('required', 'max:300'),
             Image::make('Image')
                 ->disk('public')
-                ->path('image/product/')
+                ->path('image/product')
                 ->sortable()
                 ->help("Upload image")
+                ->preview(function ($value, $disk) {
+                    return ImageLinker::linker($value);
+                })
+                ->thumbnail(function ($value, $disk) {
+                    return ImageLinker::linker($value);
+                })
                 ->rules( 'file'),
             Text::make('Type', 'type')
                 ->exceptOnForms(),

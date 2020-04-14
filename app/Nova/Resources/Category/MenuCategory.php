@@ -2,6 +2,7 @@
 
 namespace App\Nova\Resources\Category;
 
+use App\Helpers\ImageLinker;
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Avatar;
@@ -64,9 +65,15 @@ class MenuCategory extends Resource
             Avatar::make('Image')
                 ->prunable(true)
                 ->disk('public')
-                ->path('image/category-menu/')
+                ->path('image/category-menu')
                 ->sortable()
                 ->help("Upload image")
+                ->preview(function ($value, $disk) {
+                    return ImageLinker::linker($value);
+                })
+                ->thumbnail(function ($value, $disk) {
+                    return ImageLinker::linker($value);
+                })
                 ->rules( 'file'),
             Text::make('Cause')
                 ->exceptOnForms()
