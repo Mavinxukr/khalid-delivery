@@ -38,3 +38,20 @@ Route::post('callback/apple','ApiClient\Auth\AuthController@appleCallback');
 
 
 Route::view('/checkout','payment.checkout');
+
+Route::get('/tax/{id}/simple',function ($id){
+    $headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
+    $order = \App\Models\Order\Order::findOrFail($id);
+    return view('tax.simple', [
+        'order'     => $order,
+        'headers'   => $headers,
+    ]);
+});
+Route::get('/tax/{id}/detail',function ($id){
+    $headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
+    $order = \App\Models\Order\Order::findOrFail($id);
+    return view('tax.detail', [
+        'order'     => $order,
+        'headers'   => $headers,
+    ]);
+});

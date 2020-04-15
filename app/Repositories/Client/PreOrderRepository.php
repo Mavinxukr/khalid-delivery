@@ -26,7 +26,7 @@ class PreOrderRepository implements PreOrderInterface
     {
         $preOrder = $request->user()->preOrder()->findOrFail($id);
         $components = explode(';', $request->components);
-
+        $services = [];
         foreach ($components as $k => $item) {
             $values = explode(',', $item);
             foreach ($values as $value) {
