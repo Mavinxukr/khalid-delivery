@@ -2,6 +2,7 @@
 
 namespace App\Nova\Resources\Provider;
 
+use App\Helpers\ImageLinker;
 use App\Nova\Actions\SendToNumber;
 use App\Nova\Resources\Category\Category;
 use App\Nova\Resources\User\User;
@@ -100,7 +101,13 @@ class Provider extends Resource
                 ->hideWhenUpdating(),
             Image::make('Image','image')
                 ->disk('public')
-                ->path('image/provider/')
+                ->path('image/provider')
+                ->preview(function ($value, $disk) {
+                    return ImageLinker::linker($value);
+                })
+                ->thumbnail(function ($value, $disk) {
+                    return ImageLinker::linker($value);
+                })
                 ->rules('file')
                 ->prunable(),
             HasOne::make('Provider setting','providerSetting',ProviderSetting::class),

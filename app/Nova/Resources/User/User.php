@@ -2,6 +2,7 @@
 
 namespace App\Nova\Resources\User;
 
+use App\Helpers\ImageLinker;
 use App\Nova\Resource;
 use App\Nova\Resources\Provider\Provider;
 use Defuse\Crypto\File;
@@ -91,9 +92,15 @@ class User extends Resource
             Avatar::make('Image')
                 ->prunable(true)
                 ->disk('public')
-                ->path('image/profile/')
+                ->path('image/profile')
                 ->sortable()
                 ->help("Upload image")
+                ->preview(function ($value, $disk) {
+                    return ImageLinker::linker($value);
+                })
+                ->thumbnail(function ($value, $disk) {
+                    return ImageLinker::linker($value);
+                })
                 ->rules( 'file'),
             MorphToMany::make('Roles', 'roles', \Eminiarts\NovaPermissions\Nova\Role::class),
             MorphToMany::make('Permissions', 'permissions', \Eminiarts\NovaPermissions\Nova\Permission::class),

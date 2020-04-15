@@ -23,6 +23,13 @@ class CreatePreOrdersTable extends Migration
                 ->on('users');
             $table->timestamps();
         });
+
+        Schema::table('orders', function (Blueprint $table) {
+            $table->unsignedBigInteger('pre_order_id')->nullable();
+            $table->foreign('pre_order_id')
+                ->references('id')
+                ->on('pre_orders');
+        });
     }
 
     /**
