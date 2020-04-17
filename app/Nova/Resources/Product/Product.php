@@ -4,6 +4,7 @@ namespace App\Nova\Resources\Product;
 
 
 use App\Helpers\ImageLinker;
+use App\Nova\Actions\DownloadTemplate;
 use App\Nova\Actions\ImportProduct;
 use App\Nova\Resource;
 use App\Nova\Resources\Category\MenuCategory;
@@ -201,7 +202,8 @@ class Product extends Resource
     public function actions(Request $request)
     {
         return [
-            new ImportProduct
+            new ImportProduct,
+            new DownloadTemplate,
         ];
     }
 
