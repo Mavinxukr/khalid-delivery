@@ -35,6 +35,8 @@ class ProductImport implements ToCollection
             (strlen($row[5]) > 0) ?
                 $parent = Product::whereTitle($row[5])->first()->id :
                 $parent = null;
+            (is_null($parent)) ? $provider = $this->provider : $provider = null;
+
             Product::create([
                 'title'           => $row[0] ?? 'null',
                 'description'     => $row[1],
@@ -42,7 +44,7 @@ class ProductImport implements ToCollection
                 'price'           => floatval($row[3]),
                 'image'           => $row[4],
                 'has_ingredients' => null,
-                'provider_id'     => $this->provider,
+                'provider_id'     => $provider,
                 'parent_id'       => $parent,
                 'weight'          => $row[6] ?? null,
                 'query'           => $row[7] ?? null,
