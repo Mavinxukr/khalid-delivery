@@ -4,6 +4,7 @@ namespace App\Nova\Resources\Product;
 
 
 use App\Helpers\ImageLinker;
+use App\Nova\Actions\DownloadTemplate;
 use App\Nova\Actions\ImportProduct;
 use App\Nova\Resource;
 use App\Nova\Resources\Category\MenuCategory;
@@ -14,7 +15,6 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
@@ -23,7 +23,6 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use OwenMelbz\RadioField\RadioButton;
-use Sloveniangooner\SearchableSelect\SearchableSelect;
 
 class Product extends Resource
 {
@@ -203,7 +202,8 @@ class Product extends Resource
     public function actions(Request $request)
     {
         return [
-            new ImportProduct
+            new ImportProduct,
+            new DownloadTemplate,
         ];
     }
 

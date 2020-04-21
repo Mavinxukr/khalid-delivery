@@ -2,8 +2,8 @@
 
 namespace App\Nova\Resources\Product;
 
+use App\Helpers\ImageLinker;
 use App\Nova\Resource;
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
@@ -52,7 +52,7 @@ class Component extends Resource
 
         return [
             ID::make()->sortable(),
-            \Laravel\Nova\Fields\Text::make( 'Title','title')
+            Text::make( 'Title','title')
                 ->rules('required', 'max:100'),
             Text::make('Description','description')
                 ->rules('required', 'max:300'),
@@ -81,6 +81,12 @@ class Component extends Resource
                 ->path('image/product/')
                 ->sortable()
                 ->help("Upload image")
+                ->preview(function ($value, $disk) {
+                    return ImageLinker::linker($value);
+                })
+                ->thumbnail(function ($value, $disk) {
+                    return ImageLinker::linker($value);
+                })
                 ->rules( 'file'),
         ];
     }
