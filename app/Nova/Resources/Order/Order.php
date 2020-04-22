@@ -175,6 +175,9 @@ class Order extends Resource
 
             HasOne::make('Pre Order', 'preOrder', PreOrder::class)
                 ->exceptOnForms(),
+
+            HasOne::make('Checkout', 'checkout', Checkouts::class)
+                ->exceptOnForms(),
         ];
     }
 
