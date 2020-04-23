@@ -10,4 +10,9 @@ trait FeeTrait
     {
         return Fee::whereName($type . '_' . $name)->first()->count;
     }
+
+    public static function getFeeStatic($type, $name)
+    {
+        return Fee::whereName($type . '_' . $name)->first()->count;
+    }
 }

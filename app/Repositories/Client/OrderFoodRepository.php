@@ -50,6 +50,7 @@ class OrderFoodRepository implements OrderFoodInterface
             }
 
             if($cost){
+                $order->initial_cost = $cost;
                 $costs = $this->calculateCost($cost);
 
                 $order->cost = $costs['cost'];
@@ -146,15 +147,10 @@ class OrderFoodRepository implements OrderFoodInterface
         $serviceReceivedCost = $serviceReceivedCost +
             ($serviceReceivedCost / 100 * $this->getFee('food', 'vat'));
 
-        $companyReceivedCost = ($cost / 100 * (100 - $this->getFee('food', 'received'))) +
-            $this->getFee('food', 'charge') + floor($markupCast) + $cents;
-        $companyReceivedCost = $companyReceivedCost +
-            ($companyReceivedCost  / 100 * $this->getFee('food', 'vat'));
-
         return [
             'cost'              => round($orderCost, 2),
             'service_received'  => round($serviceReceivedCost, 2),
-            'company_received'  => round($companyReceivedCost, 2),
+            'company_received'  => round($serviceReceivedCost - $orderCost, 2),
         ];
     }
 }

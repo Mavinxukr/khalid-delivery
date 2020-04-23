@@ -42,13 +42,17 @@ class OrderServiceRepository implements OrderServiceInterface
             }
 
             $order->provider_id     =  null ;
-            $cost = ($order->count_clean * ($price * $order->quantity)) +
-                $this->getFee($type, 'charge');
+            $order->initial_cost = $order->count_clean * ($price * $order->quantity);
+            $cost =  $order->initial_cost + $this->getFee($type, 'charge');
             $order->cost =  $cost + ($cost / 100 * $this->getFee($type, 'vat'));
         }
 
-        $order->provider_category   =  $type;
-        $order->debt                =  $order->cost / 100 * $this->getFee($type, 'received');
+        $order->provider_category   = $type;
+        $order->service_received    = ($order->initial_cost / 100 *
+                $this->getFee($type, 'received')) / 100 *
+                $this->getFee($type, 'vat');
+        $order->company_received    = $order->cost - $order->service_received;
+        $order->debt                = $order->cost;
         $order->save();
         $response =  $this->format($order);
         return TransJsonResponse::toJson(true,$response,'Order was created',201);

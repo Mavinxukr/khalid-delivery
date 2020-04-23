@@ -3,6 +3,7 @@
 namespace App\Nova\Resources\Order;
 
 use App\Nova\Actions\Actions\ConfirmOrder;
+use App\Nova\Actions\CommissionInvoice;
 use App\Nova\Actions\PaymentOrder;
 use App\Nova\Resource;
 use App\Nova\Resources\Category\ProductCategory;
@@ -227,6 +228,7 @@ class Order extends Resource
     {
         return [
             new PaymentOrder,
+            new CommissionInvoice,
             (new ConfirmOrder)
                 ->onlyOnTableRow()
         ];

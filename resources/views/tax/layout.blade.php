@@ -80,24 +80,6 @@
                     <tr>
                         <td>
                             @yield('content')
-
-                            <table width="100%" style="text-align: right">
-                                <tbody>
-                                <tr>
-                                    <td width="100%" height="44">&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <b>for {{$order->product->provider->name}}.</b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Authorised Signature
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
                         </td>
                     </tr>
                 ​

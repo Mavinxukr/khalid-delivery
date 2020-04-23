@@ -60,10 +60,9 @@ Route::get('/tax/{id}/detail',function ($id){
     ]);
 });
 Route::get('/tax/{id}/invoice',function ($id){
-    $headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
-    $order = \App\Models\Order\Order::findOrFail($id);
+    $orders = \App\Models\Order\Order::all();
     return view('tax.invoice', [
-        'order'     => $order,
-        'headers'   => $headers,
+        'orders'     => $orders,
+        'provider'  => $orders->first()->provider
     ]);
 });

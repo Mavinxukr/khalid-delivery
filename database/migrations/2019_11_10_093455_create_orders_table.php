@@ -30,6 +30,7 @@ class CreateOrdersTable extends Migration
             $table->float('debt', 10, 2)->nullable();
             $table->float('paid', 10, 2)->default(0);
             $table->float('cost', 10, 2)->nullable();
+            $table->float('initial_cost', 10, 2)->nullable();
             $table->enum('type_cleaning',['house','office','flat'])->nullable();
             $table->bigInteger('interval')->default(0);
             $table->mediumText('comment')->nullable();
