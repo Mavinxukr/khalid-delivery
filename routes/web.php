@@ -60,9 +60,9 @@ Route::get('/tax/{id}/detail',function ($id){
     ]);
 });
 Route::get('/tax/{id}/invoice',function ($id){
-    $orders = \App\Models\Order\Order::all();
+    $orders = \App\Models\Order\Order::where('provider_id', $id)->get();
     return view('tax.invoice', [
-        'orders'     => $orders,
-        'provider'  => $orders->first()->provider
+        'orders'        => $orders,
+        'provider'      => $orders->first()->provider
     ]);
 });

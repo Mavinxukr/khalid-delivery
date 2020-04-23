@@ -10,6 +10,7 @@ use App\Models\PlaceService\Place;
 use App\Models\Product\Product;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * App\Models\Provider\Provider
@@ -63,6 +64,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Provider extends Model
 {
+    use Notifiable;
+
     protected $fillable = [
         'balance','category_id','phone_number',
         'name','email','website','company_number',

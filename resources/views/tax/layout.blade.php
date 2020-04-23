@@ -65,8 +65,8 @@
             display: none !important;
         }
         table td[class="column"] {
-            width:100%!important;
-            display: block!important;
+            width: 100% !important;
+            display: block !important;
         }
     }
 </style>

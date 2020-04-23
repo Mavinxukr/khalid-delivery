@@ -31,13 +31,6 @@ $amount = $total - $advanced;
 @extends('tax.layout')
 
 @section('content')
-    <style>
-        .border,
-        .border-column td,
-        .border-column th{
-            border: 1px solid black;
-        }
-    </style>
     <h3 style="text-align: right">COMMISSION INVOICE</h3>
 
     <table>
@@ -66,8 +59,13 @@ $amount = $total - $advanced;
             <td>[City, State, Country]</td>
             <td align="center">Period</td>
             <td align="center">
+            @if($orders->count() > 1)
                 {{$orders->min('created_at')->format('d/m/Y')}} -
-                {{$orders->max('created_at')->format('d/m/Y')}}</td>
+                {{$orders->max('created_at')->format('d/m/Y')}}
+            @else
+                {{$orders->first()->created_at->format('d/m/Y')}}
+            @endif
+            </td>
         </tr>
         <tr>
             <td>[ZIP Code]</td>
@@ -103,24 +101,24 @@ $amount = $total - $advanced;
 
     <table class="table" border="0" cellspacing="0" cellpadding="15">
         <thead>
-        <tr class="border border-column">
-            <th>Date&nbsp;of&nbsp;sale</th>
-            <th>#&nbsp;Order</th>
-            <th>Description</th>
-            <th>Sales&nbsp;Amount</th>
-            <th>Commission&nbsp;%</th>
-            <th>Net&nbsp;Amount</th>
+        <tr style="border: 1px solid black">
+            <th style="border: 1px solid black">Date&nbsp;of&nbsp;sale</th>
+            <th style="border: 1px solid black">#&nbsp;Order</th>
+            <th style="border: 1px solid black">Description</th>
+            <th style="border: 1px solid black">Sales&nbsp;Amount</th>
+            <th style="border: 1px solid black">Commission&nbsp;%</th>
+            <th style="border: 1px solid black">Net&nbsp;Amount</th>
         </tr>
         </thead>
         <tbody>
             @foreach($ordersArray as $order)
-                <tr class="border border-column">
-                    <td>{{$order['date']}}</td>
-                    <td>{{$order['order']}}</td>
-                    <td>{{$order['description']}}</td>
-                    <td>{{$order['price']}}</td>
-                    <td>$ {{$order['commission']}}</td>
-                    <td>$ {{$order['net_amount']}}</td>
+                <tr style="border: 1px solid black">
+                    <td style="border: 1px solid black">{{$order['date']}}</td>
+                    <td style="border: 1px solid black">{{$order['order']}}</td>
+                    <td style="border: 1px solid black">{{$order['description']}}</td>
+                    <td style="border: 1px solid black">{{$order['price']}}</td>
+                    <td style="border: 1px solid black">$ {{$order['commission']}}</td>
+                    <td style="border: 1px solid black">$ {{$order['net_amount']}}</td>
                 </tr>
             @endforeach
             <tr>
@@ -129,7 +127,7 @@ $amount = $total - $advanced;
                 <td></td>
                 <td></td>
                 <td align="right">SUBTOTAL</td>
-                <td class="border">$ {{$subtotal}}</td>
+                <td style="border: 1px solid black">$ {{$subtotal}}</td>
             </tr>
             <tr>
                 <td></td>

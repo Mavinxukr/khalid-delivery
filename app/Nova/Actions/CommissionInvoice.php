@@ -3,10 +3,12 @@
 namespace App\Nova\Actions;
 
 use App\Models\Payment\Payment;
+use App\Notifications\SendNotification;
 use App\Nova\Resources\Provider\Provider;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
@@ -33,10 +35,11 @@ class CommissionInvoice extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         $provider =  $models->first()->provider;
-        return view('tax.invoice', [
-            'provider'  => $provider,
-            'order'     => $models->first(),
-        ]);
+        $provider->notify(new SendNotification((new MailMessage)
+            ->view('tax.invoice', [
+                'orders'     => $models,
+                'provider'  => $provider,
+            ])));
     }
 
 
