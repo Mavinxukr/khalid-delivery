@@ -2,8 +2,8 @@
 
 namespace App\Models\Checkout;
 
-use App\Models\Order\Order;
-use App\Nova\Resources\Transactions\Transaction;
+
+use App\Models\Transactions\Transaction;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +22,7 @@ class Checkout extends Model
 
     public function transaction()
     {
-        return $this->belongsTo(Transaction::class, 'order_id', 'order_id');
+        return $this->hasOne(Transaction::class);
     }
 
 }

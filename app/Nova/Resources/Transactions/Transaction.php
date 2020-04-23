@@ -2,14 +2,14 @@
 
 namespace App\Nova\Resources\Transactions;
 
-use App\Nova\Actions\GetTransactions;
 use App\Nova\Filters\EndDate;
-use App\Nova\Filters\PeriodTransaction;
 use App\Nova\Filters\StartDate;
 use App\Nova\Resource;
+use App\Nova\Resources\Order\Checkouts;
 use App\Nova\Resources\Order\Order;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -79,6 +79,8 @@ class Transaction extends Resource
                     'Payment Approved' => 'green',
                 ])
                 ->exceptOnForms(),
+
+            HasOne::make('Checkout', 'checkout', Checkouts::class),
         ];
     }
 

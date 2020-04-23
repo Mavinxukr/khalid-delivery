@@ -4,6 +4,7 @@
 namespace App\Helpers;
 
 
+use App\Models\Checkout\Checkout;
 use App\Models\Order\Order;
 use App\Models\Transactions\Transaction;
 use Carbon\Carbon;
@@ -39,8 +40,11 @@ class TransactionHelper
         foreach ($result->details as $item){
             $item->transaction_datetime = Carbon::parse($item->transaction_datetime);
             $order = Order::find($item->order_id);
-            (!isset($order)) ?:
+            if($order){
+                $item->checkout_id = $order->checkout->id ?? null;
                 Transaction::updateOrCreate((array)$item);
+            }
+
         }
     }
 }

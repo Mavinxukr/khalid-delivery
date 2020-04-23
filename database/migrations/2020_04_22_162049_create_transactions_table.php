@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->string('response_code');
             $table->string('transaction_id');
             $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('checkout_id')->nullable();
             $table->string('auth_code');
             $table->string('transaction_title');
             $table->float('amount', 10, 2)->nullable();
@@ -32,6 +33,10 @@ class CreateTransactionsTable extends Migration
             $table->foreign('order_id')
                 ->references('id')
                 ->on('orders')
+                ->onDelete('cascade');
+            $table->foreign('checkout_id')
+                ->references('id')
+                ->on('checkouts')
                 ->onDelete('cascade');
             $table->timestamps();
         });

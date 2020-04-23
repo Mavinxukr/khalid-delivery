@@ -7,6 +7,7 @@ use App\Nova\Resources\Transactions\Transaction;
 use App\Nova\Resources\User\User;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -49,7 +50,8 @@ class Checkouts extends Resource
 
             BelongsTo::make('User', 'user', User::class),
 
-            //BelongsTo::make('Transaction', 'transaction', Transaction::class),
+            BelongsTo::make('Transaction', 'transaction', Transaction::class)
+                ->onlyOnIndex(),
 
             Text::make('Message', 'message')
                 ->sortable(),
