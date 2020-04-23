@@ -22,7 +22,7 @@ class Checkout extends Model
 
     public function transaction()
     {
-        return $this->belongsTo(Transaction::class, 'transaction_id', 'transaction_id');
+        return $this->belongsTo(Transaction::class, 'order_id', 'order_id');
     }
 
 }

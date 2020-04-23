@@ -27,7 +27,7 @@ class CreateTransactionsTable extends Migration
             $table->string('net_amount_currency');
             $table->float('net_amount_credited', 10, 2)->nullable();
             $table->string('net_amount_credited_currency');
-            $table->string('transaction_datetime');
+            $table->timestamp('transaction_datetime');
             $table->string('force_accept_datetime');
             $table->foreign('order_id')
                 ->references('id')
