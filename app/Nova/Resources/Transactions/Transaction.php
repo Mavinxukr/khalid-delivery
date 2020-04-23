@@ -3,6 +3,9 @@
 namespace App\Nova\Resources\Transactions;
 
 use App\Nova\Actions\GetTransactions;
+use App\Nova\Filters\EndDate;
+use App\Nova\Filters\PeriodTransaction;
+use App\Nova\Filters\StartDate;
 use App\Nova\Resource;
 use App\Nova\Resources\Order\Order;
 use Illuminate\Http\Request;
@@ -98,7 +101,10 @@ class Transaction extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new StartDate(),
+            new EndDate(),
+        ];
     }
 
     /**
@@ -120,8 +126,6 @@ class Transaction extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-            new GetTransactions(),
-        ];
+        return [];
     }
 }
