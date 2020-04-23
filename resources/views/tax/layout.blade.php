@@ -79,8 +79,6 @@
 
                     <tr>
                         <td>
-                            <h3 style="text-align: center">Tax Invoice</h3>
-
                             @yield('content')
 
                             <table width="100%" style="text-align: right">

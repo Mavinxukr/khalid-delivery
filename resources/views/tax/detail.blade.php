@@ -1,6 +1,8 @@
 @extends('tax.layout')
 
 @section('content')
+    <h3 style="text-align: center">Tax Invoice</h3>
+
     <table>
         <tbody>
         <tr>

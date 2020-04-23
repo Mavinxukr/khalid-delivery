@@ -59,3 +59,11 @@ Route::get('/tax/{id}/detail',function ($id){
         'headers'   => $headers,
     ]);
 });
+Route::get('/tax/{id}/invoice',function ($id){
+    $headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
+    $order = \App\Models\Order\Order::findOrFail($id);
+    return view('tax.invoice', [
+        'order'     => $order,
+        'headers'   => $headers,
+    ]);
+});
