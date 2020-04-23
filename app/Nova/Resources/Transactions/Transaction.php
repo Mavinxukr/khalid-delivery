@@ -10,7 +10,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Timothyasp\Badge\Badge;
 
 class Transaction extends Resource
 {
@@ -70,8 +70,12 @@ class Transaction extends Resource
             Text::make('Time', 'transaction_datetime')
                 ->sortable(),
 
-            Text::make('Status', 'status')
-                ->sortable(),
+            Badge::make('Status')
+                ->colors([
+                    'Payment Rejected' => 'red',
+                    'Payment Approved' => 'green',
+                ])
+                ->exceptOnForms(),
         ];
     }
 

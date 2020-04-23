@@ -2,10 +2,13 @@
 
 namespace App\Nova\Actions;
 
+use App\Models\Order\Order;
 use App\Models\Transactions\Transaction;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 use Ixudra\Curl\Facades\Curl;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
@@ -27,12 +30,13 @@ class GetTransactions extends Action
         $array = [
             '4001' => "Missing parameters",
             '4002' => "Invalid Credentials",
-            '4091' => "No Data"
+            '4091' => "No Data",
+            '4006' => "Your time interval should be less than 60 days",
         ];
         $response = Curl::to('https://www.paytabs.com/expressv2/transaction_reports')
             ->withData([
-                'merchant_id' => 10053283,
-                'secret_key'  => 'hptS4rVoHq1hlGyOETImUGBCW60PuakLzOEDgz1YZ3flJO9oHSKCymeusejXoEIXsmBJVCHVGXgqLpOtiz5QVjkoxElWj4UMrvvn',
+                'merchant_id' => Config::get('app.merchant_id'),
+                'secret_key'  => Config::get('app.secret_key'),
                 'startdate'   => $fields->start_day,
                 'enddate'     => $fields->end_day
             ])
@@ -42,8 +46,14 @@ class GetTransactions extends Action
             return Action::danger($array[$result->response_code]);
         }
         foreach ($result->details as $item){
-            Transaction::updateOrCreate((array)$item);
+            $item->transaction_datetime = Carbon::parse($item->transaction_datetime);
+            $order = Order::find($item->order_id);
+            (!isset($order)) ?:
+                Transaction::updateOrCreate((array)$item);
         }
+//        $transactions = Transaction::whereBetween('transaction_datetime', [$fields->start_day, $fields->end_day])
+//            ->get();
+//        return $transactions;
     }
 
     /**

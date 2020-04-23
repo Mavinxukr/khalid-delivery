@@ -30,6 +30,12 @@ return [
 
     'url_image' => env('APP_URL_IMAGE','production'),
 
+    'merchant_id' => env('PAYTABS_MERCHANT_ID'),
+
+    'secret_key' => env('PAYTABS_SECRET_KEY'),
+
+    'merchant_email' => env('PAYTABS_MERCHANT_EMAIL'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
