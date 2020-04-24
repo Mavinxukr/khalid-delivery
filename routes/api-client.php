@@ -14,9 +14,11 @@ use Illuminate\Http\Request;
 */
 
 //---------------------------- API for client ------------------------------//
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::post('devise','Api\DeviceController@addDeviceToken');
+});
 
 Route::group(["namespace"=>"ApiClient"],function() {
-
     //---------------------------- Auth --------------------------------//
     Route::post('register','Auth\AuthController@register');
     Route::post('login','Auth\AuthController@login');
@@ -86,4 +88,5 @@ Route::group(["namespace"=>"ApiClient"],function() {
 
     });
 });
+
 

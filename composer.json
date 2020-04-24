@@ -19,6 +19,7 @@
         "coreproc/nova-system-info-card": "^0.0.1",
         "dkulyk/nova-tabs": "^1.1",
         "dniccum/phone-number": "v1.0.6.1",
+        "edujugon/push-notification": "^4.3",
         "eminiarts/nova-permissions": "^1.0",
         "eminiarts/nova-tabs": "^1.1",
         "epartment/nova-dependency-container": "^1.2",
@@ -84,10 +85,6 @@
         {
             "type": "composer",
             "url": "https://nova.laravel.com"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/PriceTracker"
         }
     ],
     "minimum-stability": "dev",
