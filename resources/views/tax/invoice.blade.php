@@ -91,9 +91,25 @@ $amount = $total - $advanced;
         <tr><td><b>To Principal</b></td></tr>
         <tr><td></td></tr>
         <tr><td>{{$provider->name}}</td></tr>
-        <tr><td>[Street Address]</td></tr>
-        <tr><td>[City, State, Country]</td></tr>
-        <tr><td>[ZIP Code]</td></tr>
+        @if(!is_null($provider->street_address))
+            <tr><td>{{$provider->street_address}}</td></tr>
+        @endif
+        @if(!is_null($provider->city) || !is_null($provider->state) || !is_null($provider->country))
+        <tr><td>
+                @if(!is_null($provider->city))
+                    {{$provider->city}},
+                @endif
+                @if(!is_null($provider->state))
+                    {{$provider->state}},
+                @endif
+                @if(!is_null($provider->country))
+                    {{$provider->country}}
+                @endif
+        </td></tr>
+        @endif
+        @if(!is_null($provider->zip))
+            <tr><td>{{$provider->zip}}</td></tr>
+        @endif
         <tr><td width="100%" height="20">&nbsp;</td></tr>
         </tbody>
     </table>

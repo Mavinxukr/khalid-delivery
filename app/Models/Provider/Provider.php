@@ -69,7 +69,9 @@ class Provider extends Model
     protected $fillable = [
         'balance','category_id','phone_number',
         'name','email','website','company_number',
-        'chamber_of_commerce','image'
+        'chamber_of_commerce','image',
+        'street_address', 'city',
+        'state', 'country', 'zip'
     ];
 
     protected $hidden = [

@@ -40,6 +40,11 @@ class ProfileCompanyController extends Controller
      * @apiParam {String} name Company_name
      * @apiParam {String} company_number Company number
      * @apiParam {String} email Email
+     * @apiParam {String} street_address Street Address
+     * @apiParam {String} city City
+     * @apiParam {String} state State
+     * @apiParam {String} country Country
+     * @apiParam {String} zip Zip
      * @apiParam {String} website Website
      * @apiParam {String} company_number Website
      * @apiParam {String} chamber_of_commerce Chamber of commerce
