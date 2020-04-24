@@ -4,11 +4,10 @@ namespace App\Nova\Resources\Provider;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Tests\Fixtures\Tag;
 
 class ProviderSetting extends Resource
 {
@@ -51,6 +50,8 @@ class ProviderSetting extends Resource
     {
         return [
             ID::make()->sortable(),
+            BelongsTo::make('Company', 'provider', Provider::class)
+                ->rules('required','unique:setting_providers,provider_id,'.$request->provider),
             Text::make('Kitchen')
                 ->nullable('required'),
             Text::make('Time Delivery Mean')

@@ -5,11 +5,10 @@ namespace App\Nova\Resources\Provider;
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class CreditCard extends Resource
 {
@@ -48,19 +47,47 @@ class CreditCard extends Resource
     {
         return [
             ID::make()->sortable(),
+
             Text::make('holder_name')
-                    ->rules('required'),
-            Text::make('number_card')
+                    ->rules('required', 'string', 'max:255'),
+
+            Text::make('number_card')->withMeta([
+                    'extraAttributes' => ['maxlength' => 16]
+                ])
+                ->rules('required','numeric'),
+
+            Select::make('expire_month')
+                ->options([
+                    '01' => '01',
+                    '02' => '02',
+                    '03' => '03',
+                    '04' => '04',
+                    '05' => '05',
+                    '06' => '06',
+                    '07' => '07',
+                    '08' => '08',
+                    '09' => '09',
+                    '10' => '10',
+                    '11' => '11',
+                    '12' => '12'
+                ])
                 ->rules('required'),
-            Number::make('expire_month')
+
+            Text::make('expire_year')->withMeta([
+                    'extraAttributes' => ['maxlength' => 4]
+                ])
                 ->rules('required','numeric'),
-            Number::make('expire_year')
+
+            Text::make('cvv_code')->withMeta([
+                    'extraAttributes' => ['maxlength' => 3]
+                ])
                 ->rules('required','numeric'),
-            Number::make('cvv_code')
-                ->rules('required','numeric'),
+
             Number::make('zip_code')
                 ->rules('required','numeric'),
+
             BelongsTo::make('Company','provider',Provider::class)
+                ->rules('required','unique:setting_providers,provider_id,'.$request->provider),
 
         ];
     }

@@ -90,10 +90,11 @@ class Order extends Resource
                     'service' => 'Service',
                 ])
                 ->hideFromDetail()
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->exceptOnForms(),
             NovaDependencyContainer::make([
                 Number::make('Quantity','quantity')
-            ])->dependsOn('provider_category', 'food'),
+            ])->dependsOn('provider_category', 'food')->exceptOnForms(),
             NovaDependencyContainer::make([
                 Number::make('Count cleaning','count_clean'),
                 Select::make('Type cleaning','type_cleaning')
@@ -143,7 +144,8 @@ class Order extends Resource
                 ])
                 ->exceptOnForms(),
             Text::make('Name')
-            ->rules('required'),
+                ->rules('required')
+                ->exceptOnForms(),
                  SearchableSelect::make('Product name','product_id')
                      ->resource(Product::class)
                      ->help("Need chose provider")
@@ -153,14 +155,18 @@ class Order extends Resource
                      ->hideFromDetail(),
             Date::make('Date','date_delivery')
                 ->format('YYYY-MM-DD')
-                ->rules('required'),
+                ->rules('required')
+                ->exceptOnForms(),
             Time::make('Time From','date_delivery_from')
                 ->format('HH:mm:ss')
-                ->rules('required'),
+                ->rules('required')
+                ->exceptOnForms(),
             Time::make('Time To','date_delivery_to')
                 ->format('HH:mm:ss')
-                ->rules('required'),
-            Textarea::make('Comment'),
+                ->rules('required')
+                ->exceptOnForms(),
+            Textarea::make('Comment')
+                ->exceptOnForms(),
             Number::make('Cost')
                 ->exceptOnForms(),
             Number::make('Service received', 'service_received')
