@@ -1,23 +1,25 @@
 <?php
 
-namespace App\Nova\Resources\Provider;
+namespace App\Nova\Resources\Order;
 
 use App\Nova\Resource;
+use App\Nova\Resources\Transactions\Transaction;
+use App\Nova\Resources\User\User;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 
-class CreditCard extends Resource
+class Checkouts extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Models\Provider\CompanyCreditCard';
+    public static $model = 'App\Models\Checkout\Checkout';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -25,8 +27,6 @@ class CreditCard extends Resource
      * @var string
      */
     public static $title = 'id';
-
-    public static $category = "Company";
 
     /**
      * The columns that should be searched.
@@ -48,47 +48,22 @@ class CreditCard extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('holder_name')
-                    ->rules('required', 'string', 'max:255'),
+            BelongsTo::make('User', 'user', User::class),
 
-            Text::make('number_card')->withMeta([
-                    'extraAttributes' => ['maxlength' => 16]
-                ])
-                ->rules('required','numeric'),
+            BelongsTo::make('Transaction', 'transaction', Transaction::class)
+                ->onlyOnIndex(),
 
-            Select::make('expire_month')
-                ->options([
-                    '01' => '01',
-                    '02' => '02',
-                    '03' => '03',
-                    '04' => '04',
-                    '05' => '05',
-                    '06' => '06',
-                    '07' => '07',
-                    '08' => '08',
-                    '09' => '09',
-                    '10' => '10',
-                    '11' => '11',
-                    '12' => '12'
-                ])
-                ->rules('required'),
+            Text::make('Message', 'message')
+                ->sortable(),
 
-            Text::make('expire_year')->withMeta([
-                    'extraAttributes' => ['maxlength' => 4]
-                ])
-                ->rules('required','numeric'),
+            Number::make('Amount', 'sum')
+                ->sortable(),
 
-            Text::make('cvv_code')->withMeta([
-                    'extraAttributes' => ['maxlength' => 3]
-                ])
-                ->rules('required','numeric'),
+            Text::make('Currency')
+                ->sortable(),
 
-            Number::make('zip_code')
-                ->rules('required','numeric'),
-
-            BelongsTo::make('Company','provider',Provider::class)
-                ->rules('required','unique:setting_providers,provider_id,'.$request->provider),
-
+            Text::make('Status')
+                ->sortable(),
         ];
     }
 
@@ -134,5 +109,10 @@ class CreditCard extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    public static function availableForNavigation(Request $request)
+    {
+        return false;
     }
 }

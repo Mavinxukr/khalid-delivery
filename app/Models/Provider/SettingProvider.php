@@ -39,5 +39,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SettingProvider extends Model
 {
-
+    public function provider()
+    {
+        return $this->belongsTo( Provider::class, 'provider_id', 'id');
+    }
 }

@@ -11,6 +11,7 @@ use Checkout\Models\Payments\Payment;
 use Checkout\Models\Payments\Refund;
 use Checkout\Models\Payments\TokenSource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Ixudra\Curl\Facades\Curl;
 
 class CheckoutHelper
@@ -40,8 +41,8 @@ class CheckoutHelper
         try {
             $response = Curl::to('https://www.paytabs.com/apiv2/refund_process')
                             ->withData([
-                                'merchant_email' => 'khalid@appadminportal.com',
-                                'secret_key'     => 'hptS4rVoHq1hlGyOETImUGBCW60PuakLzOEDgz1YZ3flJO9oHSKCymeusejXoEIXsmBJVCHVGXgqLpOtiz5QVjkoxElWj4UMrvvn',
+                                'merchant_email' => Config::get('app.merchant_email'),
+                                'secret_key'     => Config::get('app.secret_key'),
                                 'refund_amount'  => $orderCheckout->sum,
                                 'refund_reason'  => 'Cancel order',
                                 'transaction_id' => $orderCheckout->transaction_id,

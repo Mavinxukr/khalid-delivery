@@ -1,32 +1,35 @@
 <?php
 
-namespace App\Nova\Resources\Provider;
+namespace App\Nova\Resources\Transactions;
 
+use App\Nova\Filters\EndDate;
+use App\Nova\Filters\StartDate;
 use App\Nova\Resource;
+use App\Nova\Resources\Order\Checkouts;
+use App\Nova\Resources\Order\Order;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Timothyasp\Badge\Badge;
 
-class CreditCard extends Resource
+class Transaction extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Models\Provider\CompanyCreditCard';
+    public static $model = 'App\Models\Transactions\Transaction';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
-
-    public static $category = "Company";
+    public static $title = 'transaction_id';
 
     /**
      * The columns that should be searched.
@@ -37,6 +40,11 @@ class CreditCard extends Resource
         'id',
     ];
 
+
+    public static $category = "Transactions";
+
+
+    public static $group = 'Transactions';
     /**
      * Get the fields displayed by the resource.
      *
@@ -48,47 +56,31 @@ class CreditCard extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('holder_name')
-                    ->rules('required', 'string', 'max:255'),
+            Number::make('Transaction', 'transaction_id')
+                ->sortable(),
 
-            Text::make('number_card')->withMeta([
-                    'extraAttributes' => ['maxlength' => 16]
+            BelongsTo::make('Order', 'order', Order::class),
+
+            Text::make('Customer Name', 'transaction_title')
+                ->sortable(),
+
+            Number::make('Amount')
+                ->sortable(),
+
+            Text::make('Currency')
+                ->sortable(),
+
+            Text::make('Time', 'transaction_datetime')
+                ->sortable(),
+
+            Badge::make('Status')
+                ->colors([
+                    'Payment Rejected' => 'red',
+                    'Payment Approved' => 'green',
                 ])
-                ->rules('required','numeric'),
+                ->exceptOnForms(),
 
-            Select::make('expire_month')
-                ->options([
-                    '01' => '01',
-                    '02' => '02',
-                    '03' => '03',
-                    '04' => '04',
-                    '05' => '05',
-                    '06' => '06',
-                    '07' => '07',
-                    '08' => '08',
-                    '09' => '09',
-                    '10' => '10',
-                    '11' => '11',
-                    '12' => '12'
-                ])
-                ->rules('required'),
-
-            Text::make('expire_year')->withMeta([
-                    'extraAttributes' => ['maxlength' => 4]
-                ])
-                ->rules('required','numeric'),
-
-            Text::make('cvv_code')->withMeta([
-                    'extraAttributes' => ['maxlength' => 3]
-                ])
-                ->rules('required','numeric'),
-
-            Number::make('zip_code')
-                ->rules('required','numeric'),
-
-            BelongsTo::make('Company','provider',Provider::class)
-                ->rules('required','unique:setting_providers,provider_id,'.$request->provider),
-
+            HasOne::make('Checkout', 'checkout', Checkouts::class),
         ];
     }
 
@@ -111,7 +103,10 @@ class CreditCard extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new StartDate(),
+            new EndDate(),
+        ];
     }
 
     /**
