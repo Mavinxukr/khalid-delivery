@@ -92,7 +92,7 @@ class Order extends Model
         'place_id','paid','debt','date_delivery_from',
         'date_delivery_to','callback_time','user_id',
         'type_cleaning','product_id', 'service_received',
-        'company_received', 'pre_order_id',
+        'company_received', 'pre_order_id', 'initial_cost',
     ];
 
 

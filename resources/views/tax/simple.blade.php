@@ -1,6 +1,8 @@
 @extends('tax.layout')
 
 @section('content')
+    <h3 style="text-align: center">Tax Invoice</h3>
+
     <table>
         <tbody>
         <tr>
@@ -105,6 +107,23 @@
                 <td>{{$order->preOrder->price / 100 * 5}}</td>
             </tr>
         @endif
+        </tbody>
+    </table>
+    <table width="100%" style="text-align: right">
+        <tbody>
+        <tr>
+            <td width="100%" height="44">&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <b>for {{$order->product->provider->name}}.</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Authorised Signature
+            </td>
+        </tr>
         </tbody>
     </table>
 @endsection

@@ -10,12 +10,6 @@ class OrderObserver
 {
     public function updated(Order $order)
     {
-        if(is_null($order->service_received)){
-            $order->service_received = $order->cost / 100 * $this->getFee($order, 'received');
-            $order->company_received = $order->cost / 100 * (100 - $this->getFee($order, 'received'));
-            $order->save();
-        }
-
         if($order->debt != $order->service_received){
             $order->debt = $order->service_received;
             $order->save();

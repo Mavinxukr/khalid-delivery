@@ -58,6 +58,8 @@ class ProfileRepository implements ProfileInterface
                                                         ->map(function ($i){
                                             return [
                                                 'id'                 => $i->id,
+                                                'provider_name'      => $i->provider->name,
+                                                'provider_description'=> $i->provider->description,
                                                 'provider_category'  => $i->provider_category,
                                                 'date_delivery'      => $i->date_delivery->toDateString(),
                                                 'date_delivery_from' => $i->date_delivery_from,

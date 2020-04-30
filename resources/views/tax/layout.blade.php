@@ -65,8 +65,8 @@
             display: none !important;
         }
         table td[class="column"] {
-            width:100%!important;
-            display: block!important;
+            width: 100% !important;
+            display: block !important;
         }
     }
 </style>
@@ -79,27 +79,7 @@
 
                     <tr>
                         <td>
-                            <h3 style="text-align: center">Tax Invoice</h3>
-
                             @yield('content')
-
-                            <table width="100%" style="text-align: right">
-                                <tbody>
-                                <tr>
-                                    <td width="100%" height="44">&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <b>for {{$order->product->provider->name}}.</b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Authorised Signature
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
                         </td>
                     </tr>
                 ​

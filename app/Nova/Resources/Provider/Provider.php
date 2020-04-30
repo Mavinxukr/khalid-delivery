@@ -81,6 +81,21 @@ class Provider extends Resource
             Text::make('Email')
                 ->sortable()
                 ->rules('required', 'max:255'),
+            Text::make('Street Address', 'street_address')
+                ->sortable()
+                ->rules('required', 'max:255'),
+            Text::make('City')
+                ->sortable()
+                ->rules('required', 'max:255'),
+            Text::make('State')
+                ->sortable()
+                ->rules('required', 'max:255'),
+            Text::make('Country')
+                ->sortable()
+                ->rules('required', 'max:255'),
+            Text::make('Zip')
+                ->sortable()
+                ->rules('required', 'max:255'),
             Text::make('Description')
                 ->sortable(),
             SearchableSelect::make('Provider type','category_id')

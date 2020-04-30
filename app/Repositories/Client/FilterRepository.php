@@ -31,6 +31,8 @@ class FilterRepository implements FilterInterface
             'id'                => $data->id,
             'name'              => $data->title ?? $data->name,
             'image'             => ImageLinker::linker($data->image),
+            'rating'            => $data->providerSetting->rating ?? 0,
+            'price_rating'      => $data->providerSetting->price_rating ?? 0,
         ];
     }
 
