@@ -25,8 +25,8 @@ class CreatePreOrdersTable extends Migration
         });
 
         Schema::table('orders', function (Blueprint $table) {
-            $table->unsignedBigInteger('pre_order_id')->nullable();
-            $table->foreign('pre_order_id')
+            $table->unsignedBigInteger('answers_id')->nullable();
+            $table->foreign('answers_id')
                 ->references('id')
                 ->on('pre_orders');
         });

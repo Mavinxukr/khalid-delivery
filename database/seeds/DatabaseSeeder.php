@@ -22,5 +22,8 @@ class DatabaseSeeder extends Seeder
          $this->call(CompanySettingTableSeeder::class);
          $this->call(FeesTableSeeder::class);
          $this->call(InvoiceTemplateTableSeeder::class);
+         $this->call(QueryTableSeeder::class);
+         $this->call(AnswerTableSeeder::class);
+         $this->call(PlaceTableSeeder::class);
     }
 }

@@ -16,32 +16,18 @@ class PreOrderController extends Controller
     }
 
     /**
-     * @api {post} client/pre-order  Create Pre Order Доделки
-     * @apiName  Create Pre Order Доделки
+     * @api {post} client/answers  Store Answers Доделки
+     * @apiName  Store Answers Доделки
      * @apiVersion 1.1.1
-     * @apiGroup Client PreOrder
+     * @apiGroup Client Answers
+     * @apiParam {String} answers Answers
+     * example: 'q=1,a=1' objects delimiter by ;
      * @apiPermission Authorization
      * @apiHeader  Authorization token
-     * @apiSampleRequest  client/pre-order
+     * @apiSampleRequest  client/answers
      */
     public function store(Request $request)
     {
         return $this->preOrder->store($request);
-    }
-
-    /**
-     * @api {post} client/pre-order/{id}  Store Answers in Pre Order Доделки
-     * @apiName  Store Answers in Pre Order Доделки
-     * @apiVersion 1.1.1
-     * @apiGroup Client PreOrder
-     * @apiParam {String} components Components
-     * example: 'product_id=2,answer=true/false/{empty},count=3/{empty}' objects delimiter by ;
-     * @apiPermission Authorization
-     * @apiHeader  Authorization token
-     * @apiSampleRequest  client/pre-order/{id}
-     */
-    public function update(Request $request, int $id)
-    {
-        return $this->preOrder->update($request, $id);
     }
 }

@@ -92,7 +92,7 @@ class Order extends Model
         'place_id','paid','debt','date_delivery_from',
         'date_delivery_to','callback_time','user_id',
         'type_cleaning','product_id', 'service_received',
-        'company_received', 'pre_order_id', 'initial_cost',
+        'company_received', 'answers_id', 'initial_cost',
     ];
 
 
@@ -144,6 +144,6 @@ class Order extends Model
 
     public function preOrder()
     {
-        return $this->belongsTo(PreOrder::class, 'pre_order_id');
+        return $this->belongsTo(PreOrder::class, 'answers_id');
     }
 }
