@@ -102,6 +102,7 @@ class ProductRepository implements ProductInterface
                 'kitchen'           => $data->providerSetting->kitchen ?? null,
                 'product_count'     => $data->product()->count(),
                 'top_product'       => $topProduct ?? null,
+                'query'             => $data->product->queries()->with('answers')->get(),
             ];
         }else{
             $result =  [
@@ -113,6 +114,7 @@ class ProductRepository implements ProductInterface
                 'price'             => $data->price,
                 'weight'            => $data->weight,
                 'top_product'       => $data->component ?? null,
+                'query'             => $data->queries()->with('answers')->get(),
             ];
         }
         return $result;

@@ -102,4 +102,9 @@ class Product extends Model
     {
         return $this->belongsTo(Product::class,'parent_id');
     }
+
+    public function queries()
+    {
+        return $this->hasMany(Query::class);
+    }
 }

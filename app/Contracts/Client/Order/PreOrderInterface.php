@@ -10,6 +10,5 @@ use Illuminate\Http\Request;
 
 interface PreOrderInterface extends FormatInterface
 {
-    public function store($data);
-    public function update(Request $request, int $id);
+    public function store(Request $request);
 }

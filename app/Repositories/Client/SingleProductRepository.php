@@ -27,7 +27,8 @@ class SingleProductRepository implements SingleProductInterface
                 'price'             => $data->price,
                 'description'       => $data->description,
                 'image'             => ImageLinker::linker($data->image),
-                'ingredients'       => $data->component
+                'ingredients'       => $data->component,
+                'query'             => $data->queries()->with('answers')->get(),
             ];
         }else{
             $result =  [
@@ -38,7 +39,8 @@ class SingleProductRepository implements SingleProductInterface
                 'image'             => ImageLinker::linker($data->image),
                 'has_ingredients'   => $data->has_ingredients,
                 'weight'            => $data->weight,
-                'ingredients'       => $data->component
+                'ingredients'       => $data->component,
+                'query'             => $data->queries()->with('answers')->get(),
             ];
         }
             return $result;
