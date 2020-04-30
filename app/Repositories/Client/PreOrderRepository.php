@@ -49,7 +49,6 @@ class PreOrderRepository implements PreOrderInterface
     {
         return [
             'id'        => $data->id,
-            'status'    => $data->status,
             'price'     => $data->price,
         ];
     }
