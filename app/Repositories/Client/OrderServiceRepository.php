@@ -38,6 +38,9 @@ class OrderServiceRepository implements OrderServiceInterface
             $price = $order->product->price;
             if(!is_null($preOrder)){
                     $price = $price + $preOrder->price;
+                    foreach ($preOrder->details as $item){
+                        $item->update(['order_id' => $order->id]);
+                    }
             }
 
             $order->provider_id     =  null ;

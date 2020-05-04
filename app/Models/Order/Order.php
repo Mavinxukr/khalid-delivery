@@ -146,4 +146,9 @@ class Order extends Model
     {
         return $this->belongsTo(PreOrder::class, 'answers_id');
     }
+
+    public function answers()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
 }
