@@ -9,6 +9,7 @@ use App\Nova\Actions\ImportProduct;
 use App\Nova\Resource;
 use App\Nova\Resources\Category\MenuCategory;
 use App\Nova\Resources\Provider\Provider;
+use App\Nova\Resources\Query\Query;
 use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
@@ -156,6 +157,11 @@ class Product extends Resource
                         $this->type === 'food' && $this->has_ingredients ||
                         $this->type === 'service' && $this->has_ingredients;
                 }),
+
+            HasMany::make('Query', 'queries', Query::class)
+                ->canSee(function (){
+                return $this->type === 'service';
+            }),
         ];
     }
     /**

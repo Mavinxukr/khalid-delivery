@@ -1,26 +1,21 @@
 <?php
 
-namespace App\Nova\Resources\Order;
+namespace App\Nova\Resources\Query;
 
-use App\Nova\Resources\Product\Product;
-use App\Nova\Resources\Query\Answer;
-use App\Nova\Resources\Query\Query;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
 
-class OrderDetail extends Resource
+class Answer extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Models\Order\OrderDetail';
+    public static $model = 'App\Models\Product\Answer';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -48,9 +43,7 @@ class OrderDetail extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Order', 'order', Order::class)->display('id'),
-            BelongsTo::make('Query', 'productQuery', Query::class)->display('title'),
-            BelongsTo::make('Answer', 'answer', Answer::class)->display('title'),
+            Text::make('Title', 'title'),
         ];
     }
 

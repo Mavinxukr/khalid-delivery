@@ -15,9 +15,13 @@ class CreateOrderDetailsTable extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('order_id')->nullable();
             $table->unsignedBigInteger('pre_order_id');
             $table->unsignedBigInteger('query_id');
 
+            $table->foreign('order_id')
+                ->references('id')
+                ->on('orders');
             $table->foreign('pre_order_id')
                 ->references('id')
                 ->on('pre_orders')
