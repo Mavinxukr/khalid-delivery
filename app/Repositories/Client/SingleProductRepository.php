@@ -27,7 +27,8 @@ class SingleProductRepository implements SingleProductInterface
                 'price'             => $data->price,
                 'description'       => $data->description,
                 'image'             => ImageLinker::linker($data->image),
-                'ingredients'       => $data->component,
+                'what_is_included'  => $data->what_is_included,
+                'what_is_not_included'  => $data->what_is_not_included,
                 'query'             => $data->queries()->with('answers')->get(),
             ];
         }else{

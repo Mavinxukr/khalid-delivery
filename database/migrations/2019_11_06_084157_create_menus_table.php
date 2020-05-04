@@ -37,6 +37,8 @@ class CreateMenusTable extends Migration
             $table->foreign('category_id')->references('id')
                                                     ->on('product_categories')
                                                     ->onDelete('cascade');
+            $table->text('what_is_included')->nullable();
+            $table->text('what_is_not_included')->nullable();
             $table->timestamps();
         });
     }

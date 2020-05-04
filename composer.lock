@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2c158ffdb490705b0bd94af1e46b8d6",
+    "content-hash": "6e789c44c5f8e0e470be880abd994dec",
     "packages": [
         {
             "name": "alexbowers/nova-categorise-resources",
@@ -514,6 +514,47 @@
                 "symmetric key cryptography"
             ],
             "time": "2018-07-24T23:27:56+00:00"
+        },
+        {
+            "name": "dillingham/nova-items-field",
+            "version": "0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dillingham/nova-items-field.git",
+                "reference": "98a4aaef1bdaf1dd9311362035d8c9b6c4ec06db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dillingham/nova-items-field/zipball/98a4aaef1bdaf1dd9311362035d8c9b6c4ec06db",
+                "reference": "98a4aaef1bdaf1dd9311362035d8c9b6c4ec06db",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NovaItemsField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NovaItemsField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Nova field to handle array columns",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-02-04T20:03:42+00:00"
         },
         {
             "name": "dkulyk/nova-tabs",
@@ -9614,6 +9655,5 @@
     "platform": {
         "php": "^7.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }
