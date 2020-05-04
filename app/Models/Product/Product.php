@@ -66,7 +66,6 @@ class Product extends Model
         'has_ingredients' => 'boolean',
         'active'          => 'boolean',
         'what_is_included' => 'array',
-        'what_is_not_included' => 'array',
     ];
 
     protected $fillable = [

@@ -109,17 +109,11 @@ class Product extends Resource
             ])->dependsOn('type', 'food'),
 
             NovaDependencyContainer::make([
-                Boolean::make('Has ingredients','has_ingredients')
-                    ->trueValue(1)
-                    ->falseValue(0)
+                Number::make('Price for hour','price')
                     ->exceptOnForms(),
-                NovaDependencyContainer::make([
-                    Number::make('Price for hour','price')
-                        ->exceptOnForms(),
-                ])->dependsOn('has_ingredients',false),
 
                 Items::make('What is included', 'what_is_included'),
-                Items::make('What is not included', 'what_is_not_included'),
+                Textarea::make('What is not included', 'what_is_not_included'),
 
             ])->dependsOn('type', 'service'),
             BelongsTo::make('Company','provider', Provider::class)
