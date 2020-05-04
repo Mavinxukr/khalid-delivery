@@ -102,7 +102,6 @@ class ProductRepository implements ProductInterface
                 'kitchen'           => $data->providerSetting->kitchen ?? null,
                 'product_count'     => $data->product()->count(),
                 'top_product'       => $topProduct ?? null,
-                'query'             => $data->product->queries()->with('answers')->get(),
             ];
         }else{
             $result =  [
@@ -110,10 +109,10 @@ class ProductRepository implements ProductInterface
                 'title'             => $data->title ?? $data->name,
                 'image'             => ImageLinker::linker($data->image),
                 'description'       => $data->description ?? null,
-                'has_ingredients'   => $data->has_ingredients,
                 'price'             => $data->price,
                 'weight'            => $data->weight,
-                'top_product'       => $data->component ?? null,
+                'what_is_included'  => $data->what_is_included,
+                'what_is_not_included'  => $data->what_is_not_included,
                 'query'             => $data->queries()->with('answers')->get(),
             ];
         }

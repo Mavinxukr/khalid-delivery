@@ -21,8 +21,10 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use NovaItemsField\Items;
 use OwenMelbz\RadioField\RadioButton;
 
 class Product extends Resource
@@ -114,17 +116,10 @@ class Product extends Resource
                 NovaDependencyContainer::make([
                     Number::make('Price for hour','price')
                         ->exceptOnForms(),
-                    Text::make('Query', 'query')
-                        ->rules(['required']),
-
-                    Select::make('Answer Type', 'answer_type')
-                        ->options([
-                            'count' => 'count',
-                            'boolean' => 'boolean',
-                            'boolean&count' => 'boolean&count'
-                        ])
-                        ->rules(['required']),
                 ])->dependsOn('has_ingredients',false),
+
+                Items::make('What is included', 'what_is_included'),
+                Items::make('What is not included', 'what_is_not_included'),
 
             ])->dependsOn('type', 'service'),
             BelongsTo::make('Company','provider', Provider::class)

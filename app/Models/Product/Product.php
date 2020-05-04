@@ -65,6 +65,8 @@ class Product extends Model
     protected $casts = [
         'has_ingredients' => 'boolean',
         'active'          => 'boolean',
+        'what_is_included' => 'array',
+        'what_is_not_included' => 'array',
     ];
 
     protected $fillable = [
@@ -72,6 +74,7 @@ class Product extends Model
         'price','image','category_id',
         'provider_id','type','parent_id',
         'weight','active', 'query', 'answer_type',
+        'what_is_included', 'what_is_not_included',
     ];
 
 
