@@ -26,18 +26,22 @@ class CreateOrdersTable extends Migration
             $table->string('date_delivery_to');
             $table->string('callback_time')->nullable();
             $table->bigInteger('quantity')->nullable();
-            $table->bigInteger('count_clean')->nullable();
+            //$table->bigInteger('count_clean')->nullable();
             $table->float('debt', 10, 2)->nullable();
             $table->float('paid', 10, 2)->default(0);
             $table->float('cost', 10, 2)->nullable();
             $table->float('initial_cost', 10, 2)->nullable();
             $table->enum('type_cleaning',['house','office','flat'])->nullable();
-            $table->bigInteger('interval')->default(0);
+            //$table->bigInteger('interval')->default(0);
             $table->mediumText('comment')->nullable();
             $table->enum('status',['wait','new','confirm','cancel','done'])->default('wait');
 
             $table->float('service_received', 10, 2)->nullable();
             $table->float('company_received', 10, 2)->nullable();
+            $table->string('payment_type');
+            $table->string('b2b_1')->nullable();
+            $table->string('b2b_2')->nullable();
+            $table->string('b2b_3')->nullable();
 
             $table->foreign('place_id')->references('id')
                 ->on('places')

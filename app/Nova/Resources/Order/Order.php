@@ -87,18 +87,26 @@ class Order extends Resource
                 ->hideFromDetail()
                 ->hideFromIndex()
                 ->exceptOnForms(),
+            Text::make('Payment Type', 'payment_type')
+                ->exceptOnForms(),
+            Text::make('B2B1', 'b2b_1')
+                ->exceptOnForms(),
+            Text::make('B2B2', 'b2b_2')
+                ->exceptOnForms(),
+            Text::make('B2B3', 'b2b_3')
+                ->exceptOnForms(),
             NovaDependencyContainer::make([
                 Number::make('Quantity','quantity')
             ])->dependsOn('provider_category', 'food')->exceptOnForms(),
             NovaDependencyContainer::make([
-                Number::make('Count cleaning','count_clean'),
+                //Number::make('Count cleaning','count_clean'),
                 Select::make('Type cleaning','type_cleaning')
                     ->options([
                         '1' => 'house',
                         '2' => 'office',
                         '3' => 'flat',
                     ]),
-                Number::make('Quantity hours','quantity'),
+                //Number::make('Quantity hours','quantity'),
                 Select::make('Callback Time')
                     ->options([
                         '10' => '10 min',
@@ -108,10 +116,10 @@ class Order extends Resource
                     ])
                     ->hideFromIndex()
                     ->hideFromDetail(),
-                Number::make('Interval')
+                /*Number::make('Interval')
                     ->withMeta([
                         'value' => 0
-                    ]),
+                    ]),*/
             ])->dependsOn('provider_category', 'service'),
             BelongsTo::make('Place','place',\App\Nova\Resources\Place\Place::class)
                 ->exceptOnForms(),

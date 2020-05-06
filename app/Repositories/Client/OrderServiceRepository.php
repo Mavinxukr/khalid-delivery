@@ -11,8 +11,11 @@ use App\Contracts\FormatInterface;
 use App\Models\Feedback\FirePush;
 use App\Models\Order\CancelOrder;
 use App\Models\Order\Order;
+use App\Notifications\SendNotification;
 use App\Traits\FeeTrait;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class OrderServiceRepository implements OrderServiceInterface
 {
@@ -34,7 +37,7 @@ class OrderServiceRepository implements OrderServiceInterface
 
         $type = $order->product->type;
         if ($type  == 'service'){
-            $preOrder = $order->preOrder;
+            $preOrder = $this->storePreOrder($data);
             $price = $order->product->price;
             if(!is_null($preOrder)){
                     $price = $price + $preOrder->price;
@@ -44,7 +47,7 @@ class OrderServiceRepository implements OrderServiceInterface
             }
 
             $order->provider_id     =  null ;
-            $order->initial_cost = $order->count_clean * ($price * $order->quantity);
+            $order->initial_cost = $price;
             $cost =  $order->initial_cost + $this->getFee($type, 'charge');
             $order->cost =  $cost + ($cost / 100 * $this->getFee($type, 'vat'));
         }
@@ -55,7 +58,19 @@ class OrderServiceRepository implements OrderServiceInterface
                 $this->getFee($type, 'vat');
         $order->company_received    = $order->cost - $order->service_received;
         $order->debt                = $order->cost;
+        if($order->payment_type === 'cash' || $order->payment_type === 'b2b')
+            $order->status = 'new';
+
         $order->save();
+
+        if($order->payment_type === 'cash' ){
+            $headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
+            $data->user()->notify(new SendNotification((new MailMessage)
+                ->view('tax.simple', [
+                    'order'     => $order,
+                    'headers'   => $headers,
+                ])));
+        }
         $response =  $this->format($order);
         return TransJsonResponse::toJson(true,$response,'Order was created',201);
     }
@@ -123,5 +138,35 @@ class OrderServiceRepository implements OrderServiceInterface
             'status'         => $data->status ?? 'wait'
         ];
 
+    }
+
+    public function storePreOrder($data)
+    {
+        $preOrder = $data->user()->preOrder()->create();
+        $answers = explode(';', $data->answers);
+
+        foreach ($answers as $k => $item) {
+            $values = explode(',', $item);
+            foreach ($values as $value) {
+                $temp = explode('=', $value);
+                $params[$temp[0]] = $temp[1];
+            }
+            $preOrder->details()->create([
+                'query_id' => $params['q'],
+                'answer_id' => $params['a'],
+            ]);
+        }
+
+        $sum = 0;
+        foreach ($preOrder->details as $query){
+            $sum = $sum + ($query->answer->price);
+        }
+
+        $preOrder->update([
+            'price'     => $sum,
+            'status'    => 'pre-order',
+        ]);
+
+        return $preOrder->fresh();
     }
 }

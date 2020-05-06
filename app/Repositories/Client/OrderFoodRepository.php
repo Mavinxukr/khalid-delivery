@@ -63,6 +63,9 @@ class OrderFoodRepository implements OrderFoodInterface
             $order->provider_id = $providerId;
             $order->provider_category = 'food';
             $order->debt = $order->cost;
+            if($order->payment_type === 'cash' || $order->payment_type === 'b2b')
+                $order->status = 'new';
+
             $order->save();
             $response = $this->format($order);
             return TransJsonResponse::toJson(true, $response, 'Order was created', 201);
