@@ -22,17 +22,19 @@ class OrderServiceController extends Controller
      * @apiVersion 1.1.1
      * @apiGroup Client Order - Service
      * @apiParam {String} name Name
+     * @apiParam {String} payment_type Payment Type (card, cash, b2b)
      * @apiParam {string} product_id Service ID from api - Show services
-     * @apiParam {string} answers_id Stored Answers ID from api - Store Answers
+     * @apiParam {string} answers Answers
+     * example: 'q=1,a=1' objects delimiter by;
      * @apiParam {Number} place_id Place ID from api - Get users' places
      * @apiParam {String} date_delivery Date (format 2019-11-29)
      * @apiParam {String} date_delivery_from Time (format 14:00:00)
      * @apiParam {String} date_delivery_to Time (format 16:00:00)
      * @apiParam {String} type_cleaning Type cleaning  <br> 1 - house, 2 - office, 3 - flat
-     * @apiParam {String} count_clean Count cleaning
-     * @apiParam {Number} interval Interval
-     * @apiParam {Number} quantity Quantity hours
      * @apiParam {String} callback_time Callback time <br> 10:00
+     * @apiParam {String} b2b_1 B2B 1 if(payment_type = b2b)
+     * @apiParam {String} b2b_2 B2B 2 if(payment_type = b2b)
+     * @apiParam {String} b2b_3 B2B 3 if(payment_type = b2b)
      * @apiParam {Text} comment Comment
      * @apiPermission Authorization
      * @apiHeader  Authorization token

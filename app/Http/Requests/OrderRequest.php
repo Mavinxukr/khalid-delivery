@@ -32,8 +32,6 @@ class OrderRequest extends FormRequest
             'date_delivery' => 'required|date_format:Y-m-d',
             'date_delivery_from' => 'required|date_format:"H:i:s"',
             'date_delivery_to' => 'required|date_format:"H:i:s"',
-            'quantity'  => 'required'
-
         ];
     }
 }

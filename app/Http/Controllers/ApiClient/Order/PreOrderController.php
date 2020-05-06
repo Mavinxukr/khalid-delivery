@@ -15,7 +15,7 @@ class PreOrderController extends Controller
         $this->preOrder = $preOrder;
     }
 
-    /**
+    /*
      * @api {post} client/answers  Store Answers Доделки
      * @apiName  Store Answers Доделки
      * @apiVersion 1.1.1

@@ -93,6 +93,7 @@ class Order extends Model
         'date_delivery_to','callback_time','user_id',
         'type_cleaning','product_id', 'service_received',
         'company_received', 'answers_id', 'initial_cost',
+        'payment_type', 'b2b_1', 'b2b_2', 'b2b_3'
     ];
 
 
