@@ -84,8 +84,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 2,
             'parent_id' => null,
-            'what_is_included' => '["First include","Second include"]',
-            'what_is_not_included' => '["First exnclude","Second exnclude"]',
+            'what_is_included' => ["First include","Second include"],
+            'what_is_not_included' => "First exnclude,Second exnclude",
         ]);
         \App\Models\Product\Product::create([
             'title' => 'cleaning house',
@@ -96,8 +96,8 @@ class ProductTableSeeder extends Seeder
             'has_ingredients' => false,
             'provider_id' => 2,
             'parent_id' => null,
-            'what_is_included' => '["First include","Second include"]',
-            'what_is_not_included' => '["First exnclude","Second exnclude"]',
+            'what_is_included' => ["First include","Second include"],
+            'what_is_not_included' => "First exnclude,Second exnclude",
         ]);
 
 
