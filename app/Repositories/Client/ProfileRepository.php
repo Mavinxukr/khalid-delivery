@@ -54,11 +54,11 @@ class ProfileRepository implements ProfileInterface
             'phone'             => $data->phone,
             'has_card'          => $hasCard,
             'feedbacks'         => $data->myFeedback()->get(),
-            'orders'            => $data->orderProfile()->get()
+            'orders'            => count($data->orderProfile()->get()) > 0 ?  $data->orderProfile()->get()
                                                         ->map(function ($i){
                                             return [
                                                 'id'                 => $i->id,
-                                                'provider_name'      => $i->provider->name ?? '',
+                                                'provider_name'      => $i->provider->name,
                                                 'provider_description'=> $i->provider->description,
                                                 'provider_category'  => $i->provider_category,
                                                 'date_delivery'      => $i->date_delivery->toDateString(),
@@ -69,7 +69,7 @@ class ProfileRepository implements ProfileInterface
                                                 'status'             => $i->status,
                                                 'place'              => $i->place,
                                             ];
-                                    }),
+                                    }) : [],
         ];
         return $result;
     }
