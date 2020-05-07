@@ -58,12 +58,8 @@ class OrderServiceRepository implements OrderServiceInterface
                 $this->getFee($type, 'vat');
         $order->company_received    = $order->cost - $order->service_received;
         $order->debt                = $order->cost;
-        if($order->payment_type === 'cash' || $order->payment_type === 'b2b')
+        if($order->payment_type === 'cash'){
             $order->status = 'new';
-
-        $order->save();
-
-        if($order->payment_type === 'cash' ){
             $headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
             $data->user()->notify(new SendNotification((new MailMessage)
                 ->view('tax.simple', [
@@ -71,6 +67,9 @@ class OrderServiceRepository implements OrderServiceInterface
                     'headers'   => $headers,
                 ])));
         }
+
+        $order->save();
+
         $response =  $this->format($order);
         return TransJsonResponse::toJson(true,$response,'Order was created',201);
     }

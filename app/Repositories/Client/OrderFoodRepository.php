@@ -63,7 +63,7 @@ class OrderFoodRepository implements OrderFoodInterface
             $order->provider_id = $providerId;
             $order->provider_category = 'food';
             $order->debt = $order->cost;
-            if($order->payment_type === 'cash' || $order->payment_type === 'b2b')
+            if($order->payment_type === 'cash')
                 $order->status = 'new';
 
             $order->save();
