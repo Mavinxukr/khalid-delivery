@@ -29,6 +29,7 @@ class SingleProductRepository implements SingleProductInterface
                 'image'             => ImageLinker::linker($data->image),
                 'what_is_included'  => $data->what_is_included,
                 'what_is_not_included'  => $data->what_is_not_included,
+                'info_pay'          => $data->info_pay,
                 'query'             => $data->queries()->with('answers')->get(),
             ];
         }else{

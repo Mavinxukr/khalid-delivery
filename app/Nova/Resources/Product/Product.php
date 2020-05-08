@@ -114,6 +114,7 @@ class Product extends Resource
 
                 Items::make('What is included', 'what_is_included'),
                 Textarea::make('What is not included', 'what_is_not_included'),
+                Textarea::make('When I`ll pay', 'info_pay'),
 
             ])->dependsOn('type', 'service'),
             BelongsTo::make('Company','provider', Provider::class)

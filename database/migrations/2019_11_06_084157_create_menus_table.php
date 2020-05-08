@@ -39,6 +39,7 @@ class CreateMenusTable extends Migration
                                                     ->onDelete('cascade');
             $table->text('what_is_included')->nullable();
             $table->text('what_is_not_included')->nullable();
+            $table->text('info_pay')->nullable();
             $table->timestamps();
         });
     }
