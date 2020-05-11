@@ -11,6 +11,7 @@ use App\Helpers\TransJsonResponse;
 use App\Models\Order\Order;
 use App\Models\Product\Product;
 use App\Notifications\SendNotification;
+use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -80,7 +81,7 @@ class FoodOrderRepository implements FoodOrderInterface
             ]);
 
             $headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
-            $order->user()->notify(new SendNotification((new MailMessage)
+            User::findOrFail($order->user_id)->notify(new SendNotification((new MailMessage)
                 ->view('tax.simple', [
                     'order'     => $order,
                     'headers'   => $headers,
