@@ -58,15 +58,8 @@ class OrderServiceRepository implements OrderServiceInterface
                 $this->getFee($type, 'vat');
         $order->company_received    = $order->cost - $order->service_received;
         $order->debt                = $order->cost;
-        if($order->payment_type === 'cash'){
+        if($order->payment_type === 'cash')
             $order->status = 'new';
-            $headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
-            $data->user()->notify(new SendNotification((new MailMessage)
-                ->view('tax.simple', [
-                    'order'     => $order,
-                    'headers'   => $headers,
-                ])));
-        }
 
         $order->save();
 

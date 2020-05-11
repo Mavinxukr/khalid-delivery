@@ -10,8 +10,10 @@ use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Models\Order\Order;
 use App\Models\Product\Product;
+use App\Notifications\SendNotification;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class FoodOrderRepository implements FoodOrderInterface
 {
@@ -76,6 +78,13 @@ class FoodOrderRepository implements FoodOrderInterface
             $order ->update([
                 'status'    => 'done'
             ]);
+
+            $headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
+            $order->user()->notify(new SendNotification((new MailMessage)
+                ->view('tax.simple', [
+                    'order'     => $order,
+                    'headers'   => $headers,
+                ])));
 
             //here need to send push-notify
             return TransJsonResponse::toJson(true, null,'Food order done success', 200);
