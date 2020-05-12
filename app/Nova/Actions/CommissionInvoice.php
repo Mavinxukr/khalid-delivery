@@ -34,12 +34,15 @@ class CommissionInvoice extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        $provider =  $models->first()->provider;
+        $filteredModels =  $models->filter(function ($item){
+            return $item->status === 'done';
+        });
+        $provider =  $filteredModels->first()->provider;
         $provider->notify(new SendNotification((new MailMessage)
             ->view('tax.invoice', [
-                'orders'     => $models,
+                'orders'    => $filteredModels,
                 'provider'  => $provider,
-            ])));
+        ])));
     }
 
 
