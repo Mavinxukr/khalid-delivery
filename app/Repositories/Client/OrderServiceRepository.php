@@ -127,7 +127,8 @@ class OrderServiceRepository implements OrderServiceInterface
             'zip'            => $data->place->postal_code,
             'country_code'   => $data->place->country,
             'callback'       => $data->callback_time,
-            'status'         => $data->status ?? 'wait'
+            'status'         => $data->status ?? 'wait',
+            'comment'        => $data->comment
         ];
 
     }

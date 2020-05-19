@@ -66,6 +66,7 @@ class ProfileRepository implements ProfileInterface
                                                 'cost'                  => $i->cost,
                                                 'status'                => $i->status,
                                                 'place'                 => $i->place,
+                                                'comment'               => $i->comment
                                             ];
                                     })
         ];
