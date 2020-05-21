@@ -29,10 +29,16 @@ class FilterRepository implements FilterInterface
     {
         return  [
             'id'                => $data->id,
-            'name'              => $data->title ?? $data->name,
+            'title'             => $data->title ?? $data->name,
             'image'             => ImageLinker::linker($data->image),
             'rating'            => $data->providerSetting->rating ?? 0,
             'price_rating'      => $data->providerSetting->price_rating ?? 0,
+            'time_delivery'     => $data->providerSetting->time_delivery_mean ?? null,
+            'working_hours'     => $data->providerSetting->schedule ?? null,
+            'min_order_value'   => $data->providerSetting->min_order ?? null,
+            'delivery_fee'      => $data->providerSetting->delivery_fee ?? null,
+            'kitchen'           => $data->providerSetting->kitchen ?? null,
+            'product_count'     => $data->product()->count(),
         ];
     }
 

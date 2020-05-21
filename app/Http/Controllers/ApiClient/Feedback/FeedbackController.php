@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiClient\Feedback;
 
 use App\Http\Controllers\Controller;
 use App\Contracts\Client\Feedback\FeedbackInterface;
+use App\Http\Requests\CompanyFeedbackRequest;
 use App\Http\Requests\FeedbackRequest;
 use Illuminate\Http\Request;
 
@@ -91,7 +92,7 @@ class FeedbackController extends Controller
      * @apiSampleRequest  client/store-company-feedback
      */
 
-    public function storeCompanyFeedback(Request $request)
+    public function storeCompanyFeedback(CompanyFeedbackRequest $request)
     {
         return $this->feedback->storeCompanyFeedback($request);
     }
