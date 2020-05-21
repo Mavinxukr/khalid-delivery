@@ -13,7 +13,7 @@ class ImageLinker
            if ($string[0] === 'https' || $string[0] === 'http' ){
               return $uri;
            }else{
-               return config('app.url_image').$uri;
+               return 'https://www.appadminportal.com/storage/'.$uri;
            }
         }else{
             return null;
