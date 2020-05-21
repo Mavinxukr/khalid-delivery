@@ -4,6 +4,7 @@
 namespace App\Repositories\Client;
 
 
+use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Feedback\FeedbackInterface;
 use App\Contracts\FormatInterface;
@@ -69,7 +70,7 @@ class FeedbackRepository implements FeedbackInterface
             return [
                 'id'            => $data->id,
                 'name'          => $data->name,
-                'image'         => $data->image,
+                'image'         => ImageLinker::linker($data->image),
                 'description'   => $data->description
             ];
         }
