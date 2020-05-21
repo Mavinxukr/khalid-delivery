@@ -6,6 +6,7 @@ namespace App\Repositories\Company;
 
 use App\Helpers\ActionSaveImage;
 use App\Helpers\CompanyProfileUpdate;
+use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Contracts\Company\Profile\ProfileInterface;
 use App\Contracts\FormatInterface;
@@ -102,8 +103,7 @@ class ProfileRepository implements ProfileInterface
         $hasCard = !is_null($data->creditCard) ? true : false;
         return [
             'id'                     => $data->id,
-            'image'                  => isset($data->image ) ?
-                                     env('APP_URL_IMAGE').$data->image : null,
+            'image'                  => ImageLinker::linker($data->image),
             'company_id'             => $data->company_number,
             'company_name'           => $data->name,
             'phone_number'           => $data->phone_number,
