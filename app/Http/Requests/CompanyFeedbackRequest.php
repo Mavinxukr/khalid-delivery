@@ -24,9 +24,9 @@ class CompanyFeedbackRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment' => 'require',
-            'star'  => 'require',
-            'company_id'    => 'require'
+            'comment' => 'required',
+            'star'  => 'required',
+            'company_id'    => 'required'
         ];
     }
 }
