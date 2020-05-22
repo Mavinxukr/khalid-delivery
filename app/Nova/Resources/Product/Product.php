@@ -102,6 +102,18 @@ class Product extends Resource
                     ->rules('required'),
                 BelongsTo::make('Category','categories', MenuCategory::class)
                     ->searchable(),
+                Boolean::make('Most Selling','sort_most_selling')
+                    ->trueValue(1)
+                    ->falseValue(0)
+                    ->exceptOnForms(),
+                Boolean::make('Appetizers','sort_appetizers')
+                    ->trueValue(1)
+                    ->falseValue(0)
+                    ->exceptOnForms(),
+                Boolean::make('Sales','sort_sales')
+                    ->trueValue(1)
+                    ->falseValue(0)
+                    ->exceptOnForms(),
                 NovaDependencyContainer::make([
                     Number::make('Price for one','price')
                         ->exceptOnForms(),

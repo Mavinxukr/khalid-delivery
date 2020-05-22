@@ -62,6 +62,7 @@ Route::group(["namespace"=>"ApiClient"],function() {
         Route::prefix('services')->group(function () {
             Route::get('{type}','Product\ProductController@indexServices');
             Route::get('get/{id}','Product\ProductController@show');
+            Route::get('menus/{service_id}/sort/{sort_type}','Product\ProductController@showBySortType');
             Route::get('menus/{service_id}/{category}','Product\ProductController@showByCategory');
             Route::get('categories/{service_id}','Product\ProductController@showServiceCategory');
             Route::get('product/{id}','Product\ProductController@getProductComponent');

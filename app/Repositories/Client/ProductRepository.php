@@ -57,6 +57,18 @@ class ProductRepository implements ProductInterface
         return TransJsonResponse::toJson(true,$menus,'All providers\' product by category',200);
     }
 
+    public function showBySortType(int $provider_id, string $sort_type)
+    {
+        $menus = Provider::findOrFail($provider_id)
+            ->product()
+            ->where($sort_type, 1)
+            ->get()
+            ->map(function ($menu){
+                return $this->format($menu);
+            });
+        return TransJsonResponse::toJson(true,$menus,'All providers\' product by sort type',200);
+    }
+
     public function showServiceCategory(int $service_id)
     {
         $categories = Product::whereProviderId($service_id)

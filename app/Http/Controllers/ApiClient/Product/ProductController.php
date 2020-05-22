@@ -67,6 +67,23 @@ class ProductController extends Controller
     }
 
     /**
+     * @api {get} client/services/menus/{provider_id}/sort/{sort_type}
+     * Show service menu by Sort Type -Доработки
+     * @apiName  Show service menu by Sort Type -Доработки
+     * @apiVersion 1.1.1
+     * @apiGroup Client Service
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest client/services/menus/{provider_id}/sort/{sort_type}
+     * @apiDescription Available Sort Types sort_most_selling, sort_appetizers, sort_sales
+     */
+
+    public function showBySortType(int $id, string $sort_type)
+    {
+        return $this->product->showBySortType($id ,$sort_type);
+    }
+
+    /**
      * @api {get} client/services/categories/{service_id} Show service categories #Screen №12, 36
      * @apiName  Show service categories
      * @apiVersion 1.1.1
