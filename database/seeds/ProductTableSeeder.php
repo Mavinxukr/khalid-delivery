@@ -21,7 +21,10 @@ class ProductTableSeeder extends Seeder
             'provider_id' => 1,
             'parent_id' => null,
             'category_id' => rand(1,4),
-            'weight' => rand(115,995)
+            'weight' => rand(115,995),
+            'sort_most_selling' =>1,
+            'sort_appetizer' =>0,
+            'sort_sales' =>1,
         ]);
         \App\Models\Product\Product::create([
             'title' => 'omar122',
@@ -33,7 +36,10 @@ class ProductTableSeeder extends Seeder
             'provider_id' => 1,
             'parent_id' => null,
             'category_id' => rand(1,4),
-            'weight' => rand(115,995)
+            'weight' => rand(115,995),
+            'sort_most_selling' =>0,
+            'sort_appetizer' =>1,
+            'sort_sales' =>0,
         ]);
         \App\Models\Product\Product::create([
             'title' => 'omar122',
@@ -45,7 +51,10 @@ class ProductTableSeeder extends Seeder
             'provider_id' => 1,
             'parent_id' => null,
             'category_id' => rand(1,4),
-            'weight' => rand(115,995)
+            'weight' => rand(115,995),
+            'sort_most_selling' =>1,
+            'sort_appetizer' =>1,
+            'sort_sales' =>0,
         ]);
         \App\Models\Product\Product::create([
             'title' => 'pork',
@@ -57,7 +66,10 @@ class ProductTableSeeder extends Seeder
             'provider_id' => 1,
             'parent_id' => null,
             'category_id' => rand(1,4),
-            'weight' => rand(115,995)
+            'weight' => rand(115,995),
+            'sort_most_selling' =>0,
+            'sort_appetizer' =>0,
+            'sort_sales' =>1,
         ]);
         \App\Models\Product\Product::create([
             'title' => 'fish',
@@ -69,7 +81,10 @@ class ProductTableSeeder extends Seeder
             'provider_id' => 1,
             'parent_id' => null,
             'category_id' => rand(1,4),
-            'weight' => rand(115,995)
+            'weight' => rand(115,995),
+            'sort_most_selling' =>0,
+            'sort_appetizer' =>0,
+            'sort_sales' =>1,
         ]);
 
 
@@ -99,8 +114,6 @@ class ProductTableSeeder extends Seeder
             'what_is_included' => ["First include","Second include"],
             'what_is_not_included' => "First exnclude,Second exnclude",
         ]);
-
-
 
 
         \App\Models\Product\Product::create([
