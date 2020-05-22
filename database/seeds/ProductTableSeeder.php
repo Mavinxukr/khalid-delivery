@@ -23,7 +23,7 @@ class ProductTableSeeder extends Seeder
             'category_id' => rand(1,4),
             'weight' => rand(115,995),
             'sort_most_selling' =>1,
-            'sort_appetizer' =>0,
+            'sort_appetizers' =>0,
             'sort_sales' =>1,
         ]);
         \App\Models\Product\Product::create([
@@ -38,7 +38,7 @@ class ProductTableSeeder extends Seeder
             'category_id' => rand(1,4),
             'weight' => rand(115,995),
             'sort_most_selling' =>0,
-            'sort_appetizer' =>1,
+            'sort_appetizers' =>1,
             'sort_sales' =>0,
         ]);
         \App\Models\Product\Product::create([
@@ -53,7 +53,7 @@ class ProductTableSeeder extends Seeder
             'category_id' => rand(1,4),
             'weight' => rand(115,995),
             'sort_most_selling' =>1,
-            'sort_appetizer' =>1,
+            'sort_appetizers' =>1,
             'sort_sales' =>0,
         ]);
         \App\Models\Product\Product::create([
@@ -68,7 +68,7 @@ class ProductTableSeeder extends Seeder
             'category_id' => rand(1,4),
             'weight' => rand(115,995),
             'sort_most_selling' =>0,
-            'sort_appetizer' =>0,
+            'sort_appetizers' =>0,
             'sort_sales' =>1,
         ]);
         \App\Models\Product\Product::create([
@@ -83,7 +83,7 @@ class ProductTableSeeder extends Seeder
             'category_id' => rand(1,4),
             'weight' => rand(115,995),
             'sort_most_selling' =>0,
-            'sort_appetizer' =>0,
+            'sort_appetizers' =>0,
             'sort_sales' =>1,
         ]);
 

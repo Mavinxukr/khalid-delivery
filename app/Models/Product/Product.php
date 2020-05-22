@@ -74,7 +74,7 @@ class Product extends Model
         'provider_id','type','parent_id',
         'weight','active', 'query', 'answer_type',
         'what_is_included', 'what_is_not_included',
-        'info_pay', 'sort_most_selling', 'sort_appetizer',
+        'info_pay', 'sort_most_selling', 'sort_appetizers',
         'sort_sales'
     ];
 
