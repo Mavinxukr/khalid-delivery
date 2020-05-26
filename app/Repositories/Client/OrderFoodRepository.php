@@ -46,7 +46,7 @@ class OrderFoodRepository implements OrderFoodInterface
                 }
                 $cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
-                $item->delete();
+                //$item->delete();
             }
 
             if($cost){
@@ -137,24 +137,23 @@ class OrderFoodRepository implements OrderFoodInterface
         $cents = round(($markupCast - floor($markupCast)) * 100);
         $centsFloor = $cents % 10;
         $cents = $cents - $centsFloor;
-
         if($centsFloor < 5){
             $cents = ($cents + 5) / 100;
         }else{
             $cents = ($cents + 10) / 100;
         }
 
-        $orderCost = $cost + floor($markupCast) + $cents + $this->getFee('food', 'charge');
-        $orderCost = $orderCost + ($orderCost / 100 * $this->getFee('food', 'vat'));
+        $vat = $cost/ 100 * $this->getFee('food', 'vat');
 
-        $serviceReceivedCost = ($cost / 100 * $this->getFee('food', 'received'));
-        $serviceReceivedCost = $serviceReceivedCost +
-            ($serviceReceivedCost / 100 * $this->getFee('food', 'vat'));
+        $serviceReceivedCost = (($cost + $vat) / 100 * $this->getFee('food', 'received'));
+        $companyReceivedCost = (floor($markupCast) + $cents) + $vat + 5 +
+            $cost / 100 * (100 - $this->getFee('food', 'received'));
+        $orderCost = $serviceReceivedCost + $companyReceivedCost;
 
         return [
             'cost'              => round($orderCost, 2),
             'service_received'  => round($serviceReceivedCost, 2),
-            'company_received'  => round($serviceReceivedCost - $orderCost, 2),
+            'company_received'  => round($companyReceivedCost, 2),
         ];
     }
 }
