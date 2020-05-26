@@ -40,6 +40,9 @@ class CreateMenusTable extends Migration
             $table->text('what_is_included')->nullable();
             $table->text('what_is_not_included')->nullable();
             $table->text('info_pay')->nullable();
+            $table->boolean('sort_most_selling')->nullable();
+            $table->boolean('sort_appetizers')->nullable();
+            $table->boolean('sort_sales')->nullable();
             $table->timestamps();
         });
     }
