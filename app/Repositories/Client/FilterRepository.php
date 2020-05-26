@@ -62,25 +62,11 @@ class FilterRepository implements FilterInterface
             if ($data->has('rating')){
 
                 $arrRating = explode(',',$data->rating);
-
-                $from = $arrRating[0];
-                $to = isset($arrRating[1]) ? $arrRating[1] : null;
-
-
-                $companies->where('setting_providers.rating','>=',$from);
-
-                if (!is_null($to)){
-                    $companies->where('setting_providers.rating','<=',$to);
-                }
+                $companies->whereIn('setting_providers.rating',$arrRating);
             }
             if ($data->has('price_rating')){
                 $arrRating = explode(',',$data->price_rating);
-
-                $from = $arrRating[0];
-                $to = isset($arrRating[1]) ? $arrRating[1] : null;
-                $companies->where('setting_providers.price_rating','>=',$from);
-                if (!is_null($to)){
-                    $companies->where('setting_providers.price_rating','<=',$to);
+                    $companies->whereIn('setting_providers.price_rating',$arrRating);
                 }
             }
             if ($data->has('tag')){
@@ -92,7 +78,7 @@ class FilterRepository implements FilterInterface
                 ->map(function ($item){
                     return $this->format($item);
                 });
-        }
+
 
         return TransJsonResponse::toJson(true, $result,'Company get by filters',200);
     }
