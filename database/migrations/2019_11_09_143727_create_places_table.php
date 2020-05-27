@@ -22,7 +22,7 @@ class CreatePlacesTable extends Migration
             $table->string('country');
             $table->string('latitude');
             $table->string('longitude');
-            $table->string('provider_type');
+            $table->string('provider_type')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('provider_id')->nullable();
             $table->foreign('user_id')
