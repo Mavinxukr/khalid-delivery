@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiClient\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Contracts\Client\Order\OrderServiceInterface;
+use App\Http\Requests\TransactionRequest;
 use Illuminate\Http\Request;
 
 class OrderServiceController extends Controller
@@ -43,6 +44,7 @@ class OrderServiceController extends Controller
 
     public function store(OrderRequest $request)
     {
+
         return $this->order->store($request);
     }
 
@@ -75,7 +77,7 @@ class OrderServiceController extends Controller
      * @apiSampleRequest  client/orders/confirm
      */
 
-    public function confirmOrder(Request $request)
+    public function confirmOrder(TransactionRequest $request)
     {
         return $this->order->confirmOrder($request);
     }

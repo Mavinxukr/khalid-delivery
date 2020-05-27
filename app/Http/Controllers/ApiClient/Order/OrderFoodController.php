@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderFoodRequest;
 use App\Http\Requests\OrderRequest;
 use App\Contracts\Client\Order\OrderFoodInterface;
+use App\Http\Requests\TransactionRequest;
 use Illuminate\Http\Request;
 
 class OrderFoodController extends Controller
@@ -71,11 +72,8 @@ class OrderFoodController extends Controller
      * @apiSampleRequest   client/food-orders/confirm
      */
 
-    public function confirmOrder(Request $request)
+    public function confirmOrder(TransactionRequest $request)
     {
-        $request->validate([
-            'transaction_id' => 'required|max:255',
-        ]);
         return $this->order->confirmOrder($request);
     }
 
