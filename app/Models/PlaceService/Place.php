@@ -54,8 +54,7 @@ class Place extends Model
 
 
     protected $hidden = [
-        "created_at", "updated_at","user_id",
-        'postal_code','provider_type',
+        "created_at", "updated_at","user_id",'provider_type',
         'provider_id'
     ];
 
