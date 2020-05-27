@@ -120,8 +120,9 @@ class ProductRepository implements ProductInterface
                 'delivery_fee'      => $data->providerSetting->delivery_fee ?? null,
                 'kitchen'           => $data->providerSetting->kitchen ?? null,
                 'product_count'     => $data->product()->count(),
+                'count_menu'        => count(array_unique($array)) ?? 0,
                 'top_product'       => $topProduct ?? null,
-                'count_menu'        => count(array_unique($array)) ?? 0
+
             ];
         }else{
             $result =  [
