@@ -73,6 +73,9 @@ class OrderFoodController extends Controller
 
     public function confirmOrder(Request $request)
     {
+        $request->validate([
+            'transaction_id' => 'required|max:255',
+        ]);
         return $this->order->confirmOrder($request);
     }
 
