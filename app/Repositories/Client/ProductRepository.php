@@ -101,6 +101,13 @@ class ProductRepository implements ProductInterface
                         'id','title','price',
                         'description','image','weight'
                     ]) ?? null;
+
+            $array = [];
+            foreach ($data->product()->get() as $i){
+                if (!empty($i->categories)){
+                    $array[] = $i->categories->id;
+                }
+            }
             $result = [
                 'id'                => $data->id,
                 'title'             => $data->title ?? $data->name,
@@ -114,6 +121,7 @@ class ProductRepository implements ProductInterface
                 'kitchen'           => $data->providerSetting->kitchen ?? null,
                 'product_count'     => $data->product()->count(),
                 'top_product'       => $topProduct ?? null,
+                'count_menu'        => count(array_unique($array)) ?? 0
             ];
         }else{
             $result =  [
