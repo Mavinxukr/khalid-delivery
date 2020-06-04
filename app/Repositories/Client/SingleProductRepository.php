@@ -31,6 +31,7 @@ class SingleProductRepository implements SingleProductInterface
                 'what_is_not_included'  => $data->what_is_not_included,
                 'info_pay'          => $data->info_pay,
                 'query'             => $data->queries()->with('answers')->get(),
+                'rating'            => $data->rating
             ];
         }else{
             $result =  [
