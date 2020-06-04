@@ -20,6 +20,7 @@ class CreateMenusTable extends Migration
             $table->string('type')->default('ingredient');
             $table->double('price')->default(0);
             $table->binary('image')->nullable();
+            $table->integer('rating')->nullable();
             $table->boolean('has_ingredients')->default(false);
             $table->unsignedBigInteger('provider_id')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
