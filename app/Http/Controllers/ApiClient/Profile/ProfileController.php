@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\ApiClient\Profile;
 
+use App\Helpers\HashHelper;
+use App\Helpers\TransJsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfileEmailRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Contracts\Client\Profile\ProfileInterface;
+use App\Notifications\PasswordRestore;
+use App\Notifications\PasswordUpdate;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -65,5 +72,35 @@ class ProfileController extends Controller
     public function getProfileComments(Request $request)
     {
         return $this->profile->getProfileComments($request->user()->id);
+    }
+
+    /**
+     * @api {post} client/forget-password   Forget Password
+     * @apiName Forget Password
+     * @apiVersion 1.1.1
+     * @apiGroup Client Profile
+     * @apiParam {String} email User email
+     * @apiSampleRequest  client/forget-password
+     */
+
+    public function forgetPassword(ProfileEmailRequest $request)
+    {
+        $user = User::whereEmail($request->email)->first();
+        if(!$user){
+            return TransJsonResponse::toJson(false, null, 'This email not found!', 404);
+        }
+        $pass = $this->updateAfterResetPass($user);
+        $user->notify(new PasswordUpdate($pass,$user));
+        return TransJsonResponse::toJson(true, null,
+            'We have sent, to you, a new password to enter the mail!', 200);
+    }
+
+    public function updateAfterResetPass(User $user)
+    {
+        $pass = Str::random(14);
+        $user->update([
+            'password' => bcrypt($pass)
+        ]);
+        return $pass;
     }
 }

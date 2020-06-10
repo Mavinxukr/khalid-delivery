@@ -26,6 +26,9 @@ Route::group(["namespace"=>"ApiClient"],function() {
     //---------------------------- Auth social --------------------------------//
     Route::post('auth/{driver}','Auth\Social\SocialController@authSocial');
 
+    //---------------------------- Forget Password --------------------------------//
+    Route::post('forget-password','Profile\ProfileController@forgetPassword');
+
     Route::group(['middleware' => ['auth:api','user']], function () {
         //---------------------------- Auth logout --------------------------------//
         Route::post('logout','Auth\AuthController@logout');
