@@ -6,6 +6,7 @@ use App\Helpers\ImageLinker;
 use App\Models\Category\Category;
 use App\Models\Category\ProductCategory;
 use App\Models\Provider\Provider;
+use App\Models\Util\Util;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -75,7 +76,7 @@ class Product extends Model
         'weight','active', 'query', 'answer_type',
         'what_is_included', 'what_is_not_included',
         'info_pay', 'sort_most_selling', 'sort_appetizers',
-        'sort_sales','rating'
+        'sort_sales','rating','util_id'
     ];
 
 
@@ -105,6 +106,11 @@ class Product extends Model
     public function parent()
     {
         return $this->belongsTo(Product::class,'parent_id');
+    }
+
+    public function utils()
+    {
+        return $this->belongsTo(Util::class, 'util_id');
     }
 
     public function queries()

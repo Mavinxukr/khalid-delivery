@@ -38,6 +38,10 @@ class CreateMenusTable extends Migration
             $table->foreign('category_id')->references('id')
                                                     ->on('product_categories')
                                                     ->onDelete('cascade');
+            $table->unsignedBigInteger('util_id')->nullable();
+            $table->foreign('util_id')->references('id')
+                ->on('utils')
+                ->onDelete('cascade');
             $table->text('what_is_included')->nullable();
             $table->text('what_is_not_included')->nullable();
             $table->text('info_pay')->nullable();
