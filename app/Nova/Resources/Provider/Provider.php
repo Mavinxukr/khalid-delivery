@@ -114,6 +114,17 @@ class Provider extends Resource
             Number::make('balance')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
+            Number::make('Fee','count', function ($value) use($request){
+                if ($request->editing){
+                    return $value;
+                }else{
+                        return "$value%";
+                }
+            })
+                ->rules('required'),
+            Boolean::make('Charge')
+                ->trueValue(1)
+                ->falseValue(0),
             Image::make('Image','image')
                 ->disk('public')
                 ->path('image/provider')

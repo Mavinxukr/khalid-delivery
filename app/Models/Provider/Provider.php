@@ -71,7 +71,7 @@ class Provider extends Model
         'name','email','website','company_number',
         'chamber_of_commerce','image',
         'street_address', 'city',
-        'state', 'country', 'zip'
+        'state', 'country', 'zip', 'count', 'charge'
     ];
 
     protected $hidden = [

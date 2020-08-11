@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
+use Laravel\Nova\Fields\Date;
 
 class PaymentForPeriod extends Action
 {
@@ -41,7 +42,8 @@ class PaymentForPeriod extends Action
                 'provider_id' => $provider,
                 'product_id' => $models->first()->product_id,
                 'status' => 'pending',
-                'order_id' => $order->id
+                'order_id' => $order->id,
+                'deadline' => $fields->deadline
             ]);
             $order->save();
 
@@ -57,6 +59,8 @@ class PaymentForPeriod extends Action
      */
     public function fields()
     {
-        return [];
+        return [
+            Date::make('Deadline')->rules('required'),
+        ];
     }
 }
