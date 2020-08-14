@@ -46,7 +46,11 @@ class Payment extends Model
     protected $fillable = [
         'name','action','count',
         'provider_id','product_id',
-        'status','order_id'
+        'status','order_id', 'deadline'
+    ];
+
+    protected $casts = [
+        'deadline' => 'date'
     ];
 
     public function provider()

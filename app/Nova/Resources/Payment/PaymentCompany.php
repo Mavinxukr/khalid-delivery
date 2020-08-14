@@ -10,6 +10,7 @@ use App\Nova\Resources\Product\Product;
 use App\Nova\Resources\Provider\Provider;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
@@ -60,6 +61,7 @@ class PaymentCompany extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Name','name'),
+            Date::make('Deadline'),
             SearchableSelect::make('Company name','provider_id')
                 ->resource(Provider::class)
                 ->help("Need chose provider")

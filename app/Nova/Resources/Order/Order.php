@@ -4,7 +4,12 @@ namespace App\Nova\Resources\Order;
 
 use App\Nova\Actions\Actions\ConfirmOrder;
 use App\Nova\Actions\CommissionInvoice;
+use App\Nova\Actions\PaymentForPeriod;
 use App\Nova\Actions\PaymentOrder;
+use App\Nova\Filters\Company;
+use App\Nova\Filters\EndPeriod;
+use App\Nova\Filters\RangePeriod;
+use App\Nova\Filters\StartPeriod;
 use App\Nova\Resource;
 use App\Nova\Resources\Product\Product;
 use App\Nova\Resources\Provider\Provider;
@@ -215,7 +220,11 @@ class Order extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            (new Company),
+            (new StartPeriod),
+            (new EndPeriod),
+        ];
     }
 
     /**
@@ -239,6 +248,7 @@ class Order extends Resource
     {
         return [
             new PaymentOrder,
+            new PaymentForPeriod,
             new CommissionInvoice,
             (new ConfirmOrder)
                 ->onlyOnTableRow()

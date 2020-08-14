@@ -28,6 +28,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'admin_mail' => env('ADMIN_MAIL'),
+
     'url_image' => env('APP_URL_IMAGE','production'),
 
     'merchant_id' => env('PAYTABS_MERCHANT_ID'),

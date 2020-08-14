@@ -9,6 +9,7 @@ use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Order\OrderFoodInterface;
 use App\Contracts\FormatInterface;
 use App\Models\Order\Order;
+use App\Models\Provider\Provider;
 use App\Traits\FeeTrait;
 use Carbon\Carbon;
 
@@ -145,10 +146,15 @@ class OrderFoodRepository implements OrderFoodInterface
 
         $vat = $cost/ 100 * $this->getFee('food', 'vat');
 
+        $provider = Provider::find($this->provider_id);
+
         $serviceReceivedCost = (($cost + $vat) / 100 * $this->getFee('food', 'received'));
-        $companyReceivedCost = (floor($markupCast) + $cents) + $vat + 5 +
+        $companyReceivedCost = (floor($markupCast) + $cents) + $vat +
+            ($provider->charge == 1) ? $this->getFee('food', 'charge') : 0 +
             $cost / 100 * (100 - $this->getFee('food', 'received'));
+
         $orderCost = $serviceReceivedCost + $companyReceivedCost;
+        $orderCost = $orderCost + ($orderCost * $provider->count) / 100;
 
         return [
             'cost'              => round($orderCost, 2),

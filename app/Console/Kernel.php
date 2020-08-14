@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('push:fire')
                   ->everyMinute();
+        $schedule->command('admin:email')
+                  ->dailyAt("00:00:00");
+//        $schedule->command('send:provider')
+//                  ->everyMinute();
     }
 
     /**
