@@ -58,11 +58,8 @@ class OrderServiceRepository implements OrderServiceInterface
                 $this->getFee($type, 'vat');
         $order->company_received    = $order->cost - $order->service_received;
         $order->debt                = $order->cost;
-        if($order->payment_type === 'cash')
-            $order->status = 'new';
-
+        if($order->payment_type === 'cash') $order->status = 'new';
         $order->save();
-
         $response =  $this->format($order);
         return TransJsonResponse::toJson(true,$response,'Order was created',201);
     }

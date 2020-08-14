@@ -7,6 +7,7 @@ use App\Nova\Actions\SendToNumber;
 use App\Nova\Resources\Category\Category;
 use App\Nova\Resources\User\User;
 use Benjacho\BelongsToManyField\BelongsToManyField;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -69,6 +70,14 @@ class Provider extends Resource
             ID::make()->sortable(),
             Text::make('Name')
                 ->sortable(),
+            Boolean::make('Enable cash','enable_cash')
+                ->trueValue(1)
+                ->falseValue(0),
+            NovaDependencyContainer::make([
+                Number::make('Limit Cash')
+                    ->sortable(),
+            ])->dependsOn('enable_cash',true),
+
             PhoneNumber::make('Phone Number')
                 ->format('+380-##-##-##-###')
                 ->placeholder('Example: 12-34-56-789')
@@ -129,8 +138,8 @@ class Provider extends Resource
             HasOne::make('Provider schedule','schedule',Schedule::class),
             BelongsToMany::make('Language','languages',Language::class),
             HasMany::make('Users','users',User::class),
-            HasOne::make('Credit card','creditCard',CreditCard::class)
-
+            HasOne::make('Credit card','creditCard',CreditCard::class),
+            BelongsTo::make('Provider status', 'providerStatus' , ProviderStatus::class)
         ];
     }
 

@@ -115,7 +115,8 @@ class Product extends Resource
                     ->falseValue(0)
                     ->exceptOnForms(),
                 NovaDependencyContainer::make([
-                    Number::make('Price for one','price')
+                    BelongsTo::make('Utils','utils', Utils::class),
+                    Number::make('Price','price')
                         ->exceptOnForms(),
                     Number::make('Rating')->max(5)->min(1)
                 ])->dependsOn('has_ingredients',false),

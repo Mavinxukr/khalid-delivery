@@ -76,7 +76,7 @@ class Product extends Model
         'weight','active', 'query', 'answer_type',
         'what_is_included', 'what_is_not_included',
         'info_pay', 'sort_most_selling', 'sort_appetizers',
-        'sort_sales','rating','util_id'
+        'sort_sales','rating','util_id','product_count_type'
     ];
 
 

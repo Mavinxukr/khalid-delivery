@@ -29,11 +29,18 @@ class CreateRestaurantsTable extends Migration
             $table->string('country')->nullable();
             $table->string('zip')->nullable();
             $table->string('company_number')->nullable();
+            $table->double('limit_cash')->nullable();
+            $table->boolean('enable_cash')->default(false);
             $table->string('chamber_of_commerce')->default('empty');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')
                                                   ->on('categories')
                                                   ->onDelete('cascade');
+            $table->unsignedBigInteger('provider_status')->nullable();
+            $table->foreign('provider_status')
+                            ->references('id')
+                            ->on('provider_statuses')
+                            ->onDelete('cascade');
             $table->timestamps();
         });
     }
