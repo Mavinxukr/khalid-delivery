@@ -125,4 +125,22 @@ class OrderFoodController extends Controller
     {
         return $this->order->getFoodOrderWithOutStatus($request);
     }
+
+    /**
+     * @api {post}  company/cancel-food-order-items/{id} Cancel food order items UPDATE 17.08.2020
+     * @apiName  Cancel food order items
+     * @apiVersion 1.1.1
+     * @apiGroup Company Food Order
+     * @apiParam {Text} product_ids Product Ids (delimiter by ,)
+     * @apiParam {Text} description Description
+     * @apiParam {File} image Image (not required)
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/cancel-food-order-items/{id}
+     */
+
+    public function cancelFoodOrderItems(Request $request, $id)
+    {
+        return $this->order->cancelFoodOrderItems($request, $id);
+    }
 }

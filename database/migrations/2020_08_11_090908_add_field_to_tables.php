@@ -14,7 +14,7 @@ class AddFieldToTables extends Migration
     public function up()
     {
         Schema::table('providers', function (Blueprint $table) {
-            $table->bigInteger('count');
+            $table->bigInteger('count')->nullable();
             $table->boolean('charge')->default(1);
         });
 

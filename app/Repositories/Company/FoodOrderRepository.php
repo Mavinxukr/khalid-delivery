@@ -5,9 +5,12 @@ namespace App\Repositories\Company;
 
 
 use App\Contracts\Company\Order\FoodOrderInterface;
+use App\Helpers\FileHelper;
+use App\Helpers\FoodOrderHelper;
 use App\Helpers\GeoLocationHelper;
 use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
+use App\Models\Order\CancelOrderItem;
 use App\Models\Order\Order;
 use App\Models\Product\Product;
 use App\Notifications\SendNotification;
@@ -37,6 +40,7 @@ class FoodOrderRepository implements FoodOrderInterface
         $order = Order::findOrFail($id);
 
         $products = $order->products()
+                          ->withPivot('canceled')
                           ->get()
                           ->map(function ($product){
                               $product->flag = true;
@@ -106,7 +110,7 @@ class FoodOrderRepository implements FoodOrderInterface
                 'image'              => ImageLinker::linker($data->image),
                 'category'           => $data->categories->type,
                 'description'        => $data->description,
-                'weight'             => $data->weight
+                'weight'             => $data->weight,
             ];
         }else{
             return [
@@ -149,5 +153,57 @@ class FoodOrderRepository implements FoodOrderInterface
         return TransJsonResponse::toJson(true, $orders,
             'Show your order with no status', 200);
 
+    }
+
+    public function cancelFoodOrderItems(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        if(is_null($request->product_ids)){
+            return TransJsonResponse::toJson(false,[],'Any product selected', 400);
+        }
+
+        $ids = explode(',', $request->product_ids);
+        $order->products()->whereIn('product_id', $ids)->update([
+            'canceled' => 1,
+        ]);
+
+        $image = null;
+        if(!is_null($request->image)){
+            $image = FileHelper::store($request->image, 'food');
+        }
+
+        CancelOrderItem::updateOrCreate(['order_id' => $id], [
+            'description'   => $request->description,
+            'image'         => $image
+        ]);
+
+        $products = $order->products()
+            ->withPivot(['canceled', 'quantity'])
+            ->get();
+
+        $cost = 0;
+        foreach ($products as $item) {
+            if(!$item->pivot->canceled){
+                $cost += $item->price * $item->pivot->quantity;
+             }
+        }
+
+        $costs = (new FoodOrderHelper())->calculateCost($order->provider_id, $cost);
+
+        $order->cost = $costs['cost'];
+        $order->service_received = $costs['service_received'];
+        $order->company_received = $costs['company_received'];
+        $order->save();
+
+        $products = $order->products()
+            ->where('canceled', 0)
+            ->get()
+            ->map(function ($product){
+                $product->flag = true;
+                return $this->format($product);
+            });
+
+        return TransJsonResponse::toJson(true, $products,'Show order by id', 200);
     }
 }

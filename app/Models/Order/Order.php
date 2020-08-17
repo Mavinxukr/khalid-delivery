@@ -106,6 +106,9 @@ class Order extends Model
         'service_received', 'company_received',
     ];
 
+    public $appends = [
+        'canceled', 'quantity'
+    ];
 
     public function provider()
     {
@@ -151,5 +154,10 @@ class Order extends Model
     public function answers()
     {
         return $this->hasMany(OrderDetail::class);
+    }
+
+    public function canceledDescription()
+    {
+        return $this->hasOne(CancelOrderItem::class);
     }
 }
