@@ -78,6 +78,22 @@ class OrderFoodController extends Controller
     }
 
     /**
+     * @api {post} client/food-orders/done  Done food order  UPDATE 18.08.20
+     * @apiName  Done food order
+     * @apiVersion 1.1.1
+     * @apiGroup Client Order - Food
+     * @apiParam {Number} id Order id
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest   client/food-orders/done
+     */
+
+    public function doneOrder(Request $request)
+    {
+        return $this->order->doneOrder($request);
+    }
+
+    /**
      * @api {post} client/food-orders/confirm  Cancel food order  #Screen №8
      * @apiName  Client Order
      * @apiVersion 1.1.1

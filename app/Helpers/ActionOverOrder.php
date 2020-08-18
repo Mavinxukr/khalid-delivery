@@ -34,6 +34,25 @@ class ActionOverOrder extends CheckoutHelper
         }
     }
 
+    public static function doneOrder($request)
+    {
+        $order =  Order::whereId($request->id)
+            ->whereUserId($request->user()->id)
+            ->first();
+        if (!is_null($order)) {
+            if ($order->status === 'confirm' && $order->delivery_status->name === 'delivered'){
+                $order ->update([
+                    'status'    => 'done',
+                ]);
+                return 'Order was done';
+            } else {
+                throw new \Exception('You already done this order');
+            }
+        }else{
+            return abort(404);
+        }
+    }
+
     public static function cancelOrder($request)
     {
         $order = Order::findOrFail($request->id);

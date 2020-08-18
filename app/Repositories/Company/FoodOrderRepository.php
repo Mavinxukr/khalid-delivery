@@ -12,6 +12,7 @@ use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Models\Order\CancelOrderItem;
 use App\Models\Order\Order;
+use App\Models\Order\OrderStatus;
 use App\Models\Product\Product;
 use App\Notifications\SendNotification;
 use App\User;
@@ -64,14 +65,30 @@ class FoodOrderRepository implements FoodOrderInterface
     {
         $order =  Order::findOrFail($request->order_id);
 
-        if ($order->status === 'new'){
+        if ($order->status === 'new' && $order->delivery_status->name === 'placed'){
             $order ->update([
-                'status'    => 'confirm'
+                'status'    => 'confirm',
+                'status_id' => OrderStatus::whereName('confirmed')->first()->id
             ]);
             return TransJsonResponse::toJson(true, null,'Food order confirm success', 200);
         }else{
             return TransJsonResponse::toJson(false, null,
-                "Food order not confirm, because order status  - $order->status ", 400);
+                "Food order not confirm, because order status  - $order->status and delivery status " . $order->delivery_status->name, 400);
+        }
+    }
+
+    public function inProgressFoodOrder(Request $request)
+    {
+        $order =  Order::findOrFail($request->order_id);
+
+        if ($order->status === 'confirm' && $order->delivery_status->name === 'confirmed'){
+            $order ->update([
+                'status_id'    => OrderStatus::whereName('on the way')->first()->id
+            ]);
+            return TransJsonResponse::toJson(true, null,'Food order in progress success', 200);
+        }else{
+            return TransJsonResponse::toJson(false, null,
+                "Food order not confirm, because order status  - $order->status and delivery status " . $order->delivery_status->name, 400);
         }
     }
 
@@ -79,23 +96,23 @@ class FoodOrderRepository implements FoodOrderInterface
     {
         $order =  Order::findOrFail($request->order_id);
 
-        if ($order->status === 'confirm'){
+        if ($order->status === 'confirm' && $order->delivery_status->name === 'on the way'){
             $order ->update([
-                'status'    => 'done'
+                'status_id'    => OrderStatus::whereName('delivered')->first()->id
             ]);
 
-            $headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
-            User::findOrFail($order->user_id)->notify(new SendNotification((new MailMessage)
+            //$headers = \App\Models\Invoice\InvoiceTemplate::all()->pluck('value', 'key');
+            /*User::findOrFail($order->user_id)->notify(new SendNotification((new MailMessage)
                 ->view('tax.simple', [
                     'order'     => $order,
                     'headers'   => $headers,
-                ])));
+                ])));*/
 
-            //here need to send push-notify
+            //here need to send push-notify for done order by client
             return TransJsonResponse::toJson(true, null,'Food order done success', 200);
         }else{
             return TransJsonResponse::toJson(false, null,
-                "Food order not done, because order status  - $order->status ", 400);
+                "Food order not confirm, because order status  - $order->status and delivery status " . $order->delivery_status->name, 400);
         }
     }
 
@@ -133,7 +150,8 @@ class FoodOrderRepository implements FoodOrderInterface
         $order =  Order::findOrFail($id);
         if ($order->status === 'confirm'){
             $order ->update([
-                'status'    => 'new'
+                'status'    => 'cancel',
+                'status_id'    => OrderStatus::whereName('canceled')->first()->id
             ]);
             //here need to send push-notify
             return TransJsonResponse::toJson(true, null,'Food order cancel success', 200);

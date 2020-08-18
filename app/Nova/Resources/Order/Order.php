@@ -2,6 +2,7 @@
 
 namespace App\Nova\Resources\Order;
 
+use App\Nova\Actions\Actions\ChangeFoodOrderStatus;
 use App\Nova\Actions\Actions\ConfirmOrder;
 use App\Nova\Actions\CommissionInvoice;
 use App\Nova\Actions\PaymentForPeriod;
@@ -251,7 +252,9 @@ class Order extends Resource
             new PaymentForPeriod,
             new CommissionInvoice,
             (new ConfirmOrder)
-                ->onlyOnTableRow()
+                ->onlyOnTableRow(),
+            (new ChangeFoodOrderStatus)
+                ->onlyOnTableRow(),
         ];
     }
 }

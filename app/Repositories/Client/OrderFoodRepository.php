@@ -10,9 +10,11 @@ use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Order\OrderFoodInterface;
 use App\Contracts\FormatInterface;
 use App\Models\Order\Order;
+use App\Models\Order\OrderStatus;
 use App\Models\Provider\Provider;
 use App\Traits\FeeTrait;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class OrderFoodRepository implements OrderFoodInterface
 {
@@ -66,6 +68,7 @@ class OrderFoodRepository implements OrderFoodInterface
             if($order->payment_type === 'cash')
                 $order->status = 'new';
 
+            $order->status_id = OrderStatus::whereName('New')->first()->id;
             $order->save();
             $response = $this->format($order);
             return TransJsonResponse::toJson(true, $response, 'Order was created', 201);
@@ -112,6 +115,17 @@ class OrderFoodRepository implements OrderFoodInterface
 
         return TransJsonResponse::toJson(true, null, 'Restore successfully', 201);
     }
+
+    public function doneOrder($request)
+    {
+        try {
+            $done  = ActionOverOrder::doneOrder($request);
+            return TransJsonResponse::toJson(true, null, $done, 201);
+        }catch (\Exception $exception){
+            return TransJsonResponse::toJson(false, null, $exception->getMessage(), 400);
+        }
+    }
+
     public function format($data)
     {
         return [
@@ -127,6 +141,10 @@ class OrderFoodRepository implements OrderFoodInterface
             'country_code'   => $data->place->country,
             'callback'       => $data->callback_time,
             'status'         => $data->status ?? 'wait',
+            'delivery_status'=> !is_null($data->delivery_status) ? [
+                'status' => $data->delivery_status->name,
+                'step'   => $data->delivery_status->step,
+            ] : null,
             'comment'        => $data->comment
         ];
     }

@@ -79,6 +79,23 @@ class OrderFoodController extends Controller
         return $this->order->takeFoodOrder($request);
     }
 
+
+    /**
+     * @api {post}  company/in-progress-food-order In Progress food order UPDATE 17.08.20
+     * @apiName  In Progress food order
+     * @apiVersion 1.1.1
+     * @apiGroup Company Food Order
+     * @apiParam {Number} order_id Order Id
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/in-progress-food-order
+     */
+
+    public function inProgressFoodOrder(Request $request)
+    {
+        return $this->order->inProgressFoodOrder($request);
+    }
+
     /**
      * @api {patch} company/cancel-food-order/{id} Cancel food order
      * @apiName  Cancel food order
