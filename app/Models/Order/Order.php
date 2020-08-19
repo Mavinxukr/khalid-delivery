@@ -93,7 +93,7 @@ class Order extends Model
         'date_delivery_to','callback_time','user_id',
         'type_cleaning','product_id', 'service_received',
         'company_received', 'answers_id', 'initial_cost',
-        'payment_type', 'b2b_1', 'b2b_2', 'b2b_3'
+        'payment_type', 'b2b_1', 'b2b_2', 'b2b_3', 'status_id',
     ];
 
 
@@ -103,9 +103,12 @@ class Order extends Model
         'product_id','interval','debt',
         'quantity','count_clean',
         'type_cleaning','comment','date_delivery',
-        'service_received', 'company_received',
+        'service_received', 'company_received', 'status_id',
     ];
 
+    public $appends = [
+        'canceled', 'quantity'
+    ];
 
     public function provider()
     {
@@ -151,5 +154,15 @@ class Order extends Model
     public function answers()
     {
         return $this->hasMany(OrderDetail::class);
+    }
+
+    public function canceledDescription()
+    {
+        return $this->hasOne(CancelOrderItem::class);
+    }
+
+    public function delivery_status()
+    {
+        return $this->belongsTo(OrderStatus::class, 'status_id', 'id');
     }
 }

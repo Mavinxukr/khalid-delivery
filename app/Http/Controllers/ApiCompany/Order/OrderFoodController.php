@@ -79,6 +79,23 @@ class OrderFoodController extends Controller
         return $this->order->takeFoodOrder($request);
     }
 
+
+    /**
+     * @api {post}  company/in-progress-food-order In Progress food order UPDATE 17.08.20
+     * @apiName  In Progress food order
+     * @apiVersion 1.1.1
+     * @apiGroup Company Food Order
+     * @apiParam {Number} order_id Order Id
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/in-progress-food-order
+     */
+
+    public function inProgressFoodOrder(Request $request)
+    {
+        return $this->order->inProgressFoodOrder($request);
+    }
+
     /**
      * @api {patch} company/cancel-food-order/{id} Cancel food order
      * @apiName  Cancel food order
@@ -124,5 +141,23 @@ class OrderFoodController extends Controller
     public function getOrderWithOutStatus(Request $request)
     {
         return $this->order->getFoodOrderWithOutStatus($request);
+    }
+
+    /**
+     * @api {post}  company/cancel-food-order-items/{id} Cancel food order items UPDATE 17.08.2020
+     * @apiName  Cancel food order items
+     * @apiVersion 1.1.1
+     * @apiGroup Company Food Order
+     * @apiParam {Text} product_ids Product Ids (delimiter by ,)
+     * @apiParam {Text} description Description
+     * @apiParam {File} image Image (not required)
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/cancel-food-order-items/{id}
+     */
+
+    public function cancelFoodOrderItems(Request $request, $id)
+    {
+        return $this->order->cancelFoodOrderItems($request, $id);
     }
 }

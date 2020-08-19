@@ -14,6 +14,8 @@ interface OrderFoodInterface extends FormatInterface
 
     public function confirmOrder($data);
 
+    public function doneOrder($data);
+
     public function cancelOrder($data);
 
     public function restoreOrder(int $id);

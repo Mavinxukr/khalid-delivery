@@ -5,18 +5,19 @@ namespace App\Repositories\Client;
 
 
 use App\Helpers\ActionOverOrder;
+use App\Helpers\FoodOrderHelper;
 use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Order\OrderFoodInterface;
 use App\Contracts\FormatInterface;
 use App\Models\Order\Order;
+use App\Models\Order\OrderStatus;
 use App\Models\Provider\Provider;
 use App\Traits\FeeTrait;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class OrderFoodRepository implements OrderFoodInterface
 {
-    use FeeTrait;
-
     public function show(int $id)
     {
         $order = Order::findOrFail($id);
@@ -47,12 +48,12 @@ class OrderFoodRepository implements OrderFoodInterface
                 }
                 $cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
-                //$item->delete();
+                $item->delete();
             }
 
             if($cost){
                 $order->initial_cost = $cost;
-                $costs = $this->calculateCost($cost);
+                $costs = (new FoodOrderHelper())->calculateCost($providerId, $cost);
 
                 $order->cost = $costs['cost'];
                 $order->service_received = $costs['service_received'];
@@ -67,6 +68,7 @@ class OrderFoodRepository implements OrderFoodInterface
             if($order->payment_type === 'cash')
                 $order->status = 'new';
 
+            $order->status_id = OrderStatus::whereName('New')->first()->id;
             $order->save();
             $response = $this->format($order);
             return TransJsonResponse::toJson(true, $response, 'Order was created', 201);
@@ -113,6 +115,17 @@ class OrderFoodRepository implements OrderFoodInterface
 
         return TransJsonResponse::toJson(true, null, 'Restore successfully', 201);
     }
+
+    public function doneOrder($request)
+    {
+        try {
+            $done  = ActionOverOrder::doneOrder($request);
+            return TransJsonResponse::toJson(true, null, $done, 201);
+        }catch (\Exception $exception){
+            return TransJsonResponse::toJson(false, null, $exception->getMessage(), 400);
+        }
+    }
+
     public function format($data)
     {
         return [
@@ -128,38 +141,11 @@ class OrderFoodRepository implements OrderFoodInterface
             'country_code'   => $data->place->country,
             'callback'       => $data->callback_time,
             'status'         => $data->status ?? 'wait',
+            'delivery_status'=> !is_null($data->delivery_status) ? [
+                'status' => $data->delivery_status->name,
+                'step'   => $data->delivery_status->step,
+            ] : null,
             'comment'        => $data->comment
-        ];
-    }
-
-    public function calculateCost($cost)
-    {
-        $markupCast = ($cost / 100 * $this->getFee('food', 'markup'));
-        $cents = round(($markupCast - floor($markupCast)) * 100);
-        $centsFloor = $cents % 10;
-        $cents = $cents - $centsFloor;
-        if($centsFloor < 5){
-            $cents = ($cents + 5) / 100;
-        }else{
-            $cents = ($cents + 10) / 100;
-        }
-
-        $vat = $cost/ 100 * $this->getFee('food', 'vat');
-
-        $provider = Provider::find($this->provider_id);
-
-        $serviceReceivedCost = (($cost + $vat) / 100 * $this->getFee('food', 'received'));
-        $companyReceivedCost = (floor($markupCast) + $cents) + $vat +
-            ($provider->charge == 1) ? $this->getFee('food', 'charge') : 0 +
-            $cost / 100 * (100 - $this->getFee('food', 'received'));
-
-        $orderCost = $serviceReceivedCost + $companyReceivedCost;
-        $orderCost = $orderCost + ($orderCost * $provider->count) / 100;
-
-        return [
-            'cost'              => round($orderCost, 2),
-            'service_received'  => round($serviceReceivedCost, 2),
-            'company_received'  => round($companyReceivedCost, 2),
         ];
     }
 }

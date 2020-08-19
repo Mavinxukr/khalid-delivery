@@ -62,7 +62,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://delivery.beta'),
+    'url' => env('APP_URL', 'http://khalid.lan'),
+    //'url' => env('APP_URL', 'http://delivery.beta'),
 
     'asset_url' => env('ASSET_URL', null),
 

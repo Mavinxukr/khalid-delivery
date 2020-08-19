@@ -17,9 +17,13 @@ interface FoodOrderInterface extends FormatInterface
 
     public function takeFoodOrder(Request $request);
 
+    public function inProgressFoodOrder(Request $request);
+
     public function doneFoodOrder(Request $request);
 
     public function cancelFoodOrder(Request $request , int $id);
 
     public function getFoodOrderWithOutStatus(Request $request);
+
+    public function cancelFoodOrderItems(Request $request, int $id);
 }

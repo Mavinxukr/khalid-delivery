@@ -59,10 +59,12 @@ Route::group(["namespace"=>"ApiCompany"],function() {
         Route::get('get-food-order','Order\OrderFoodController@getFoodOrder');
         Route::get('get-food-order-no-status','Order\OrderFoodController@getOrderWithOutStatus');
         Route::post('take-food-order','Order\OrderFoodController@takeFoodOrder');
+        Route::post('in-progress-food-order','Order\OrderFoodController@inProgressFoodOrder');
         Route::post('done-food-order','Order\OrderFoodController@doneFoodOrder');
         Route::get('get-food-order/{id}','Order\OrderFoodController@getOrderById');
         Route::get('get-food-order/{order_id}/{product_id} ','Order\OrderFoodController@getProductInOrderById');
         Route::patch('cancel-food-order/{id}','Order\OrderFoodController@cancelFoodOrder');
+        Route::post('cancel-food-order-items/{id}','Order\OrderFoodController@cancelFoodOrderItems');
         //------------------------------ Action over service order ---------------------------------//
         Route::post('take-service-order','Order\ActionServiceOrderController@takeServiceOrder');
         Route::patch('cancel-service-order/{id}','Order\ActionServiceOrderController@cancelServiceOrder');

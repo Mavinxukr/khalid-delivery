@@ -46,6 +46,7 @@ Route::group(["namespace"=>"ApiClient"],function() {
         Route::post('food-orders','Order\OrderFoodController@store');
         Route::get('food-orders/{id}','Order\OrderFoodController@show');
         Route::post('food-orders/confirm','Order\OrderFoodController@confirmOrder');
+        Route::post('food-orders/done','Order\OrderFoodController@doneOrder');
         Route::post('food-orders/restore','Order\OrderFoodController@restoreOrder');
         Route::post('food-orders/cancel','Order\OrderFoodController@cancelOrder');
         //---------------------------- Place --------------------------------//
