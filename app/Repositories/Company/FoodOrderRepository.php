@@ -128,6 +128,7 @@ class FoodOrderRepository implements FoodOrderInterface
                 'category'           => $data->categories->type,
                 'description'        => $data->description,
                 'weight'             => $data->weight,
+                'canceled'           => $data->pivot->canceled,
             ];
         }else{
             return [
@@ -215,7 +216,7 @@ class FoodOrderRepository implements FoodOrderInterface
         $order->save();
 
         $products = $order->products()
-            ->where('canceled', 0)
+            ->withPivot(['canceled', 'quantity'])
             ->get()
             ->map(function ($product){
                 $product->flag = true;
