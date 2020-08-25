@@ -107,7 +107,7 @@ class Order extends Model
     ];
 
     public $appends = [
-        'canceled', 'quantity'
+        /*'canceled',*/ 'quantity'
     ];
 
     public function provider()

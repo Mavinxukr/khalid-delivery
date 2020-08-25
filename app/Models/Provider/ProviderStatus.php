@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class ProviderStatus extends Model
 {
     protected $fillable = [
-        'title'
+        'title','time'
     ];
 }

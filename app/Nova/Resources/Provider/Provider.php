@@ -151,6 +151,7 @@ class Provider extends Resource
             HasMany::make('Users','users',User::class),
             HasOne::make('Credit card','creditCard',CreditCard::class),
             BelongsTo::make('Provider status', 'providerStatus' , ProviderStatus::class)
+                ->nullable()
         ];
     }
 
