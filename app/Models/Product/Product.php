@@ -73,7 +73,7 @@ class Product extends Model
         'title','description',
         'price','image','category_id',
         'provider_id','type','parent_id',
-        'weight', 'query', 'answer_type',
+        'weight','active', 'query', 'answer_type',
         'what_is_included', 'what_is_not_included',
         'info_pay', 'sort_most_selling', 'sort_appetizers',
         'sort_sales','rating','util_id','product_count_type'
@@ -82,7 +82,7 @@ class Product extends Model
 
     protected $hidden = [
         'parent_id','updated_at','created_at',
-        'category_id','provider_id','pivot','active'
+        'category_id','provider_id','pivot'
     ];
 
     public function getImageAttribute($value)

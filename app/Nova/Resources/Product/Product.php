@@ -151,10 +151,10 @@ class Product extends Resource
                 ->rules( 'file'),
             Text::make('Type', 'type')
                 ->exceptOnForms(),
-            Boolean::make('Active')
+           /* Boolean::make('Active')
                 ->trueValue(1)
                 ->falseValue(0)
-                ->exceptOnForms(),
+                ->exceptOnForms(),*/
             HasMany::make('Component','component', Component::class)
                 ->canSee(function (){
                     return
