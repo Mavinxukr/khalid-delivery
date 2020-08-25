@@ -64,9 +64,9 @@ class OrderFoodRepository implements OrderFoodInterface
 
             $order->provider_id = $providerId;
             if ($order->provider->percent ){
-                $cost *= ($order->provider->count /100)  ;
+                $order->cost *= ($order->provider->count /100)  ;
             }else{
-                $cost += $order->provider->count;
+                $order->cost += $order->provider->count;
             }
             $order->provider_category = 'food';
             $order->debt = $order->cost;
