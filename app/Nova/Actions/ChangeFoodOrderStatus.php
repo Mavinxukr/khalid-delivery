@@ -2,6 +2,7 @@
 
 namespace App\Nova\Actions\Actions;
 
+use App\Helpers\PushHelper;
 use App\Models\Order\OrderStatus;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -40,6 +41,8 @@ class ChangeFoodOrderStatus extends Action
 
         $order->status_id = $fields->status_id;
         $order->save();
+
+        PushHelper::sendPush($order->user_id, "Your order status changed to " . OrderStatus::findOrFail($fields->status_id)->name);
     }
 
     /**
