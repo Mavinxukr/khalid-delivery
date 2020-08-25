@@ -15,6 +15,7 @@ class AddDaysAfterInvoice extends Migration
     {
         Schema::table('providers', function (Blueprint $table) {
             $table->integer('days_after_invoice');
+            $table->integer('days_before_invoice');
         });
     }
 

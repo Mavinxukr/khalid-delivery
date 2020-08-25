@@ -136,7 +136,9 @@ class Provider extends Resource
                 ->trueValue(1)
                 ->falseValue(0),
 
-            Number::make("Days after invoice", 'days_after_invoiv=ce')
+            Number::make("Days after invoice", 'days_after_invoice')
+                ->rules('required', 'integer'),
+            Number::make("Days before invoice", 'days_before_invoice')
                 ->rules('required', 'integer'),
 
             Image::make('Image','image')
