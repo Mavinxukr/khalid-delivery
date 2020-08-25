@@ -50,11 +50,7 @@ class OrderFoodRepository implements OrderFoodInterface
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
                 $item->delete();
             }
-            if ($order->provider->percent ){
-                $cost *= ($order->provider->count /100)  ;
-            }else{
-                $cost += $order->provider->count;
-            }
+
             if($cost){
                 $order->initial_cost = $cost;
                 $costs = (new FoodOrderHelper())->calculateCost($providerId, $cost);
@@ -67,6 +63,11 @@ class OrderFoodRepository implements OrderFoodInterface
             }
 
             $order->provider_id = $providerId;
+            if ($order->provider->percent ){
+                $order->cost *= ($order->provider->count /100)  ;
+            }else{
+                $order->cost += $order->provider->count;
+            }
             $order->provider_category = 'food';
             $order->debt = $order->cost;
             if($order->payment_type === 'cash')
