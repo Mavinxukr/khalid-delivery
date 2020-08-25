@@ -2,10 +2,8 @@
 
 namespace App\Nova\Actions;
 
-use App\Models\Payment\Payment;
 use App\Models\Provider\Provider;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
@@ -32,20 +30,20 @@ class PaymentForPeriod extends Action
             $count = 0;
 
             foreach ($orders as $order) {
+                $array[] = $order->id;
                 $count += $order->debt;
             }
 
-            \App\Models\Payment\Payment::create([
+            $invoice = \App\Models\Payment\CommissionInvoice::create([
                 'name' => "Invoice of ".$company." for period",
                 'count' => $count,
                 'action' => 'increment',
                 'provider_id' => $provider,
                 'product_id' => $models->first()->product_id,
                 'status' => 'pending',
-                'order_id' => $order->id,
                 'deadline' => $fields->deadline
             ]);
-            $order->save();
+            $invoice->orders()->attach($array);
 
         }else{
             return Action::danger('This order is still does not have a company');

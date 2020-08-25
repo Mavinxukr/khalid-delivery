@@ -4,6 +4,7 @@ namespace App\Models\Order;
 
 use App\Models\Checkout\Checkout;
 use App\Models\Feedback\FirePush;
+use App\Models\Payment\CommissionInvoice;
 use App\Models\PlaceService\Place;
 use App\Models\Product\Product;
 use App\Models\Provider\Provider;
@@ -164,5 +165,10 @@ class Order extends Model
     public function delivery_status()
     {
         return $this->belongsTo(OrderStatus::class, 'status_id', 'id');
+    }
+
+    public function invoices()
+    {
+        return $this->belongsToMany(CommissionInvoice::class,'invoice_order', 'order_id','invoice_id');
     }
 }
