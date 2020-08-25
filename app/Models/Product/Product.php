@@ -5,6 +5,7 @@ namespace App\Models\Product;
 use App\Helpers\ImageLinker;
 use App\Models\Category\Category;
 use App\Models\Category\ProductCategory;
+use App\Models\Order\Order;
 use App\Models\Provider\Provider;
 use App\Models\Util\Util;
 use Illuminate\Database\Eloquent\Model;
@@ -100,6 +101,11 @@ class Product extends Model
             return $this->pivot->canceled;
         }
         return null;
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class,'order_products')->withPivot('canceled', 'quantity');
     }
 
     public function provider()

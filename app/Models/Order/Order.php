@@ -143,11 +143,11 @@ class Order extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class,'product_id')->withPivot('canceled', 'quantity');
+        return $this->belongsTo(Product::class,'product_id');
     }
     public function products()
     {
-        return $this->belongsToMany(Product::class,'order_products');
+        return $this->belongsToMany(Product::class,'order_products')->withPivot('canceled', 'quantity');
     }
 
     public function checkout()
