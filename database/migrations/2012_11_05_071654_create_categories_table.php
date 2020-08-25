@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->boolean('active')->default(1);
             $table->string('type');
-            $table->unsignedBigInteger('fee');
+            $table->unsignedBigInteger('fee')->nullable();
             $table->timestamps();
         });
     }
