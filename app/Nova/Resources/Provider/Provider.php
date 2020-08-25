@@ -127,10 +127,6 @@ class Provider extends Resource
             Number::make('balance')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            Number::make('Fee','count')
-                ->rules('required'),
-
-
             RadioButton::make('Fee static or percent', 'percent')
                 ->options([
                     '0' => '$ (static)',
@@ -140,6 +136,14 @@ class Provider extends Resource
                 ->hideFromIndex(),
 
 
+            Number::make('Fee','count')
+                ->rules('required')->displayUsing(function ($i) use($request) {
+                   if ($request->percent){
+                       return '$'. $i;
+                   }else{
+                       return '%'. $i;
+                   }
+                }),
             Boolean::make('Charge')
                 ->trueValue(1)
                 ->falseValue(0),
