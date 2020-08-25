@@ -19,6 +19,7 @@ use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
@@ -185,6 +186,10 @@ class Order extends Resource
             BelongsToMany::make('Product','products', Product::class)
                 ->canSee(function (){
                     return $this->provider_category === 'food';
+                })->fields(function () {
+                    return [
+                        Boolean::make('Canceled', 'canceled'),
+                    ];
                 })
                 ->exceptOnForms(),
 
