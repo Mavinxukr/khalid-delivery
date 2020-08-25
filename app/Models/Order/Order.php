@@ -108,8 +108,16 @@ class Order extends Model
     ];
 
     public $appends = [
-        /*'canceled',*/ 'quantity'
+        'canceled', 'quantity'
     ];
+
+    public function getCanceledAttribute()
+    {
+        if($this->provider->type === 'food'){
+            return $this->pivot->canceled;
+        }
+        return null;
+    }
 
     public function provider()
     {
