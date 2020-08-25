@@ -18,6 +18,8 @@ class CompanyTableSeeder extends Seeder
             'description' => 'food restaurant',
             'chamber_of_commerce' => '11222334445',
             'company_number' => '7777',
+            'days_after_invoice' => '7',
+            'days_before_invoice' => '2',
             'image'=>'https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg',
             'category_id' => 1
         ]);
@@ -29,6 +31,8 @@ class CompanyTableSeeder extends Seeder
             'description' => 'cleaning company',
             'company_number' => '12333',
             'chamber_of_commerce' => '00000000000',
+            'days_after_invoice' => '7',
+            'days_before_invoice' => '2',
             'image'=>'https://www.stathakis.com/hs-fs/hubfs/6-1.jpg?width=1600&name=6-1.jpg',
             'category_id' => 2
         ]);
@@ -40,6 +44,8 @@ class CompanyTableSeeder extends Seeder
             'description' => 'market',
             'company_number' => '92929',
             'chamber_of_commerce' => '3434343434',
+            'days_after_invoice' => '7',
+            'days_before_invoice' => '2',
             'image'=>'https://media-cdn.tripadvisor.com/media/photo-s/18/2b/25/bc/traditional-market.jpg',
             'category_id' => 3
         ]);

@@ -21,6 +21,8 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 use Dniccum\PhoneNumber\PhoneNumber;
+use OwenMelbz\RadioField\RadioButton;
+use phpDocumentor\Reflection\Types\Integer;
 use Sloveniangooner\SearchableSelect\SearchableSelect;
 
 
@@ -125,17 +127,28 @@ class Provider extends Resource
             Number::make('balance')
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-            Number::make('Fee','count', function ($value) use($request){
-                if ($request->editing){
-                    return $value;
-                }else{
-                        return "$value% or $";
-                }
-            })
+            Number::make('Fee','count')
                 ->rules('required'),
+
+
+            RadioButton::make('Fee static or percent', 'percent')
+                ->options([
+                    '0' => '$ (static)',
+                    '1' => '% (percent)'
+                ])
+                ->hideFromDetail()
+                ->hideFromIndex(),
+
+
             Boolean::make('Charge')
                 ->trueValue(1)
                 ->falseValue(0),
+
+            Number::make("Days after invoice", 'days_after_invoice')
+                ->rules('required', 'integer'),
+            Number::make("Days before invoice", 'days_before_invoice')
+                ->rules('required', 'integer'),
+
             Image::make('Image','image')
                 ->disk('public')
                 ->path('image/provider')

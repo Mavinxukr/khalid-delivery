@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Payment\CommissionInvoice;
 use App\Models\Payment\Payment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -17,7 +18,7 @@ class AdminNotification extends Notification
      *
      * @return void
      */
-    public function __construct(Payment $payment)
+    public function __construct(CommissionInvoice $payment)
     {
         $this->payment = $payment;
     }
@@ -41,7 +42,7 @@ class AdminNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = config('app.url')."/admin/resources/payment-companies/".$this->payment->id;
+        $url = config('app.url')."/admin/resources/commission-invoices/".$this->payment->id;
         return (new MailMessage)
                     ->greeting('Hello!')
                     ->line('You have to pay the bill.')

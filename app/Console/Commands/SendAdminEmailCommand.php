@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Payment\CommissionInvoice;
 use App\Models\Payment\Payment;
+use App\Models\Provider\Provider;
 use App\Notifications\AdminNotification;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -40,11 +42,14 @@ class SendAdminEmailCommand extends Command
      */
     public function handle()
     {
-        $date = Carbon::now()->addDay(1)->format('Y-m-d');
-        $payments = Payment::where('deadline', '=',  $date)->get();
-        foreach ($payments as $payment){
-            \Notification::route('mail', config('app.admin_mail'))
-                ->notify( new AdminNotification($payment));
+        $now = Carbon::now()->format('Y-m-d');
+        $invoices = CommissionInvoice::whereId(3)->get();
+        foreach ($invoices as $invoice){
+            $end_date = Carbon::parse($invoice->deadline)->subDays($invoice->provider->days_before_invoice)->format('Y-m-d');
+            if($end_date == $now){
+                \Notification::route('mail', config('app.admin_mail'))
+                    ->notify( new AdminNotification($invoice));
+            }
         }
     }
 }

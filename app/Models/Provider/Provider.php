@@ -74,7 +74,9 @@ class Provider extends Model
         'street_address', 'city',
         'state', 'country', 'zip','limit_cash',
         'provider_status',
-        'state', 'country', 'zip', 'count', 'charge'
+        'state', 'country', 'zip', 'count', 'charge',
+        'days_after_invoice', 'days_before_invoice',
+        'percent'
     ];
 
     protected $hidden = [
