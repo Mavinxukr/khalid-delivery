@@ -138,10 +138,10 @@ class Provider extends Resource
 
             Number::make('Fee','count')
                 ->rules('required')->displayUsing(function ($i) use($request) {
-                   if ($request->percent){
-                       return '$'. $i;
+                   if ($this->percent){
+                       return $i.'%';
                    }else{
-                       return '%'. $i;
+                       return $i.'$';
                    }
                 }),
             Boolean::make('Charge')
