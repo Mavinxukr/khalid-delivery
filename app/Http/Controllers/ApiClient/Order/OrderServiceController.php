@@ -113,4 +113,46 @@ class OrderServiceController extends Controller
     {
         return $this->order ->restoreOrder($request->id);
     }
+
+    /**
+     * @api {get} client/order-requests/{id}  Show order requests UPDATE 25.08.20
+     * @apiName  Show order requests
+     * @apiVersion 1.1.1
+     * @apiGroup Client Order - Service
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  client/order-requests/{id}
+     */
+    public function showRequests(int $id)
+    {
+        return $this->order->showRequests($id);
+    }
+
+    /**
+     * @api {post} client/order-request-accept/{request_id}  Accept order requests UPDATE 25.08.20
+     * @apiName  Accept order requests
+     * @apiVersion 1.1.1
+     * @apiGroup Client Order - Service
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  client/order-request-accept/{request_id}
+     */
+    public function acceptRequest(int $id)
+    {
+        return $this->order->acceptRequest($id);
+    }
+
+    /**
+     * @api {post} client/order-request-decline/{request_id}  Decline order requests UPDATE 25.08.20
+     * @apiName  Decline order requests
+     * @apiVersion 1.1.1
+     * @apiGroup Client Order - Service
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  client/order-request-decline/{request_id}
+     */
+    public function declineRequests(int $id)
+    {
+        return $this->order->declineRequest($id);
+    }
 }

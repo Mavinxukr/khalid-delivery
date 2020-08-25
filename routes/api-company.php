@@ -69,6 +69,6 @@ Route::group(["namespace"=>"ApiCompany"],function() {
         Route::post('take-service-order','Order\ActionServiceOrderController@takeServiceOrder');
         Route::patch('cancel-service-order/{id}','Order\ActionServiceOrderController@cancelServiceOrder');
         Route::post('send-my-location/{id}','Order\ActionServiceOrderController@sendMyLocation');
-
+        Route::post('extend-service-order/{id}','Order\ActionServiceOrderController@extendServiceOrder');
     });
 });

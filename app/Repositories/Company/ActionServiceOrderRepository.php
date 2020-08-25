@@ -5,6 +5,8 @@ namespace App\Repositories\Company;
 
 
 use App\Contracts\Company\Order\ActionServiceOrderInterface;
+use App\Helpers\FileHelper;
+use App\Helpers\PushHelper;
 use App\Helpers\TransJsonResponse;
 use App\Models\Order\Order;
 use Illuminate\Http\Request;
@@ -75,5 +77,29 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
         ]);
 
         return TransJsonResponse::toJson(true, null,'Location save success', 200);
+    }
+
+    public function extendServiceOrder(Request $request, int $id)
+    {
+        $order = Order::findOrFail($id);
+
+        $extend = $order->extends()->create([
+            'extend_from'   => $order->date_delivery_to,
+            'extend_to'     => $request->extend_to,
+            'reason'        => $request->reason,
+        ]);
+
+        if(!is_null($request->files)){
+            foreach ($request->files as $item){
+                $file = FileHelper::store($item, 'orders/extends/');
+                $extend->files()->create([
+                    'link' => $file
+                ]);
+            }
+        }
+
+        PushHelper::sendPush($order->user_id, 'Service Provider request to extend order');
+
+        return TransJsonResponse::toJson(true, null,'Request sent success', 200);
     }
 }

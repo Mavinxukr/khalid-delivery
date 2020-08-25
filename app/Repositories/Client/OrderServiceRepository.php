@@ -11,6 +11,7 @@ use App\Contracts\FormatInterface;
 use App\Models\Feedback\FirePush;
 use App\Models\Order\CancelOrder;
 use App\Models\Order\Order;
+use App\Models\Order\OrderExtend;
 use App\Notifications\SendNotification;
 use App\Traits\FeeTrait;
 use Carbon\Carbon;
@@ -158,5 +159,34 @@ class OrderServiceRepository implements OrderServiceInterface
         ]);
 
         return $preOrder->fresh();
+    }
+
+    public function showRequests(int $id)
+    {
+        $order = Order::findOrFail($id);
+        $extends = $order->extends()->with('files')->get();
+        return TransJsonResponse::toJson(true, $extends, 'All Requests', 200);
+    }
+
+    public function acceptRequest(int $id)
+    {
+        $extend = OrderExtend::findOrFail($id);
+        $extend->update([
+            'accepted' => 1,
+        ]);
+
+        $extend->order()->update([
+            'date_delivery_to' => $extend->extend_to,
+        ]);
+        return TransJsonResponse::toJson(true, null, 'Request accepted', 200);
+    }
+
+    public function declineRequest(int $id)
+    {
+        $extend = OrderExtend::findOrFail($id);
+        $extend->update([
+            'accepted' => 0,
+        ]);
+        return TransJsonResponse::toJson(true, null, 'Request declined', 200);
     }
 }

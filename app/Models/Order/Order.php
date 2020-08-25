@@ -170,4 +170,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderLocationHistory::class);
     }
+
+    public function extends()
+    {
+        return $this->hasMany(OrderExtend::class);
+    }
 }
