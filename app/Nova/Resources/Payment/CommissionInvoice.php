@@ -6,6 +6,7 @@ use App\Nova\Resource;
 use App\Nova\Resources\Order\Order;
 use App\Nova\Resources\Product\Product;
 use App\Nova\Resources\Provider\Provider;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -52,10 +53,20 @@ class CommissionInvoice extends Resource
      */
     public function fields(Request $request)
     {
+        $now = Carbon::now();
         return [
             ID::make()->sortable(),
             Text::make('Name','name'),
-            Date::make('Deadline'),
+            Badge::make('Less than 7 days','deadline',function () use($now){
+                return ($this->deadline->diffInDays($now) <= 7)? "yes": "no";
+            })
+                ->colors([
+                    'yes'  => 'red',
+                    'no'  => 'green',
+                ])
+                ->exceptOnForms(),
+            Date::make('Deadline')
+                ->sortable(),
             SearchableSelect::make('Company name','provider_id')
                 ->resource(Provider::class)
                 ->help("Need chose provider")

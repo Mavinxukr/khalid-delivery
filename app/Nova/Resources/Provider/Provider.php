@@ -21,6 +21,7 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 use Dniccum\PhoneNumber\PhoneNumber;
+use phpDocumentor\Reflection\Types\Integer;
 use Sloveniangooner\SearchableSelect\SearchableSelect;
 
 
@@ -134,6 +135,10 @@ class Provider extends Resource
             Boolean::make('Charge')
                 ->trueValue(1)
                 ->falseValue(0),
+
+            Number::make("Days after invoice", 'days_after_invoiv=ce')
+                ->rules('required', 'integer'),
+
             Image::make('Image','image')
                 ->disk('public')
                 ->path('image/provider')
