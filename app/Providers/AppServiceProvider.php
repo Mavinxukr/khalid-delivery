@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Order\Order;
 use App\Models\Product\Product;
+use App\Models\Provider\Provider;
 use App\Models\Provider\SettingProvider;
 use App\Observers\CompanySettingObserver;
 use App\Observers\OrderObserver;
