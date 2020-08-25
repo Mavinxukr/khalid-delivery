@@ -16,6 +16,7 @@ class CreateProviderStatusesTable extends Migration
         Schema::create('provider_statuses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
+            $table->unsignedBigInteger('time');
             $table->timestamps();
         });
     }

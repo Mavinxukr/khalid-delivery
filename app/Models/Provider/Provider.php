@@ -5,6 +5,7 @@ namespace App\Models\Provider;
 use App\Models\Category\Category;
 use App\Models\Feedback\CompanyFeedback;
 use App\Models\Feedback\Feedback;
+use App\Models\Order\Order;
 use App\Models\Payment\Payment;
 use App\Models\PlaceService\Place;
 use App\Models\Product\Product;
@@ -138,6 +139,11 @@ class Provider extends Model
     public function providerStatus()
     {
         return $this->belongsTo(ProviderStatus::class, 'provider_status');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 
 }
