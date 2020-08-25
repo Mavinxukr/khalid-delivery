@@ -59,6 +59,7 @@ class Category extends Resource
             Text::make('Type')
                 ->sortable()
                 ->rules('required', 'max:255'),
+            Text::make('Fee')->nullable(),
             Boolean::make('Active')
                 ->trueValue(1)
                 ->falseValue(0),

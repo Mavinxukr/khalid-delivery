@@ -129,7 +129,7 @@ class Provider extends Resource
                 if ($request->editing){
                     return $value;
                 }else{
-                        return "$value%";
+                        return "$value% or $";
                 }
             })
                 ->rules('required'),
