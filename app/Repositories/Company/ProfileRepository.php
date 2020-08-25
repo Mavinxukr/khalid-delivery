@@ -100,7 +100,7 @@ class ProfileRepository implements ProfileInterface
 
     public function format($data)
     {
-        $hasCard = !is_null($data->creditCard) ? true : false;
+
         return [
             'id'                     => $data->id,
             'image'                  => ImageLinker::linker($data->image),
@@ -111,11 +111,15 @@ class ProfileRepository implements ProfileInterface
             'type_company'           => $data->categories->type,
             'website'                => $data->website,
             'chamber_of_commerce'    => $data->chamber_of_commerce,
-            'hasCard'                => $hasCard,
+            'hasCard'                => !is_null($data->creditCard),
             'working_hours'          => $data->schedule,
             'languages'              => $data->languages()->get(),
             'count_feedback'         => $data->companyFeedback->count(),
-            'rating'                 => $data->companyFeedback->avg('star')
+            'rating'                 => $data->companyFeedback->avg('star'),
+            'payment'                => [
+                'card'               => true,
+                'cash'               => $data->enable_cash
+            ]
         ];
 
 

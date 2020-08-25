@@ -75,9 +75,11 @@ class Provider extends Resource
                 ->falseValue(0),
             NovaDependencyContainer::make([
                 Number::make('Limit Cash')
+                    ->displayUsing(function ($value){
+                        return $value . '$';
+                    })
                     ->sortable(),
             ])->dependsOn('enable_cash',true),
-
             PhoneNumber::make('Phone Number')
                 ->format('+380-##-##-##-###')
                 ->placeholder('Example: 12-34-56-789')

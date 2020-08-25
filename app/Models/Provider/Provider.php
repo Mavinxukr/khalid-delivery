@@ -81,6 +81,11 @@ class Provider extends Model
         'balance','updated_at','created_at',
         'active', 'category_id'
     ];
+
+    protected $casts = [
+        'enable_cash' => 'boolean',
+    ];
+
     public function payment()
     {
         return $this->belongsTo(Payment::class,'payment_id','provider_id','payment_provider');
