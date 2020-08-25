@@ -2,6 +2,8 @@
 
 namespace App\Nova\Resources\Payment;
 
+use App\Nova\Actions\ConfirmPaymentCompany;
+use App\Nova\Actions\ConfirmPaymentOrder;
 use App\Nova\Resource;
 use App\Nova\Resources\Order\Order;
 use App\Nova\Resources\Product\Product;
@@ -140,6 +142,9 @@ class CommissionInvoice extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new ConfirmPaymentCompany,
+            new ConfirmPaymentOrder
+        ];
     }
 }
