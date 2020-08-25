@@ -52,11 +52,15 @@ class OrderServiceRepository implements OrderServiceInterface
             $order->cost =  $cost + ($cost / 100 * $this->getFee($type, 'vat'));
         }
 
-        if (isset($order->provider->percent)&& $order->provider->percent){
-            $order->cost *= ($order->provider->count /100)  ;
-        }else{
-            $order->cost += $order->provider->count;
+
+        if(!is_null($order->provider_id)){
+            if ($order->provider->percent){
+                $order->cost *= ($order->provider->count /100)  ;
+            }else{
+                $order->cost += $order->provider->count;
+            }
         }
+
 
         $order->provider_category   = $type;
         $order->service_received    = ($order->initial_cost / 100 *
