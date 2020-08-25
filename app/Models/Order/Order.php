@@ -110,6 +110,14 @@ class Order extends Model
         'canceled', 'quantity'
     ];
 
+    public function getCanceledAttribute()
+    {
+        if($this->provider->type === 'food'){
+            return $this->pivot->canceled;
+        }
+        return null;
+    }
+
     public function provider()
     {
         return $this->belongsTo(Provider::class,'provider_id','id');
