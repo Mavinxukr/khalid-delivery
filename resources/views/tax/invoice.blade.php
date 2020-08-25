@@ -12,6 +12,9 @@ foreach ($orders as $order){
 
     $ordersArray[] = [
         'date'          => $order->created_at->format('d.m.Y'),
+        'date_pay'      => \Carbon::now()->format('d.m.Y'),
+        'date_order'    => $order->date_delivery->format('d.m.Y'),
+        'date_sale'     => $order->created_at->format('d.m.Y'),
         'order'         => $order->id,
         'description'   => $order->product->title ?? '',
         'price'         => $price,
@@ -118,7 +121,9 @@ $amount = $total - $advanced;
     <table class="table" border="0" cellspacing="0" cellpadding="15">
         <thead>
         <tr style="border: 1px solid black">
-            <th style="border: 1px solid black">Date&nbsp;of&nbsp;sale</th>
+            <th style="border: 1px solid black">Date&nbsp;sale</th>
+            <th style="border: 1px solid black">Date&nbsp;pay</th>
+            <th style="border: 1px solid black">Date&nbsp;order</th>
             <th style="border: 1px solid black">#&nbsp;Order</th>
             <th style="border: 1px solid black">Description</th>
             <th style="border: 1px solid black">Sales&nbsp;Amount</th>
@@ -130,6 +135,8 @@ $amount = $total - $advanced;
             @foreach($ordersArray as $order)
                 <tr style="border: 1px solid black">
                     <td style="border: 1px solid black">{{$order['date']}}</td>
+                    <td style="border: 1px solid black">{{$order['date_pay']}}</td>
+                    <td style="border: 1px solid black">{{$order['date_order']}}</td>
                     <td style="border: 1px solid black">{{$order['order']}}</td>
                     <td style="border: 1px solid black">{{$order['description']}}</td>
                     <td style="border: 1px solid black">{{$order['price']}}</td>
