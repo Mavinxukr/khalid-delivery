@@ -13,7 +13,7 @@ foreach ($orders as $order){
     $ordersArray[] = [
         'date'          => $order->created_at->format('d.m.Y'),
         'order'         => $order->id,
-        'description'   => $order->product->title,
+        'description'   => $order->product->title ?? '',
         'price'         => $price,
         'commission'    => $commission,
         'net_amount'    => $netAmount,
