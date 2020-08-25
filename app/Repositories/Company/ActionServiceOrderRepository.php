@@ -65,4 +65,15 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
                 "Service order not done, because order status  - $order->status ", 400);
         }
     }
+
+    public function sendMyLocation(Request $request, int $id)
+    {
+        $order = Order::findOrFail($id);
+
+        $order->locationHistory()->create($request->all() + [
+            'user_id' => $request->user()->id
+        ]);
+
+        return TransJsonResponse::toJson(true, null,'Location save success', 200);
+    }
 }

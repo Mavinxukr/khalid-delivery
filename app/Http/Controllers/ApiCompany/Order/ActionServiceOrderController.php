@@ -62,4 +62,21 @@ class ActionServiceOrderController extends Controller
     {
         return $this->order->doneFoodOrder($request);
     }
+
+    /**
+     * @api {post} company/send-my-location/{id} Send my location for Order Update 25.08.20
+     * @apiName  Send my location for Order
+     * @apiVersion 1.1.1
+     * @apiGroup Company Action  Order
+     * @apiParam {String} lat Lat
+     * @apiParam {String} lng Lng
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/send-my-location/{id}
+     */
+
+    public function sendMyLocation(Request $request, int  $id)
+    {
+        return $this->order->sendMyLocation($request, $id);
+    }
 }

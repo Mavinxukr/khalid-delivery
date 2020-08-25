@@ -13,4 +13,6 @@ interface ActionServiceOrderInterface extends  FormatInterface
     public function cancel(Request $request, int $id);
 
     public function doneFoodOrder(Request $request);
+
+    public function sendMyLocation(Request $request, int $id);
 }

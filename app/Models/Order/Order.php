@@ -165,4 +165,9 @@ class Order extends Model
     {
         return $this->belongsTo(OrderStatus::class, 'status_id', 'id');
     }
+
+    public function locationHistory()
+    {
+        return $this->hasMany(OrderLocationHistory::class);
+    }
 }
