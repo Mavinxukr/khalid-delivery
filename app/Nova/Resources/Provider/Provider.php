@@ -79,8 +79,9 @@ class Provider extends Resource
                 Number::make('Limit Cash')
                     ->displayUsing(function ($value){
                         return $value . '$';
-                    })
-                    ->sortable(),
+                    })->min(1)->step(1)
+                    ->sortable()
+                    ,
             ])->dependsOn('enable_cash',true),
             PhoneNumber::make('Phone Number')
                 ->format('+380-##-##-##-###')
