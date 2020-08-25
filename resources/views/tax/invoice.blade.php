@@ -12,7 +12,7 @@ foreach ($orders as $order){
 
     $ordersArray[] = [
         'date'          => $order->created_at->format('d.m.Y'),
-        'date_pay'      => \Carbon::now()->format('d.m.Y'),
+        'date_pay'      => Carbon\Carbon::now()->format('d.m.Y'),
         'date_order'    => $order->date_delivery->format('d.m.Y'),
         'date_sale'     => $order->created_at->format('d.m.Y'),
         'order'         => $order->id,
