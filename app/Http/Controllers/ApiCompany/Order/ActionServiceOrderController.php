@@ -85,7 +85,7 @@ class ActionServiceOrderController extends Controller
      * @apiName  Extend service Order
      * @apiVersion 1.1.1
      * @apiGroup Company Action  Order
-     * @apiParam {String} extend_to Extend To (20-10-2020 18:00:00)
+     * @apiParam {String} extend_to Extend To (18:00:00)
      * @apiParam {Text} reason Reason For Extend
      * @apiParam {Array} files Array of Files
      * @apiPermission Authorization
