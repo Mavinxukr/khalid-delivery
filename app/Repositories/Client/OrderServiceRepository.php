@@ -179,7 +179,7 @@ class OrderServiceRepository implements OrderServiceInterface
     {
         $extend = OrderExtend::findOrFail($id);
         $extend->update([
-            'accepted' => 1,
+            'accepted' => 'confirmed',
         ]);
 
         $extend->order()->update([
