@@ -58,9 +58,9 @@ class ActionServiceOrderController extends Controller
      * @apiSampleRequest  company/done-service-order
      */
 
-    public function doneFoodOrder(Request $request)
+    public function doneServiceOrder(Request $request)
     {
-        return $this->order->doneFoodOrder($request);
+        return $this->order->doneServiceOrder($request);
     }
 
     /**

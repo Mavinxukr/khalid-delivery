@@ -53,7 +53,7 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
 
     public function format($data){}
 
-    public function doneFoodOrder(Request $request)
+    public function doneServiceOrder(Request $request)
     {
         $order =  Order::findOrFail($request->order_id);
 
@@ -63,12 +63,10 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
                 'status'    => 'done'
             ]);
 
-            if ($order->provider()->providerStatus->name =='service'){
                 foreach ($order->extends->all() as $extend){
                     $extend->update([
                         'accepted' => 'completed',
                     ]);
-            }
             }
 
             //here need to send push-notify
