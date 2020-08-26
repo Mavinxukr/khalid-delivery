@@ -18,6 +18,10 @@ class CreateOrderExtendsTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->string('extend_to');
             $table->string('extend_from');
+            $table->float('cost', 10, 2);
+            $table->float('initial_cost', 10, 2);
+            $table->float('service_received', 10, 2);
+            $table->float('company_received', 10, 2);
             $table->text('reason');
             $table->boolean('accepted')->nullable();
             $table->foreign('order_id')

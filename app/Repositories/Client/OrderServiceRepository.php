@@ -5,18 +5,13 @@ namespace App\Repositories\Client;
 
 
 use App\Helpers\ActionOverOrder;
+use App\Helpers\ServiceOrderHelper;
 use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Order\OrderServiceInterface;
-use App\Contracts\FormatInterface;
-use App\Models\Feedback\FirePush;
-use App\Models\Order\CancelOrder;
 use App\Models\Order\Order;
 use App\Models\Order\OrderExtend;
-use App\Notifications\SendNotification;
 use App\Traits\FeeTrait;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Notifications\Messages\MailMessage;
 
 class OrderServiceRepository implements OrderServiceInterface
 {
@@ -39,25 +34,30 @@ class OrderServiceRepository implements OrderServiceInterface
         $type = $order->product->type;
         if ($type  == 'service'){
             $preOrder = $this->storePreOrder($data);
-            $price = $order->product->price;
+            $cost = $order->product->price;
             if(!is_null($preOrder)){
-                    $price = $price + $preOrder->price;
+                    $time_from = Carbon::createFromFormat('H:m:i', $data->date_delivery_from);
+                    $time_to = Carbon::createFromFormat('H:m:i', $data->date_delivery_to);
+
+                    $time = $time_to->diffInMinutes($time_from);
+                    $attitude = $time/60;
+
+                    $cost = ($cost + $preOrder->price) * $attitude;
                     foreach ($preOrder->details as $item){
                         $item->update(['order_id' => $order->id]);
                     }
             }
-
-            $order->provider_id     =  null ;
-            $order->initial_cost = $price;
-            $cost =  $order->initial_cost + $this->getFee($type, 'charge');
-            $order->cost =  $cost + ($cost / 100 * $this->getFee($type, 'vat'));
+            $order->provider_id  =  null;
+            $order->initial_cost = $cost;
         }
 
+        $costs = (new ServiceOrderHelper())->calculateCost($cost);
+        $order->cost =  $costs['cost'];
+        $order->service_received = $costs['service_received'];
+        $order->company_received = $costs['company_received'];
+
+
         $order->provider_category   = $type;
-        $order->service_received    = ($order->initial_cost / 100 *
-                $this->getFee($type, 'received')) / 100 *
-                $this->getFee($type, 'vat');
-        $order->company_received    = $order->cost - $order->service_received;
         $order->debt                = $order->cost;
         if($order->payment_type === 'cash') $order->status = 'new';
         $order->save();
@@ -176,7 +176,12 @@ class OrderServiceRepository implements OrderServiceInterface
         ]);
 
         $extend->order()->update([
-            'date_delivery_to' => $extend->extend_to,
+            'initial_cost'      => $extend->initial_cost,
+            'cost'              => $extend->cost,
+            'service_received'  => $extend->service_received,
+            'company_received'  => $extend->company_received,
+            'debt'              => $extend->cost,
+            'date_delivery_to'  => $extend->extend_to,
         ]);
         return TransJsonResponse::toJson(true, null, 'Request accepted', 200);
     }

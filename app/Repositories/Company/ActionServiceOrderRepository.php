@@ -7,8 +7,10 @@ namespace App\Repositories\Company;
 use App\Contracts\Company\Order\ActionServiceOrderInterface;
 use App\Helpers\FileHelper;
 use App\Helpers\PushHelper;
+use App\Helpers\ServiceOrderHelper;
 use App\Helpers\TransJsonResponse;
 use App\Models\Order\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ActionServiceOrderRepository implements ActionServiceOrderInterface
@@ -83,10 +85,33 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
     {
         $order = Order::findOrFail($id);
 
+        $cost = $order->product->price;
+        $costs['cost'] = 0;
+        $costs['service_received'] = 0;
+        $costs['company_received'] = 0;
+
+        $time_from = Carbon::createFromFormat('H:m:i', $order->date_delivery_from);
+        $time_to = Carbon::createFromFormat('H:m:i', $request->extend_to);
+
+        $time = $time_to->diffInMinutes($time_from);
+        $attitude = $time/60;
+
+        if($order->preOrder){
+            $cost = ($cost + $order->preOrder->price) * $attitude;
+        }else{
+            $cost = $cost * $attitude;
+        }
+
+        if($cost) $costs = (new ServiceOrderHelper())->calculateCost($cost);
+
         $extend = $order->extends()->create([
-            'extend_from'   => $order->date_delivery_to,
-            'extend_to'     => $request->extend_to,
-            'reason'        => $request->reason,
+            'extend_from'       => $order->date_delivery_to,
+            'extend_to'         => $request->extend_to,
+            'service_received'  => $costs['service_received'],
+            'company_received'  => $costs['company_received'],
+            'initial_cost'      => $cost,
+            'cost'              => $costs['cost'],
+            'reason'            => $request->reason,
         ]);
 
         if(!is_null($request->files)){
