@@ -179,4 +179,14 @@ class Order extends Model
     {
         return $this->belongsToMany(CommissionInvoice::class,'invoice_order', 'order_id','invoice_id');
     }
+
+    public function locationHistory()
+    {
+        return $this->hasMany(OrderLocationHistory::class);
+    }
+
+    public function extends()
+    {
+        return $this->hasMany(OrderExtend::class);
+    }
 }

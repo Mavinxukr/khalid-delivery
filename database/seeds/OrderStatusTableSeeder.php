@@ -12,7 +12,7 @@ class OrderStatusTableSeeder extends Seeder
     public function run()
     {
         $statuses = [
-            'new', 'placed', 'confirmed', 'on the way', 'delivered', 'canceled'
+            'new', 'placed', 'confirmed', 'on the way', 'delivered', 'canceled', 'refunded'
         ];
 
         foreach ($statuses as $k => $status){

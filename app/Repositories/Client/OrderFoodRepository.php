@@ -33,6 +33,7 @@ class OrderFoodRepository implements OrderFoodInterface
         if (is_null($place))
                     return TransJsonResponse::toJson(false, null,
                                 'Place id not found', 404);
+
         if (count($data->user()->curt) > 0 ) {
             $order = Order::create($data->all() +
                 [
@@ -42,15 +43,28 @@ class OrderFoodRepository implements OrderFoodInterface
             );
             $providerId = null;
             $cost = 0;
-            foreach ($data->user()->curt as $item) {
+            $minOrder = 0;
+            foreach ($data->user()->curt as $item){
                 if (!is_null($item->product->provider)) {
+                    $minOrder = intval($item->product->provider->providerSetting->min_order);
                     $providerId = $item->product->provider->id;
+                    break;
                 }
+            }
+            foreach ($data->user()->curt as $item) {
                 $cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
                 $item->delete();
             }
 
+            if($minOrder !== 0 && $cost < $minOrder){
+                return TransJsonResponse::toJson(false, null,
+                    'Minimum order cost is ' . $minOrder . '$', 400);
+            }
+
+            foreach ($data->user()->curt as $item) {
+                $item->delete();
+            }
             if($cost){
                 $order->initial_cost = $cost;
                 $costs = (new FoodOrderHelper())->calculateCost($providerId, $cost);
