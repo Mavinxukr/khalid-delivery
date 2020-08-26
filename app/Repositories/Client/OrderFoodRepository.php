@@ -51,6 +51,7 @@ class OrderFoodRepository implements OrderFoodInterface
                     break;
                 }
             }
+
             foreach ($data->user()->curt as $item) {
                 $cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
@@ -88,6 +89,19 @@ class OrderFoodRepository implements OrderFoodInterface
                 $order->status = 'new';
 
             $order->status_id = OrderStatus::whereName('New')->first()->id;
+
+            //проверка на маркет
+            if (!is_null($providerId)){
+                $provider_type = Provider::find($providerId)->categories->type;
+                if($provider_type == "market"){
+                    $order->initial_cost = null;
+                    $order->cost = null;
+                    $order->debt = null;
+                    $order->service_received = null;
+                    $order->company_received = null;
+                }
+            }
+
             $order->save();
             $response = $this->format($order);
             return TransJsonResponse::toJson(true, $response, 'Order was created', 201);

@@ -140,6 +140,26 @@ class Order extends Resource
                 ->hideFromIndex()
                 ->hideFromDetail()
                 ->hideWhenCreating(),
+            Text::make('debt')
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->hideWhenCreating(),
+            Text::make('cost')
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->hideWhenCreating(),
+            Text::make('initial_cost')
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->hideWhenCreating(),
+            Text::make('service_received')
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->hideWhenCreating(),
+            Text::make('company_received')
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->hideWhenCreating(),
             BelongsTo::make('Accept company','provider', Provider::class)
                 ->exceptOnForms(),
             Text::make('Provider category','provider_category')

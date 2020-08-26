@@ -20,6 +20,8 @@ class OrderObserver
             $order->preOrder->status != $order->status){
                 $order->preOrder()->update(['status' => $order->status]);
         }
+
+        //sendpush обновлен заказ
     }
 
     private function getFee($order, $name){
