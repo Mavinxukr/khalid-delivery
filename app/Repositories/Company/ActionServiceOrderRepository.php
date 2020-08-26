@@ -58,9 +58,16 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
         $order =  Order::findOrFail($request->order_id);
 
         if ($order->status === 'confirm'){
+
             $order ->update([
                 'status'    => 'done'
             ]);
+
+            foreach ($order->extends->all() as $extend){
+                $extend->update([
+                    'accepted' => 'completed',
+                ]);
+            }
 
             //here need to send push-notify
             return TransJsonResponse::toJson(true, null,'Service order done success', 200);
