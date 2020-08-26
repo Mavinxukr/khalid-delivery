@@ -63,10 +63,12 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
                 'status'    => 'done'
             ]);
 
-            foreach ($order->extends->all() as $extend){
-                $extend->update([
-                    'accepted' => 'completed',
-                ]);
+            if ($order->provider()->providerStatus->name =='service'){
+                foreach ($order->extends->all() as $extend){
+                    $extend->update([
+                        'accepted' => 'completed',
+                    ]);
+            }
             }
 
             //here need to send push-notify
