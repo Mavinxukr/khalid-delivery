@@ -23,7 +23,7 @@ class CreateOrderExtendsTable extends Migration
             $table->float('service_received', 10, 2);
             $table->float('company_received', 10, 2);
             $table->text('reason');
-            $table->boolean('accepted')->nullable();
+            $table->text('accepted')->default('created');
             $table->foreign('order_id')
                 ->references('id')
                 ->on('orders')

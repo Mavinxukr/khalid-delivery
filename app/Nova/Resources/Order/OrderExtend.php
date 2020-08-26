@@ -64,7 +64,7 @@ class OrderExtend extends Resource
             Text::make('Cost', 'cost'),
             Text::make('Service Received', 'service_received'),
             Text::make('Company Received', 'company_received'),
-            Boolean::make('Accepted', 'accepted'),
+            Text::make('Accepted', 'accepted'),
             HasMany::make('Files', 'files', OrderExtendFile::class)
                 ->onlyOnDetail(),
         ];
