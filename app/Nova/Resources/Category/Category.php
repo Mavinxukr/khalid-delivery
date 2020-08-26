@@ -61,7 +61,9 @@ class Category extends Resource
                 ->rules('required', 'max:255'),
             Text::make('Fee')
                 ->displayUsing(function ($i){
-                    return $i.'%';
+                    if(!is_null($i)){
+                        return $i.'%';
+                    }
                 })
                 ->nullable(),
             Boolean::make('Active')
