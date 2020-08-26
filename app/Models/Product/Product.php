@@ -86,14 +86,14 @@ class Product extends Model
         'category_id','provider_id','pivot'
     ];
 
+    public $appends = [
+        'canceled', 'quantity'
+    ];
+
     public function getImageAttribute($value)
     {
         return  ImageLinker::linker($value);
     }
-
-    public $appends = [
-        'canceled', 'quantity'
-    ];
 
     public function getCanceledAttribute()
     {

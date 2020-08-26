@@ -186,9 +186,13 @@ class Order extends Resource
             BelongsToMany::make('Product','products', Product::class)
                 ->canSee(function (){
                     return $this->provider_category === 'food';
-                })->fields(function () {
+                })
+                ->fields(function () {
                     return [
-                        Boolean::make('Canceled', 'canceled'),
+                        Boolean::make('Canceled', 'canceled')
+                            ->displayUsing(function ($field, $resource) {
+                                return isset($this->pivot) ? $this->pivot->canceled : '-';
+                            }),
                     ];
                 })
                 ->exceptOnForms(),
