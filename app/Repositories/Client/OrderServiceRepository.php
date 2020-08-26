@@ -197,7 +197,7 @@ class OrderServiceRepository implements OrderServiceInterface
     {
         $extend = OrderExtend::findOrFail($id);
         $extend->update([
-            'accepted' => 0,
+            'accepted' => 'confirmed',
         ]);
         return TransJsonResponse::toJson(true, null, 'Request declined', 200);
     }
