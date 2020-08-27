@@ -87,7 +87,7 @@ class Product extends Model
     ];
 
     public $appends = [
-        'canceled', 'quantity'
+        'canceled', /*'quantity'*/
     ];
 
     public function getImageAttribute($value)
