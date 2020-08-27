@@ -142,7 +142,7 @@ class Order extends Resource
                 ->hideFromDetail()
                 ->hideWhenCreating()
                 ->canSee(function (){
-                    return $this->provider_category === 'food';
+                    return !is_null($this->provider_id);
                 }),
             Text::make('debt')
                 ->hideFromIndex()
