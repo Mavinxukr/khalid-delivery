@@ -66,3 +66,8 @@ Route::get('/tax/{id}/invoice',function ($id){
         'provider'      => $orders->first()->provider
     ]);
 });
+
+Route::get('/dump-download', function () {
+    return "http://delivery.beta/storage/orders/10/checks/FRHIwCr43ZDwTkCeL7H3JtmDwYIEE1aCVGyLs7nn.png";
+    //return response()->download("http://delivery.beta/storage/orders/10/checks/FRHIwCr43ZDwTkCeL7H3JtmDwYIEE1aCVGyLs7nn.png");
+})->name('dump-download');

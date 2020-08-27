@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Fee\Fee;
 use App\Models\Invoice\InvoiceTemplate;
 use App\Models\Message\SmsToUser;
+use App\Models\Order\Check;
 use App\Models\Order\Order;
 use App\Models\Order\OrderDetail;
 use App\Models\Order\OrderExtend;
@@ -30,6 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         InvoiceTemplate::class => 'App\Policies\InvoiceTemplatePolicy',
         OrderExtend::class => 'App\Policies\OrderExtendPolicy',
         OrderExtendFile::class => 'App\Policies\OrderExtendFilePolicy',
+        Check::class => 'App\Policies\CheckPolicy',
     ];
 
     /**

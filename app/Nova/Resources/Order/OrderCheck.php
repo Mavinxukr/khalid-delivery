@@ -4,7 +4,10 @@ namespace App\Nova\Resources\Order;
 
 use App\Helpers\ImageLinker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Resource;
@@ -45,19 +48,16 @@ class OrderCheck extends Resource
         return [
             ID::make()->sortable(),
             BelongsTo::make('Order', 'order', Order::class)->display('id'),
-            Image::make('Image')
-                ->disk('public')
-                ->path('order')
-                ->sortable()
+            File::make('Image')
                 ->preview(function ($value, $disk) {
                     return ImageLinker::linker($value);
                 })
                 ->thumbnail(function ($value, $disk) {
                     return ImageLinker::linker($value);
                 })
-                ->rules( 'file')
-                ->exceptOnForms()
-                ->disableDownload(),
+                ->download(function (){
+                    return Storage::disk('public')->download(str_replace(config('app.url_image'),"",$this->image));
+                }),
         ];
     }
 
