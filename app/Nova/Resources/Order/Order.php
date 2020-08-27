@@ -140,7 +140,10 @@ class Order extends Resource
                 ])
                 ->hideFromIndex()
                 ->hideFromDetail()
-                ->hideWhenCreating(),
+                ->hideWhenCreating()
+                ->canSee(function (){
+                    return !is_null($this->provider_id);
+                }),
             Text::make('debt')
                 ->hideFromIndex()
                 ->hideFromDetail()
