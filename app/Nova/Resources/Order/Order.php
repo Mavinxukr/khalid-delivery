@@ -188,6 +188,10 @@ class Order extends Resource
                 ->format('YYYY-MM-DD')
                 ->rules('required')
                 ->exceptOnForms(),
+            Date::make('Date of Sale','created_at')
+                ->format('YYYY-MM-DD')
+                ->rules('required')
+                ->exceptOnForms(),
             Time::make('Time From','date_delivery_from')
                 ->format('HH:mm:ss')
                 ->rules('required')
