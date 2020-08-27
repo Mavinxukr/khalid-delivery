@@ -189,4 +189,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderExtend::class);
     }
+
+    public function checks()
+    {
+        return $this->hasMany(Check::class, 'order_id', 'id');
+    }
 }

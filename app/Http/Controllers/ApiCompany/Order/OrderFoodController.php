@@ -160,4 +160,20 @@ class OrderFoodController extends Controller
     {
         return $this->order->cancelFoodOrderItems($request, $id);
     }
+
+    /**
+     * @api {post}  company/load-check-order/{id} Load image check order
+     * @apiName  Load image check order
+     * @apiVersion 1.1.1
+     * @apiGroup Company Food Order
+     * @apiParam {File} image Image
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  company/load-check-order/{id}
+     */
+
+    public function loadImageCheckOrder(Request $request, $id)
+    {
+        return $this->order->loadImageCheckOrder($request, $id);
+    }
 }

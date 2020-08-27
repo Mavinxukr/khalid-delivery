@@ -11,6 +11,7 @@ use App\Helpers\GeoLocationHelper;
 use App\Helpers\ImageLinker;
 use App\Helpers\TransJsonResponse;
 use App\Models\Order\CancelOrderItem;
+use App\Models\Order\Check;
 use App\Models\Order\Order;
 use App\Models\Order\OrderStatus;
 use App\Models\Product\Product;
@@ -224,5 +225,16 @@ class FoodOrderRepository implements FoodOrderInterface
             });
 
         return TransJsonResponse::toJson(true, $products,'Show order by id', 200);
+    }
+
+    public function loadImageCheckOrder(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        if($order->provider->categories->type == "market"){
+            $image = FileHelper::store($request->file("image"), 'orders/'.$id.'/checks');
+            $order->checks()->create(['image' => $image]);
+            return TransJsonResponse::toJson(true, null,'Check added to order', 200);
+        }
+        return TransJsonResponse::toJson(false, null,'Only for market', 400);
     }
 }

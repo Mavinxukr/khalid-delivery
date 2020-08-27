@@ -65,6 +65,7 @@ Route::group(["namespace"=>"ApiCompany"],function() {
         Route::get('get-food-order/{order_id}/{product_id} ','Order\OrderFoodController@getProductInOrderById');
         Route::patch('cancel-food-order/{id}','Order\OrderFoodController@cancelFoodOrder');
         Route::post('cancel-food-order-items/{id}','Order\OrderFoodController@cancelFoodOrderItems');
+        Route::post('load-check-order/{id}','Order\OrderFoodController@loadImageCheckOrder');
         //------------------------------ Action over service order ---------------------------------//
         Route::post('take-service-order','Order\ActionServiceOrderController@takeServiceOrder');
         Route::patch('cancel-service-order/{id}','Order\ActionServiceOrderController@cancelServiceOrder');

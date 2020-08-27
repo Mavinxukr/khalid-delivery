@@ -21,6 +21,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
@@ -222,6 +223,7 @@ class Order extends Resource
 
             HasOne::make('Checkout', 'checkout', Checkouts::class)
                 ->exceptOnForms(),
+            HasMany::make('Checks', 'checks', OrderCheck::class),
         ];
     }
 
