@@ -56,7 +56,10 @@ class ProviderSetting extends Resource
                 ->nullable('required'),
             Text::make('Time Delivery Mean')
                 ->nullable('required'),
-            Text::make('Min order value','min_order')
+            Number::make('Min order value','min_order')
+                ->displayUsing(function ($value){
+                    return $value . '$';
+                })->min(1)
                 ->nullable('required'),
             Text::make('Delivery fee','delivery_fee')
                 ->nullable('required'),
