@@ -149,6 +149,18 @@ class Provider extends Resource
                 ->trueValue(1)
                 ->falseValue(0),
 
+            Boolean::make('Enable market charge','enable_market_charge')
+                ->trueValue(1)
+                ->falseValue(0),
+            NovaDependencyContainer::make([
+                Number::make('Count market charge', 'count_market_charge')
+                    ->displayUsing(function ($value){
+                        return $value . '$';
+                    })->min(1)->step(1)
+                    ->sortable()
+                ,
+            ])->dependsOn('enable_market_charge',true),
+
             Number::make("Days after invoice", 'days_after_invoice')
                 ->rules('required', 'integer'),
             Number::make("Days before invoice", 'days_before_invoice')

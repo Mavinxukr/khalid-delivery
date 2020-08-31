@@ -24,7 +24,13 @@ class FoodOrderHelper
         }
 
         $vat = $cost/ 100 * $this->getFee('food', 'vat');
-        $charge = ($provider->charge == 1) ? $this->getFee('food', 'charge') : 0;
+
+        if($provider->enablec_market_charge){
+            $charge = $provider->count_market_charge;
+        }else{
+            $charge = ($provider->charge == 1) ? $this->getFee('food', 'charge') : 0;
+        }
+
 
 
         $serviceReceivedCost = (($cost + $vat) / 100 * $this->getFee('food', 'received'));
