@@ -27,7 +27,14 @@ class ProductRepository implements ProductInterface
                 ->map(function ($service){
                     return $this->format($service);
                 });
-        }else{
+        }elseif ($type == 'food'){
+            $products = Provider::whereCategoryId($category->id)
+                ->get()
+                ->map(function ($item){
+                    return $this->format($item);
+                });
+        }
+        else{
             $products = Provider::whereCategoryId($category->id)
                 ->get()
                 ->map(function ($item){

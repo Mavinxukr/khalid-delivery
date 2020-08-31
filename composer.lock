@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e789c44c5f8e0e470be880abd994dec",
+    "content-hash": "43dc14c50ff2df0d7823fa234054be87",
     "packages": [
         {
             "name": "alexbowers/nova-categorise-resources",
@@ -7027,6 +7027,47 @@
                 "environment"
             ],
             "time": "2019-09-10T21:37:39+00:00"
+        },
+        {
+            "name": "whitecube/nova-google-maps",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whitecube/nova-google-maps.git",
+                "reference": "1761cb462b528d0c94bc15c9ef5747ce8ae2d114"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whitecube/nova-google-maps/zipball/1761cb462b528d0c94bc15c9ef5747ce8ae2d114",
+                "reference": "1761cb462b528d0c94bc15c9ef5747ce8ae2d114",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Whitecube\\NovaGoogleMaps\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whitecube\\NovaGoogleMaps\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2020-05-04T14:32:00+00:00"
         }
     ],
     "packages-dev": [
@@ -9655,6 +9696,5 @@
     "platform": {
         "php": "^7.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }

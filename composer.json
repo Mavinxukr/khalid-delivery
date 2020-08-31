@@ -48,7 +48,8 @@
         "socialiteproviders/twitter": "^3.0",
         "sparclex/nova-import-card": "dev-master",
         "timothyasp/nova-badge-field": "^1.0",
-        "twilio/sdk": "^5.39"
+        "twilio/sdk": "^5.39",
+        "whitecube/nova-google-maps": "^0.0.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",

@@ -97,7 +97,7 @@ class Product extends Model
 
     public function getCanceledAttribute()
     {
-        if($this->provider->type === 'food'){
+        if( !is_null($this->provider) && $this->provider->type === 'food'){
             return $this->pivot->canceled;
         }
         return null;

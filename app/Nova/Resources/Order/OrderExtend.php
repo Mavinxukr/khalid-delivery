@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Whitecube\NovaGoogleMaps\GoogleMaps;
 
 class OrderExtend extends Resource
 {
@@ -67,6 +68,10 @@ class OrderExtend extends Resource
             Text::make('Accepted', 'accepted'),
             HasMany::make('Files', 'files', OrderExtendFile::class)
                 ->onlyOnDetail(),
+            GoogleMaps::make('Map')
+                ->zoom(15) // Optionally set the zoom level
+                ->defaultCoordinates(25.197197, 55.2721877)
+                ->showOnDetail()
         ];
     }
 
