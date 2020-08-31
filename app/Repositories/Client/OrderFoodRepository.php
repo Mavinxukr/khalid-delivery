@@ -46,7 +46,10 @@ class OrderFoodRepository implements OrderFoodInterface
             $minOrder = 0;
             foreach ($data->user()->curt as $item){
                 if (!is_null($item->product->provider)) {
-                    $minOrder = intval($item->product->provider->providerSetting->min_order);
+                    if($item->product->provider->providerSetting)
+                    {
+                        $minOrder = intval($item->product->provider->providerSetting->min_order);
+                    }
                     $providerId = $item->product->provider->id;
                     break;
                 }

@@ -18,7 +18,7 @@ class CreateSettingProvidersTable extends Migration
             $table->unsignedBigInteger('provider_id');
             $table->string('kitchen')->nullable();
             $table->string('time_delivery_mean')->nullable();
-            $table->string('min_order')->nullable();
+            $table->double('min_order')->default(0.0);
             $table->string('delivery_fee')->nullable();
             $table->string('tags')->nullable();
             $table->integer('rating');
