@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Order\Check;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CheckPolicy
@@ -19,9 +19,9 @@ class CheckPolicy
         //
     }
 
-    public function create()
+    public function create(User $user)
     {
-        return false;
+        return true;
     }
 
     public function update()
