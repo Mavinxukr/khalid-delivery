@@ -22,13 +22,14 @@ class SendNotification extends Action
      * @param  \Illuminate\Support\Collection  $models
      * @return mixed
      */
-    public function handle(ActionFields $fields, Collection $models)
+    public function handle(ActionFields $fields, Collection $model)
     {
-            foreach ($models as $model){
-                if(count($model->checks)){
-                    $model->user->notify(new CheckNotification($model, $model->user));
-                }
-            }
+        $instance = $model->first();
+        if($instance->checks->count()){
+            $instance->user->notify(new CheckNotification($instance, $instance->user));
+        }else{
+            return Action::danger('Please, upload check !!!');
+        }
     }
 
     /**
