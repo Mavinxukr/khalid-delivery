@@ -262,7 +262,10 @@ class Order extends Resource
 
             HasOne::make('Checkout', 'checkout', Checkouts::class)
                 ->exceptOnForms(),
-            HasMany::make('Checks', 'checks', OrderCheck::class),
+            HasMany::make('Checks', 'checks', OrderCheck::class)
+                ->canSee(function (){
+                return !is_null($this->provider) && $this->provider->categories->type == 'market';
+            }),
         ];
     }
 
