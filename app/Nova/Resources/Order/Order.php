@@ -7,6 +7,7 @@ use App\Nova\Actions\Actions\ConfirmOrder;
 use App\Nova\Actions\CommissionInvoice;
 use App\Nova\Actions\PaymentForPeriod;
 use App\Nova\Actions\PaymentOrder;
+use App\Nova\Actions\SendNotification;
 use App\Nova\Filters\Company;
 use App\Nova\Filters\EndPeriod;
 use App\Nova\Filters\RangePeriod;
@@ -20,6 +21,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
@@ -144,26 +146,56 @@ class Order extends Resource
                 ->canSee(function (){
                     return !is_null($this->provider_id);
                 }),
-            Text::make('debt')
+            Currency::make('debt')
+                ->format('%.2n')
+                ->min(1)
                 ->hideFromIndex()
                 ->hideFromDetail()
                 ->hideWhenCreating(),
-            Text::make('cost')
+            Currency::make('cost')
+                ->format('%.2n')
+                ->min(1)
                 ->hideFromIndex()
                 ->hideFromDetail()
                 ->hideWhenCreating(),
-            Text::make('initial_cost')
+            Currency::make('initial_cost')
+                ->format('%.2n')
+                ->min(1)
                 ->hideFromIndex()
                 ->hideFromDetail()
                 ->hideWhenCreating(),
-            Text::make('service_received')
+            Currency::make('service_received')
+                ->format('%.2n')
+                ->min(1)
                 ->hideFromIndex()
                 ->hideFromDetail()
                 ->hideWhenCreating(),
-            Text::make('company_received')
+            Currency::make('company_received')
+                ->format('%.2n')
+                ->min(1)
                 ->hideFromIndex()
                 ->hideFromDetail()
                 ->hideWhenCreating(),
+//            Text::make('debt')
+//                ->hideFromIndex()
+//                ->hideFromDetail()
+//                ->hideWhenCreating(),
+//            Text::make('cost')
+//                ->hideFromIndex()
+//                ->hideFromDetail()
+//                ->hideWhenCreating(),
+//            Text::make('initial_cost')
+//                ->hideFromIndex()
+//                ->hideFromDetail()
+//                ->hideWhenCreating(),
+//            Text::make('service_received')
+//                ->hideFromIndex()
+//                ->hideFromDetail()
+//                ->hideWhenCreating(),
+//            Text::make('company_received')
+//                ->hideFromIndex()
+//                ->hideFromDetail()
+//                ->hideWhenCreating(),
             BelongsTo::make('Accept company','provider', Provider::class)
                 ->exceptOnForms(),
             Text::make('Provider category','provider_category')
@@ -293,6 +325,7 @@ class Order extends Resource
                 ->onlyOnTableRow(),
             (new ChangeFoodOrderStatus)
                 ->onlyOnTableRow(),
+            new SendNotification,
         ];
     }
 }
