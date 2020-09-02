@@ -328,10 +328,7 @@ class Order extends Resource
                 ->onlyOnTableRow(),
             (new ChangeFoodOrderStatus)
                 ->onlyOnTableRow(),
-            (new SendNotification)
-                ->onlyOnTableRow()->canSee(function (){
-                    return !is_null($this->provider) && $this->provider->categories->type == 'market';
-                }),
+            (new SendNotification)->onlyOnDetail(),
         ];
     }
 }
