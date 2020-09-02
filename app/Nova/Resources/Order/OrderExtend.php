@@ -69,9 +69,13 @@ class OrderExtend extends Resource
             HasMany::make('Files', 'files', OrderExtendFile::class)
                 ->onlyOnDetail(),
             GoogleMaps::make('Map')
-                ->zoom(15) // Optionally set the zoom level
-                ->defaultCoordinates(25.197197, 55.2721877)
-                ->showOnDetail()
+                ->zoom(17) // Optionally set the zoom level
+                ->defaultCoordinates(50.8466, 4.3517)
+                ->showOnDetail(),
+            Text::make('Located there')->exceptOnForms()
+                ->displayUsing(function (){
+                return '3 hours';
+            })
         ];
     }
 
