@@ -44,6 +44,7 @@ class SingleProductRepository implements SingleProductInterface
                 'weight'            => $data->weight,
                 'ingredients'       => $data->component,
                 'query'             => $data->queries()->with('answers')->get(),
+                'utils'             => $data->utils->name
             ];
         }
             return $result;

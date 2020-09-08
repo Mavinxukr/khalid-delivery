@@ -106,7 +106,7 @@ class ProductRepository implements ProductInterface
             $topProduct =  $data->productTop()
                     ->get([
                         'id','title','price',
-                        'description','image','weight'
+                        'description','image','weight',
                     ]) ?? null;
 
             $array = [];
@@ -128,7 +128,7 @@ class ProductRepository implements ProductInterface
                 'kitchen'           => $data->providerSetting->kitchen ?? null,
                 'product_count'     => $data->product()->count(),
                 'count_menu'        => count(array_unique($array)) ?? 0,
-                'top_product'       => $topProduct ?? null,
+                'top_product'       => $topProduct ?? null
 
             ];
         }else{
