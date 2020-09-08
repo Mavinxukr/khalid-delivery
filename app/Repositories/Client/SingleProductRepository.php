@@ -41,9 +41,13 @@ class SingleProductRepository implements SingleProductInterface
                 'description'       => $data->description,
                 'image'             => ImageLinker::linker($data->image),
                 'has_ingredients'   => $data->has_ingredients,
-                'weight'            => $data->weight,
                 'ingredients'       => $data->component,
                 'query'             => $data->queries()->with('answers')->get(),
+                'weight_info'       => [
+                    ['weight' => 0.5, 'price' => 10],
+                    ['weight' => 1, 'price' => 20],
+                    ['weight' => 1.5, 'price' => 30],
+                ],
                 'utils'             => $data->utils->name
             ];
         }
