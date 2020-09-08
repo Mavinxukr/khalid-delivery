@@ -48,7 +48,7 @@ class SingleProductRepository implements SingleProductInterface
                     ['weight' => 1, 'price' => 20],
                     ['weight' => 1.5, 'price' => 30],
                 ],
-                'utils'             => $data->utils->name
+                'utils'             => !is_null($data->utils)? $data->utils->name : null
             ];
         }
             return $result;
