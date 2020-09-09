@@ -23,7 +23,7 @@ class ActionOverOrder extends CheckoutHelper
                         throw new \Exception("Error with you payment ! \n {$order->checkout->message}");
                     }
                 self::validateCancel($order);
-                $order->status = 'new';
+                $order->status = 'confirm';
                 $order->save();
                 return 'Order was confirmed';
             } else {
