@@ -36,7 +36,7 @@ class SingleProductRepository implements SingleProductInterface
         }else{
             $result =  [
                 'id'                => $data->id,
-                'name'              => $data->title,
+                'title'              => $data->title,
                 'price'             => $data->price,
                 'description'       => $data->description,
                 'image'             => ImageLinker::linker($data->image),
