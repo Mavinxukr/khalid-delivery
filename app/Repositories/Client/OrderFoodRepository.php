@@ -177,10 +177,7 @@ class OrderFoodRepository implements OrderFoodInterface
             'country_code'   => $data->place->country,
             'callback'       => $data->callback_time,
             'status'         => $data->status ?? 'wait',
-            'delivery_status'=> !is_null($data->delivery_status) ? [
-                'status' => $data->delivery_status->name,
-                'step'   => $data->delivery_status->step,
-            ] : null,
+            'delivery_status'=> c
             'comment'        => $data->comment
         ];
     }

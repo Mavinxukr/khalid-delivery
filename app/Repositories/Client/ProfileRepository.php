@@ -65,8 +65,13 @@ class ProfileRepository implements ProfileInterface
                                                 'callback_time'         => $i->callback_time,
                                                 'cost'                  => $i->cost,
                                                 'status'                => $i->status,
+                                                'delivery_status'=> !is_null($i->delivery_status) ? [
+                                                    'status' => $i->delivery_status->name,
+                                                    'step'   => $i->delivery_status->step,
+                                                ] : null,
                                                 'place'                 => $i->place,
-                                                'comment'               => $i->comment
+                                                'comment'               => $i->comment,
+
                                             ];
                                     })
         ];
