@@ -66,7 +66,7 @@ class FoodOrderRepository implements FoodOrderInterface
     {
         $order =  Order::findOrFail($request->order_id);
 
-        if ($order->status === 'new' && $order->delivery_status->name === 'placed'){
+        if ($order->status === 'confirm'){
             $order ->update([
                 'status'    => 'confirm',
                 'status_id' => OrderStatus::whereName('confirmed')->first()->id
