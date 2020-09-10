@@ -141,6 +141,10 @@ class FoodOrderRepository implements FoodOrderInterface
                 'cost'               => $data->cost,
                 'image'              => ImageLinker::linker($data->products()->value('image')),
                 'status'             => $data->status,
+                'delivery_status'=> !is_null($data->delivery_status) ? [
+                    'status' => $data->delivery_status->name,
+                    'step'   => $data->delivery_status->step,
+                ] : null,
                 'comment'            => $data->comment,
                 'callback_time'      => $data->callback_time
             ];
