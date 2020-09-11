@@ -10,7 +10,6 @@ use App\Nova\Actions\PaymentOrder;
 use App\Nova\Actions\SendNotification;
 use App\Nova\Filters\Company;
 use App\Nova\Filters\EndPeriod;
-use App\Nova\Filters\RangePeriod;
 use App\Nova\Filters\StartPeriod;
 use App\Nova\Resource;
 use App\Nova\Resources\Product\Product;
@@ -266,6 +265,8 @@ class Order extends Resource
                 ->canSee(function (){
                 return !is_null($this->provider) && $this->provider->categories->type == 'market';
             }),
+            HasOne::make('canceledDescription', 'canceledDescription', CancelOrderItems::class)
+                ->exceptOnForms()
         ];
     }
 
