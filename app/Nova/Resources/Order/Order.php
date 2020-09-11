@@ -255,6 +255,8 @@ class Order extends Resource
                     ];
                 })
                 ->exceptOnForms(),
+            HasOne::make('canceledDescription', 'canceledDescription', CancelOrderItems::class)
+                ->exceptOnForms(),
 
             HasOne::make('Answers', 'answers', OrderDetail::class)
                 ->exceptOnForms(),
@@ -265,8 +267,7 @@ class Order extends Resource
                 ->canSee(function (){
                 return !is_null($this->provider) && $this->provider->categories->type == 'market';
             }),
-            HasOne::make('canceledDescription', 'canceledDescription', CancelOrderItems::class)
-                ->exceptOnForms()
+
         ];
     }
 
