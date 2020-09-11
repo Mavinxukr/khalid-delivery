@@ -5,8 +5,8 @@ namespace App\Nova\Resources\Order;
 
 
 use App\Nova\Resource;
-use Faker\Provider\Image;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 
 class CancelOrderItems extends Resource
@@ -28,9 +28,7 @@ class CancelOrderItems extends Resource
     {
         return [
             Text::make('description'),
-            \Laravel\Nova\Fields\Image::make('Image')->displayUsing(function ($i) {
-                return 'hello';
-            })
+            Image::make('Image')
         ];
 
     }

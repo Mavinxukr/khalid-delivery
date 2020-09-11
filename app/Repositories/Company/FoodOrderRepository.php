@@ -194,12 +194,15 @@ class FoodOrderRepository implements FoodOrderInterface
 
         $image = null;
         if(!is_null($request->image)){
-            $image = FileHelper::store($request->image, 'food');
+            $ext = explode("/", $request->image->getClientMimeType());
+            $ext = end($ext);
+            $name = time() . '_' . md5($request->image->getClientOriginalName()) . ".{$ext}";
+            $request->image->move(storage_path('app/public/'), $name);
         }
 
         CancelOrderItem::updateOrCreate(['order_id' => $id], [
             'description'   => $request->description,
-            'image'         => $image
+            'image'         => $name
         ]);
 
         $products = $order->products()
