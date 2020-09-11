@@ -28,7 +28,9 @@ class CancelOrderItems extends Resource
     {
         return [
             Text::make('description'),
-            \Laravel\Nova\Fields\Image::make('Image')
+            \Laravel\Nova\Fields\Image::make('Image')->preview(function () {
+                return $this;
+            })
         ];
 
     }
