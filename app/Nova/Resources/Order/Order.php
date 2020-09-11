@@ -255,7 +255,7 @@ class Order extends Resource
                     ];
                 })
                 ->exceptOnForms(),
-            HasOne::make('canceledDescription', 'canceledDescription', CancelOrderItems::class)
+            HasOne::make('Canceled Description', 'canceledDescription', CancelOrderItems::class)
                 ->exceptOnForms(),
 
             HasOne::make('Answers', 'answers', OrderDetail::class)
