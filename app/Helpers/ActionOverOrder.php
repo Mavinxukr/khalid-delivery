@@ -18,10 +18,13 @@ class ActionOverOrder extends CheckoutHelper
                         ->first();
         if (!is_null($order)) {
             if ($order->status == 'wait') {
+                if (!is_null($order->provider_category) && $order->provider_category  == 'service'){
                     $checkout = self::checkoutOrder($request, $order);
                     if (!$checkout) {
                         throw new \Exception("Error with you payment ! \n {$order->checkout->message}");
                     }
+                }
+
                 self::validateCancel($order);
                 $order->status = 'confirm';
                 $order->save();

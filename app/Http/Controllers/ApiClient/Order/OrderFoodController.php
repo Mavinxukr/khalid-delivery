@@ -72,7 +72,7 @@ class OrderFoodController extends Controller
      * @apiSampleRequest   client/food-orders/confirm
      */
 
-    public function confirmOrder(TransactionRequest $request)
+    public function confirmOrder(Request $request)
     {
         return $this->order->confirmOrder($request);
     }

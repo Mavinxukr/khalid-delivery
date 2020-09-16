@@ -29,7 +29,7 @@ class CheckoutHelper
            'order_id'   => $order->id,
            'transaction_id' => $request->transaction_id
        ]);
-       return $request->status <= 100 ? true : false;
+       return $request->status <= 100;
     }
 
     public static function refundOrder(Request $request, Order $order)
