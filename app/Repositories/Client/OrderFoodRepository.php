@@ -105,6 +105,10 @@ class OrderFoodRepository implements OrderFoodInterface
 //                }
 //            }
 
+            if (!is_null($order->provider_category) && $order->provider_category == 'market' ||
+                $order->provider_category == 'food'){
+                $order->status = 'confirm';
+            }
             $order->save();
             $response = $this->format($order);
             return TransJsonResponse::toJson(true, $response, 'Order was created', 201);
