@@ -105,8 +105,7 @@ class OrderFoodRepository implements OrderFoodInterface
                 }
             }
 
-            if (!is_null($order->provider_category) && $order->provider_category == 'market' ||
-                $order->provider_category == 'food'){
+            if (!is_null($order->provider) && $order->provider->categories->type == 'market' ){
                 $order->status = 'confirm';
             }
             $order->save();
