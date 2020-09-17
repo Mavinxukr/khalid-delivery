@@ -187,4 +187,12 @@ class OrderFoodRepository implements OrderFoodInterface
             'comment'        => $data->comment
         ];
     }
+
+    public function paidOrder($data)
+    {
+        $order = Order::findOrFail($data->id);
+        $order->status_id = OrderStatus::whereName('confirmed')->first()->id;
+        $order->save();
+        return TransJsonResponse::toJson(true, null, 'order was paid', 200);
+    }
 }

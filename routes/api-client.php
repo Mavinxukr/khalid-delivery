@@ -53,6 +53,7 @@ Route::group(["namespace"=>"ApiClient"],function() {
         Route::post('food-orders/done','Order\OrderFoodController@doneOrder');
         Route::post('food-orders/restore','Order\OrderFoodController@restoreOrder');
         Route::post('food-orders/cancel','Order\OrderFoodController@cancelOrder');
+        Route::post('food-orders/paid','Order\OrderFoodController@PaidOrder');
         //---------------------------- Place --------------------------------//
         Route::get('places','Place\PlaceServiceController@index');
         Route::post('places','Place\PlaceServiceController@store');

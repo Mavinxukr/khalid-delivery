@@ -125,4 +125,22 @@ class OrderFoodController extends Controller
         return $this->order->restoreOrder($request->id);
     }
 
+
+    /**
+     * @param Request $request
+     * @api {post} client/food-orders/paid  Paid food order
+     * @apiName  Paid food order
+     * @apiVersion 1.1.1
+     * @apiGroup Client Order - Food
+     * @apiParam {Number} id Order id
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  client/food-orders/paid
+     */
+
+    public function PaidOrder(Request  $request)
+    {
+        return $this->order->paidOrder($request);
+    }
+
 }

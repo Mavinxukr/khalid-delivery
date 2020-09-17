@@ -19,4 +19,6 @@ interface OrderFoodInterface extends FormatInterface
     public function cancelOrder($data);
 
     public function restoreOrder(int $id);
+
+    public function paidOrder($data);
 }
