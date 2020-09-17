@@ -94,16 +94,16 @@ class OrderFoodRepository implements OrderFoodInterface
             $order->status_id = OrderStatus::whereName('New')->first()->id;
 
             //проверка на маркет
-//            if (!is_null($providerId)){
-//                $provider_type = Provider::find($providerId)->categories->type;
-//                if($provider_type == "market"){
-//                    $order->initial_cost = null;
-//                    $order->cost = null;
-//                    $order->debt = null;
-//                    $order->service_received = null;
-//                    $order->company_received = null;
-//                }
-//            }
+            if (!is_null($providerId)){
+                $provider_type = Provider::find($providerId)->categories->type;
+                if($provider_type == "market"){
+                    $order->initial_cost = null;
+                    $order->cost = null;
+                    $order->debt = null;
+                    $order->service_received = null;
+                    $order->company_received = null;
+                }
+            }
 
             if (!is_null($order->provider_category) && $order->provider_category == 'market' ||
                 $order->provider_category == 'food'){
