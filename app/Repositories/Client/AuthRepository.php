@@ -39,6 +39,10 @@ class AuthRepository implements AuthInterface
              ]);
          $user = Auth::user();
          if (!is_null($user)){
+             $role = $user->roles()->value('name');
+             if ($role !== 'user')  {
+                 throw new \Exception('Log in is only for role - user !');
+             }
              $data =  $this->format($user);
              return TransJsonResponse::toJson(true, $data,'Login success',200);
          }

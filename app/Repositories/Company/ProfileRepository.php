@@ -175,7 +175,6 @@ class ProfileRepository implements ProfileInterface
                     'callback_time'      => $data->callback_time
                 ];
             }
-
         }
     }
 }

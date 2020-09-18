@@ -8,13 +8,10 @@ use App\Helpers\ActionOverOrder;
 use App\Helpers\FoodOrderHelper;
 use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Order\OrderFoodInterface;
-use App\Contracts\FormatInterface;
 use App\Models\Order\Order;
 use App\Models\Order\OrderStatus;
 use App\Models\Provider\Provider;
-use App\Traits\FeeTrait;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class OrderFoodRepository implements OrderFoodInterface
 {
@@ -37,8 +34,8 @@ class OrderFoodRepository implements OrderFoodInterface
         if (count($data->user()->curt) > 0 ) {
             $order = Order::create($data->all() +
                 [
-                    'user_id' => $data->user()->id,
-                    'date_delivery_to' => 'empty'
+                    'user_id'           => $data->user()->id,
+                    'date_delivery_to'  => 'empty'
                 ]
             );
             $providerId = null;
@@ -180,10 +177,10 @@ class OrderFoodRepository implements OrderFoodInterface
             'country_code'   => $data->place->country,
             'callback'       => $data->callback_time,
             'status'         => $data->status ?? 'wait',
-             'delivery_status'=> !is_null($data->delivery_status) ? [
-        'status' => $data->delivery_status->name,
-        'step'   => $data->delivery_status->step,
-    ] : null,
+            'delivery_status'=> !is_null($data->delivery_status) ? [
+                                'status' => $data->delivery_status->name,
+                                'step'   => $data->delivery_status->step,
+                                ] : null,
             'comment'        => $data->comment
         ];
     }
