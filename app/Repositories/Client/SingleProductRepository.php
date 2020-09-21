@@ -37,9 +37,9 @@ class SingleProductRepository implements SingleProductInterface
             $weight_info =[];
            if (!is_null($data->weight_info)){
                foreach ($data->weight_info as $key =>  $value){
-                   $i = explode(':', $value);
-                  $weight_info[$key]['weight'] = (float)head($i);
-                  $weight_info[$key]['price'] = (int)end($i);
+                    $i = explode(':', $value);
+                    $weight_info[$key]['weight'] = (float)head($i);
+                    $weight_info[$key]['price'] = (int)end($i);
                }
            }
 

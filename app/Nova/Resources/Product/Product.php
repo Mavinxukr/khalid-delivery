@@ -13,7 +13,6 @@ use App\Nova\Resources\Provider\Provider;
 use App\Nova\Resources\Query\Query;
 use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use Fourstacks\NovaRepeatableFields\Repeater;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
