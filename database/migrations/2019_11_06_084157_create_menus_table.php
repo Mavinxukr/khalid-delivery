@@ -18,7 +18,7 @@ class CreateMenusTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->string('type')->default('ingredient');
-            $table->double('price')->default(0);
+            $table->double('price')->nullable()->default(0);
             $table->binary('image')->nullable();
             $table->integer('rating')->nullable();
             $table->boolean('has_ingredients')->default(false);
@@ -27,6 +27,7 @@ class CreateMenusTable extends Migration
             $table->bigInteger('weight')->nullable();
             $table->boolean('active')->default(true);
             $table->string('query')->nullable();
+            $table->text('weight_info')->nullable();
             $table->enum('answer_type', ['count', 'boolean', 'boolean&count'])->nullable();
             $table->foreign('parent_id')->references('id')
                                                 ->on('products')

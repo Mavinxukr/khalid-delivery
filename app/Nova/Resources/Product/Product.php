@@ -13,6 +13,7 @@ use App\Nova\Resources\Provider\Provider;
 use App\Nova\Resources\Query\Query;
 use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
+use Fourstacks\NovaRepeatableFields\Repeater;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -120,8 +121,9 @@ class Product extends Resource
                     BelongsTo::make('Utils','utils', Utils::class),
                     Number::make('Price','price')
                         ->exceptOnForms(),
-                    Number::make('Rating')->max(5)->min(1)
+                    Number::make('Rating')->max(5)->min(1),
                 ])->dependsOn('has_ingredients',false),
+                Items::make('Weight info', 'weight_info'),
             ])->dependsOn('type', 'food'),
 
             NovaDependencyContainer::make([

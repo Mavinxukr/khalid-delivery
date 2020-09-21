@@ -34,16 +34,25 @@ class SingleProductRepository implements SingleProductInterface
                 'rating'            => $data->rating
             ];
         }else{
+            $weight_info =[];
+           if (!is_null($data->weight_info)){
+               foreach ($data->weight_info as $key =>  $value){
+                   $i = explode(':', $value);
+                  $weight_info[$key]['weight'] = (float)head($i);
+                  $weight_info[$key]['price'] = (int)end($i);
+               }
+           }
+
             $result =  [
                 'id'                => $data->id,
-                'title'              => $data->title,
+                'title'             => $data->title,
                 'price'             => $data->price,
                 'description'       => $data->description,
                 'image'             => ImageLinker::linker($data->image),
                 'has_ingredients'   => $data->has_ingredients,
                 'ingredients'       => $data->component,
                 'query'             => $data->queries()->with('answers')->get(),
-                'weight_info'       => [
+                'weight_info'       => !is_null($data->weight_info) ? $weight_info : [
                     ['weight' => 0.5, 'price' => 10],
                     ['weight' => 1, 'price' => 20],
                     ['weight' => 1.5, 'price' => 30],

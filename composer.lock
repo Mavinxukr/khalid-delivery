@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43dc14c50ff2df0d7823fa234054be87",
+    "content-hash": "380cf89023396a0cc5cc0e8af6117651",
     "packages": [
         {
             "name": "alexbowers/nova-categorise-resources",
@@ -1468,6 +1468,48 @@
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
             "time": "2017-06-27T22:17:23+00:00"
+        },
+        {
+            "name": "fourstacks/nova-repeatable-fields",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fourstacks/nova-repeatable-fields.git",
+                "reference": "b89dc86dba6349023554f67c9ae6f580ee08287e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fourstacks/nova-repeatable-fields/zipball/b89dc86dba6349023554f67c9ae6f580ee08287e",
+                "reference": "b89dc86dba6349023554f67c9ae6f580ee08287e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Fourstacks\\NovaRepeatableFields\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fourstacks\\NovaRepeatableFields\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "abandoned": true,
+            "time": "2019-06-10T08:43:48+00:00"
         },
         {
             "name": "genealabs/laravel-sign-in-with-apple",
@@ -8685,6 +8727,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
@@ -9696,5 +9739,6 @@
     "platform": {
         "php": "^7.2"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

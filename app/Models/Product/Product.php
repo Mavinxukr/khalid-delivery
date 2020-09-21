@@ -65,9 +65,11 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $casts = [
-        'has_ingredients' => 'boolean',
-        'active'          => 'boolean',
-        'what_is_included' => 'array',
+        'has_ingredients'   => 'boolean',
+        'active'            => 'boolean',
+        'what_is_included'  => 'array',
+        'weight_info'       => 'array'
+
     ];
 
     protected $fillable = [
@@ -77,7 +79,8 @@ class Product extends Model
         'weight','active', 'query', 'answer_type',
         'what_is_included', 'what_is_not_included',
         'info_pay', 'sort_most_selling', 'sort_appetizers',
-        'sort_sales','rating','util_id','product_count_type'
+        'sort_sales','rating','util_id','product_count_type',
+        'weight_info'
     ];
 
 
