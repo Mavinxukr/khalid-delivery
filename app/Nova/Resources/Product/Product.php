@@ -101,8 +101,7 @@ class Product extends Resource
                     ->trueValue(1)
                     ->falseValue(0)
                     ->exceptOnForms(),
-                Number::make('Weight')
-                    ->rules('required'),
+                Number::make('Weight'),
                 BelongsTo::make('Category','categories', MenuCategory::class)
                     ->searchable(),
                 Boolean::make('Most Selling','sort_most_selling')
