@@ -202,7 +202,7 @@ class FoodOrderRepository implements FoodOrderInterface
 
         CancelOrderItem::updateOrCreate(['order_id' => $id], [
             'description'   => $request->description,
-            'image'         => $name
+            'image'         => $name ?? ''
         ]);
 
         $products = $order->products()
