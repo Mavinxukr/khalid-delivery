@@ -102,7 +102,7 @@ class ServiceOrderRepository implements ServiceOrderInterface
             'callback_time'     => $data->callback_time,
             'cost'              => $data->cost,
             'status'            => $data->status,
-            'can_take'          => is_null($data->provider_id) ? true : false,
+            'can_take'          => is_null($data->provider_id),
             'can_cancel'        => $data->company_id === $data->provider_id
         ];
     }
