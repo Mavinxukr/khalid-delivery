@@ -16,8 +16,8 @@ class ActionOverOrder extends CheckoutHelper
         $order =  Order::whereId($request->id)
                         ->whereUserId($request->user()->id)
                         ->first();
-        if (!is_null($order)) {
-            if ($order->status == 'wait') {
+        if (!is_null($order) ) {
+            if ($order->status == 'wait' || $order->status == 'new' ) {
                 if (!is_null($order->provider_category) && $order->provider_category  == 'service'){
                     $checkout = self::checkoutOrder($request, $order);
                     if (!$checkout) {

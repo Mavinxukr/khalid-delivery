@@ -74,7 +74,8 @@ class CartRepository implements CartInterface
             'id'         => $data->id,
             'name'       => $data->product->title,
             'price'      => $data->product->price,
-            'quantity'   => $data->quantity
+            'quantity'   => $data->quantity,
+            'type'       => $data->product->type
         ];
     }
 }
