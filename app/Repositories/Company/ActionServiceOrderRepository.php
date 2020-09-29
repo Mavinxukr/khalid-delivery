@@ -20,11 +20,11 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
     {
         try {
             Order::whereId($request->order_id)
-                ->whereStatus('new')
+                ->whereStatus('confirm')
                 ->whereNull('provider_id')
                 ->update([
                     'provider_id' => $request->user()->company->id,
-                    'status'      => 'confirm'
+                    'status'      => 'confirm',
                 ]);
             return TransJsonResponse::toJson(true,null,'You just took the order',200);
         }catch (\Exception $exception){
