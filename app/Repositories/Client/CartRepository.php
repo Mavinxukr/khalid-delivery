@@ -25,7 +25,14 @@ class CartRepository implements CartInterface
 
     public function store($data)
     {
+       $cart = Cart::where('user_id', $data->user()->id)->first();
        $product = Product::findOrFail($data->product_id);
+       if(!is_null($cart)){
+           if($product->type != $cart->product->type){
+               return TransJsonResponse::toJson(false, null,
+                   'You cannot add products of different types to your cart', 400);
+           }
+       }
 
        if ($product->type !== 'service') {
            Cart::updateOrCreate([
