@@ -52,7 +52,7 @@ class SingleProductRepository implements SingleProductInterface
                 'has_ingredients'   => $data->has_ingredients,
                 'ingredients'       => $data->component,
                 'query'             => $data->queries()->with('answers')->get(),
-                'weight_info'       => !is_null($data->weight_info) ? $weight_info : [],
+                'weight_info'       => $weight_info,
                 'utils'             => !is_null($data->utils)? $data->utils->name : null
             ];
         }
