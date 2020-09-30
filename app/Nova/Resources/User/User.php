@@ -4,6 +4,7 @@ namespace App\Nova\Resources\User;
 
 use App\Helpers\ImageLinker;
 use App\Nova\Resource;
+use App\Nova\Resources\Place\Place;
 use App\Nova\Resources\Provider\Provider;
 use Defuse\Crypto\File;
 use Dniccum\PhoneNumber\PhoneNumber;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Image;
@@ -18,6 +20,7 @@ use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use Whitecube\NovaGoogleMaps\GoogleMaps;
 
 class User extends Resource
 {
@@ -102,6 +105,9 @@ class User extends Resource
                     return ImageLinker::linker($value);
                 })
                 ->rules( 'file'),
+            GoogleMaps::make('Map')
+                ->zoom(17)
+                ->showOnDetail(),
             MorphToMany::make('Roles', 'roles', \Eminiarts\NovaPermissions\Nova\Role::class),
             MorphToMany::make('Permissions', 'permissions', \Eminiarts\NovaPermissions\Nova\Permission::class),
             \Laravel\Nova\Fields\BelongsTo::make('Company','company', Provider::class)

@@ -9,8 +9,10 @@ class FileHelper
 {
     public static function store($file, $path) : string
     {
-        $image = Storage::disk('public')->put($path, $file);
-        return asset('storage/' . $image);
+
+        $name = $file->getClientOriginalName();
+        return Storage::disk('public')->put($path, $file);
+
     }
 
     public static function remove($path_toDelete)
