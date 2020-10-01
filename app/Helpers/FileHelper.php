@@ -11,6 +11,7 @@ class FileHelper
     {
 
         $name = $file->getClientOriginalName();
+        dd($name);
         return Storage::disk('public')->put($path, $file);
 
     }
