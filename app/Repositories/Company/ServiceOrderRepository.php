@@ -17,7 +17,7 @@ class ServiceOrderRepository implements ServiceOrderInterface
         if (!is_null($request->user()->company->geoLocation)) {
             $orderIds = GeoLocationHelper::getOrderIds($request, 'service');
             $orders = Order::whereIn('id', $orderIds)
-                ->where('status', "confirm")
+                ->where('status', "=","confirm")
                 ->whereNull('provider_id')
                 ->orWhere('provider_id', '=', $request->user()->company->id)
                 ->get()
