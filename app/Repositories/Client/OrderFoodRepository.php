@@ -17,6 +17,7 @@ class OrderFoodRepository implements OrderFoodInterface
 {
     public function show(int $id)
     {
+
         $order = Order::findOrFail($id);
         $response =  $this->format($order);
         return TransJsonResponse::toJson(true,$response,'Show order',200);
