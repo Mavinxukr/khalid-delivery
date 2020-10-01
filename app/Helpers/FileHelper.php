@@ -11,8 +11,9 @@ class FileHelper
     public static function store($file, $path) : string
     {
 
-        $name = Str::slug('$file->getClientOriginalName()','-');
-        dd($name);
+        $name = Str::slug($file->getClientOriginalName(),'-');
+        $ext = $file->getClientOriginalExtension();
+        $path .=$name.'.'.$ext;
         return Storage::disk('public')->put($path, $file);
 
     }
