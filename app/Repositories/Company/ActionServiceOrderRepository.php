@@ -111,7 +111,7 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
 
         if($cost) $costs = (new ServiceOrderHelper())->calculateCost($cost);
 
-        $extend = $order->extends()->create([
+        $extend = $order->extends()->updateOrCreate(['extend_to' => $request->extend_to ],[
             'extend_from'       => $order->date_delivery_to,
             'extend_to'         => $request->extend_to,
             'service_received'  => $costs['service_received'],
@@ -121,9 +121,10 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
             'reason'            => $request->reason,
         ]);
 
-        if(!is_null($request->files)){
-            foreach ($request->files as $item){
-                $file = FileHelper::store($item, 'orders/extends/');
+        if(!is_null($request->has('files'))){
+
+            foreach ($request->all()['files'] as $item){
+                $file = FileHelper::store($item, '/orders/extends/');
                 $extend->files()->create([
                     'link' => $file
                 ]);

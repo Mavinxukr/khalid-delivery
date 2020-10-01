@@ -66,7 +66,7 @@ class OrderServiceRepository implements OrderServiceInterface
 
         $order->provider_category   = $type;
         $order->debt                = $order->cost;
-        if($order->payment_type === 'cash') $order->status = 'new';
+        if($order->payment_type === 'cash') $order->status = 'confirm';
         $order->save();
         $response =  $this->format($order);
         return TransJsonResponse::toJson(true,$response,'Order was created',201);

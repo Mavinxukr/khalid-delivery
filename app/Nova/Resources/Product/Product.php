@@ -89,10 +89,13 @@ class Product extends Resource
             RadioButton::make('Provider type', 'type')
                 ->options([
                     'food'          => 'Food',
-                    'service'       => 'Service'
+                    'service'       => 'Service',
+                    'marker'        => 'Market'
                 ])
                 ->hideFromDetail()
                 ->hideFromIndex(),
+            BelongsTo::make('Category','categories', MenuCategory::class)
+                ->searchable(),
             BelongsTo::make('Parent','parent',Product::class)
                 ->exceptOnForms(),
             NovaDependencyContainer::make([
@@ -121,8 +124,24 @@ class Product extends Resource
                         ->exceptOnForms(),
                     Number::make('Rating')->max(5)->min(1),
                 ])->dependsOn('has_ingredients',false),
-                Items::make('Weight info', 'weight_info'),
             ])->dependsOn('type', 'food'),
+
+            NovaDependencyContainer::make([
+                Boolean::make('Most Selling','sort_most_selling')
+                    ->trueValue(1)
+                    ->falseValue(0)
+                    ->exceptOnForms(),
+                Boolean::make('Appetizers','sort_appetizers')
+                    ->trueValue(1)
+                    ->falseValue(0)
+                    ->exceptOnForms(),
+                Boolean::make('Sales','sort_sales')
+                    ->trueValue(1)
+                    ->falseValue(0)
+                    ->exceptOnForms(),
+                Items::make('Weight info', 'weight_info'),
+                BelongsTo::make('Utils','utils', Utils::class),
+            ])->dependsOn('type', 'marker'),
 
             NovaDependencyContainer::make([
                 Number::make('Price for hour','price')

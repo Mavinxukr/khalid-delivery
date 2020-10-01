@@ -33,7 +33,7 @@ class SingleProductRepository implements SingleProductInterface
                 'query'             => $data->queries()->with('answers')->get(),
                 'rating'            => $data->rating
             ];
-        }else{
+        }elseif ($data->type === 'food'){
 
             $result =  [
                 'id'                => $data->id,
@@ -43,10 +43,20 @@ class SingleProductRepository implements SingleProductInterface
                 'image'             => ImageLinker::linker($data->image),
                 'has_ingredients'   => $data->has_ingredients,
                 'ingredients'       => $data->component,
-                'query'             => $data->queries()->with('answers')->get(),
-                'utils'             => !is_null($data->utils)? $data->utils->name : null
+                'utils'             => !is_null($data->utils)? $data->utils->name : null,
+                'weight'            => $data->weight
             ];
 
+        }else{
+
+            $result =  [
+                'id'                => $data->id,
+                'title'             => $data->title,
+                'price'             => $data->price,
+                'description'       => $data->description,
+                'image'             => ImageLinker::linker($data->image),
+                'utils'             => !is_null($data->utils)? $data->utils->name : null
+            ];
             $weight_info =[];
             if (!is_null($data->weight_info)){
                 foreach ($data->weight_info as $key =>  $value){
@@ -56,12 +66,11 @@ class SingleProductRepository implements SingleProductInterface
                 }
             }
 
-            if ($data->type == 'market'){
                 $result['weight_info']  = $weight_info;
-            }else{
-                $result['weight'] = $data->weight;
-            }
+
         }
+
+
             return $result;
 
     }

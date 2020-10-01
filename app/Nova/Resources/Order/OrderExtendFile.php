@@ -4,9 +4,9 @@ namespace App\Nova\Resources\Order;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Image;
 
 class OrderExtendFile extends Resource
 {
@@ -43,7 +43,9 @@ class OrderExtendFile extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Link', 'link')
+            Image::make('Link', 'link')->preview(function ($i){
+              return 'hello';
+            })
         ];
     }
 
