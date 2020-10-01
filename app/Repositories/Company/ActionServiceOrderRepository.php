@@ -124,7 +124,7 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
         if(!is_null($request->has('files'))){
 
             foreach ($request->all()['files'] as $item){
-                $file = FileHelper::store($item, '/orders/extends');
+                $file = FileHelper::store($item, '/orders/extends/');
                 $extend->files()->create([
                     'link' => $file
                 ]);
