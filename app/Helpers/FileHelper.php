@@ -4,17 +4,12 @@ namespace App\Helpers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Str;
 
 class FileHelper
 {
     public static function store($file, $path) : string
     {
-
-        $name = Str::slug($file->getClientOriginalName(),'-');
-        $ext = $file->getClientOriginalExtension();
-        $path .=$name.'.'.$ext;
-        return Storage::put($path, $file);
+        return Storage::disk('public')->put($path, $file);
 
     }
 
