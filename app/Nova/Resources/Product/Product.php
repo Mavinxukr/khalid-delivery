@@ -140,6 +140,7 @@ class Product extends Resource
                     ->falseValue(0)
                     ->exceptOnForms(),
                 Items::make('Weight info', 'weight_info'),
+                BelongsTo::make('Utils','utils', Utils::class),
             ])->dependsOn('type', 'marker'),
 
             NovaDependencyContainer::make([
