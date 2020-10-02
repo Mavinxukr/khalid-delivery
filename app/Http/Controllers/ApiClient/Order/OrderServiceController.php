@@ -155,4 +155,21 @@ class OrderServiceController extends Controller
     {
         return $this->order->declineRequest($id);
     }
+
+
+
+    /**
+     * @api {get} client/order-requests  Show all order requests UPDATE 25.08.20
+     * @apiName  Show all order requests
+     * @apiVersion 1.1.1
+     * @apiGroup Client Order - Service
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  client/order-requests
+     */
+
+    public function showAllRequests(Request $request)
+    {
+        return $this->order->showAllRequests($request);
+    }
 }

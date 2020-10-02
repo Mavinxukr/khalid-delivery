@@ -23,4 +23,6 @@ interface OrderServiceInterface extends FormatInterface
     public function acceptRequest(int $id);
 
     public function declineRequest(int $id);
+
+    public function showAllRequests($data);
 }

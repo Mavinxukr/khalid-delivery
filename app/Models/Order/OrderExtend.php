@@ -9,7 +9,7 @@ class OrderExtend extends Model
     protected $fillable = [
         'order_id', 'extend_to',
         'extend_from', 'reason',
-        'accepted', 'cost',
+        'accepted', 'cost', 'completed_at',
         'service_received', 'company_received', 'initial_cost',
     ];
 

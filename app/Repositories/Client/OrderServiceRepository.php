@@ -169,6 +169,9 @@ class OrderServiceRepository implements OrderServiceInterface
         return $preOrder->fresh();
     }
 
+
+
+
     public function showRequests(int $id)
     {
         $order = Order::findOrFail($id);
@@ -176,11 +179,21 @@ class OrderServiceRepository implements OrderServiceInterface
         return TransJsonResponse::toJson(true, $extends, 'All Requests', 200);
     }
 
+
+    public function showAllRequests($data)
+    {
+        $userOrder = $data->user()->order()->pluck('id');
+
+        $extends = OrderExtend::whereIn('order_id',$userOrder)->get();
+        return TransJsonResponse::toJson(true, $extends, 'All Requests by user', 200);
+    }
+
     public function acceptRequest(int $id)
     {
         $extend = OrderExtend::findOrFail($id);
         $extend->update([
             'accepted' => 'confirmed',
+            'completed_at' => Carbon::now()
         ]);
 
         $extend->order()->update([
@@ -198,7 +211,7 @@ class OrderServiceRepository implements OrderServiceInterface
     {
         $extend = OrderExtend::findOrFail($id);
         $extend->update([
-            'accepted' => 'confirmed',
+            'accepted' => 'canceled',
         ]);
         return TransJsonResponse::toJson(true, null, 'Request declined', 200);
     }
