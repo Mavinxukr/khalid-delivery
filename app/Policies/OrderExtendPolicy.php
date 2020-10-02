@@ -33,7 +33,7 @@ class OrderExtendPolicy
 
     public function delete(User $user, $item)
     {
-        return false;
+        return true;
     }
 
     public function restore(User $user, $item)
@@ -43,6 +43,6 @@ class OrderExtendPolicy
 
     public function forceDelete(User $user, $item)
     {
-        return false;
+        return true;
     }
 }

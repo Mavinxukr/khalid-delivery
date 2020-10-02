@@ -3,6 +3,7 @@
 namespace App\Nova\Resources\Order;
 
 use App\Nova\Resource;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
@@ -74,10 +75,12 @@ class OrderExtend extends Resource
                 ->zoom(17) // Optionally set the zoom level
                 ->defaultCoordinates(50.8466, 4.3517)
                 ->showOnDetail(),
-            DateTime::make('Last update', 'updated_at'),
+            DateTime::make('Completed at', 'completed_at'),
             Text::make('Located there')->exceptOnForms()
                 ->displayUsing(function (){
-                return '3 hours';
+                $from = Carbon::make($this->extend_from)->hour;
+                $to = Carbon::make($this->extend_to)->hour;
+                return $to - $from .' hours';
             })
         ];
 

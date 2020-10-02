@@ -22,6 +22,7 @@ class CreateOrderExtendsTable extends Migration
             $table->float('initial_cost', 10, 2);
             $table->float('service_received', 10, 2);
             $table->float('company_received', 10, 2);
+            $table->timestamp('completed_at')->nullable();
             $table->text('reason');
             $table->string('accepted')->default('created');
             $table->foreign('order_id')
