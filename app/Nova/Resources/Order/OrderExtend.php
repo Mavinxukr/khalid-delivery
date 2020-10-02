@@ -78,9 +78,22 @@ class OrderExtend extends Resource
             DateTime::make('Completed at', 'completed_at'),
             Text::make('Located there')->exceptOnForms()
                 ->displayUsing(function (){
-                $from = Carbon::make($this->extend_from)->hour;
-                $to = Carbon::make($this->extend_to)->hour;
-                return $to - $from .' hours';
+                    $fromH = Carbon::make($this->extend_from)->hour;
+                    $fromM = Carbon::make($this->extend_from)->minute;
+                    $toH = Carbon::make($this->extend_to)->hour;
+                    $toM = Carbon::make($this->extend_to)->minute;
+                    $hours = $toH - $fromH ;
+                    $minutes = $toM - $fromM;
+                    $text = '';
+                    if ($hours > 0){
+                        $hours .= ' hours';
+                        $text .= $hours;
+                    }
+                    if ($minutes > 0){
+                        $minutes .= ' minutes';
+                        $text .= ' '.$minutes;
+                    }
+                    return $text;
             })
         ];
 
