@@ -89,6 +89,8 @@ class ProfileRepository implements ProfileInterface
                                                         $text .= ' '.$minutes;
                                                     }
 
+                                                    $text .= ' ,'. $i->cost.'$';
+
                                                     return [
                                                         'id'    => $i->id,
                                                         'extend_to' => $i->extend_to,
