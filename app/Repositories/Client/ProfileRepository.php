@@ -10,6 +10,7 @@ use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Profile\ProfileInterface;
 use App\Contracts\FormatInterface;
 use App\User;
+use Carbon\Carbon;
 
 class ProfileRepository implements ProfileInterface
 {
@@ -71,6 +72,32 @@ class ProfileRepository implements ProfileInterface
                                                 ] : null,
                                                 'place'                 => $i->place,
                                                 'comment'               => $i->comment,
+                                                'extends'       => $i->extends->map(function($i){
+                                                    $fromH = Carbon::make($i->extend_from)->hour;
+                                                    $fromM = Carbon::make($i->extend_from)->minute;
+                                                    $toH = Carbon::make($i->extend_to)->hour;
+                                                    $toM = Carbon::make($i->extend_to)->minute;
+                                                    $hours = $toH - $fromH ;
+                                                    $minutes = $toM - $fromM;
+                                                    $text = '+';
+                                                    if ($hours > 0){
+                                                        $hours .= ' hours';
+                                                        $text .= $hours;
+                                                    }
+                                                    if ($minutes > 0){
+                                                        $minutes .= ' minutes';
+                                                        $text .= ' '.$minutes;
+                                                    }
+
+                                                    return [
+                                                        'id'    => $i->id,
+                                                        'extend_to' => $i->extend_to,
+                                                        'extend_from' => $i->extend_from,
+                                                        'cost'  => $i->cost,
+                                                        'status'    => $i->accepted,
+                                                        'text'      => $text
+                                                    ];
+                                                })
 
                                             ];
                                     })

@@ -183,7 +183,6 @@ class OrderServiceRepository implements OrderServiceInterface
     public function showAllRequests($data)
     {
         $userOrder = $data->user()->order()->pluck('id');
-
         $extends = OrderExtend::whereIn('order_id',$userOrder)->get();
         return TransJsonResponse::toJson(true, $extends, 'All Requests by user', 200);
     }
