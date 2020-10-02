@@ -17,6 +17,8 @@ class OrderExtend extends Model
         'created_at', 'updated_at', 'initial_cost', 'service_received', 'company_received',
     ];
 
+    protected $dates = ['completed_at'];
+
     public function order()
     {
         return $this->belongsTo(Order::class);
