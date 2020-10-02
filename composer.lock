@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "380cf89023396a0cc5cc0e8af6117651",
+    "content-hash": "c42443dc3926e358bcd9c3653ec39c38",
     "packages": [
         {
             "name": "alexbowers/nova-categorise-resources",
@@ -514,6 +514,57 @@
                 "symmetric key cryptography"
             ],
             "time": "2018-07-24T23:27:56+00:00"
+        },
+        {
+            "name": "digital-creative/nova-filepond",
+            "version": "v0.2.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dcasia/nova-filepond.git",
+                "reference": "703271c8fe86a36281a779c8cf55fbbf403138d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dcasia/nova-filepond/zipball/703271c8fe86a36281a779c8cf55fbbf403138d5",
+                "reference": "703271c8fe86a36281a779c8cf55fbbf403138d5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DigitalCreative\\Filepond\\FilepondServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DigitalCreative\\Filepond\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rafael Milewski"
+                }
+            ],
+            "description": "A Nova field for uploading File, Image and Video using filepond.",
+            "keywords": [
+                "Doka",
+                "field",
+                "file",
+                "laravel",
+                "nova",
+                "upload",
+                "video"
+            ],
+            "time": "2019-11-16T13:25:53+00:00"
         },
         {
             "name": "dillingham/nova-items-field",
@@ -3567,6 +3618,48 @@
                 "vector"
             ],
             "time": "2019-10-06T11:29:25+00:00"
+        },
+        {
+            "name": "media24si/nova-youtube-field",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Media24si/nova-youtube-field.git",
+                "reference": "dc45bf0f1be948cf860948b93d46106354964d98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Media24si/nova-youtube-field/zipball/dc45bf0f1be948cf860948b93d46106354964d98",
+                "reference": "dc45bf0f1be948cf860948b93d46106354964d98",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Media24si\\NovaYoutubeField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Media24si\\NovaYoutubeField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova Youtube field.",
+            "keywords": [
+                "laravel",
+                "nova",
+                "youtube"
+            ],
+            "time": "2018-09-16T10:45:29+00:00"
         },
         {
             "name": "michielfb/laravel-nova-time-field",

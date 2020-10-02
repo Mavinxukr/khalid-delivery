@@ -16,7 +16,7 @@ class OrderExtendFilePolicy
 
     public function view(User $user, $item)
     {
-        return false;
+        return true;
     }
 
 

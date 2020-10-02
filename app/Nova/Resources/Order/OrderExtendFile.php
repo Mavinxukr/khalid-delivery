@@ -4,9 +4,8 @@ namespace App\Nova\Resources\Order;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Image;
+use DigitalCreative\Filepond\Filepond;
 
 class OrderExtendFile extends Resource
 {
@@ -43,9 +42,7 @@ class OrderExtendFile extends Resource
     {
         return [
             ID::make()->sortable(),
-            Image::make('Link', 'link')->preview(function ($i){
-              return 'hello';
-            })
+            Filepond::make('Link')
         ];
     }
 

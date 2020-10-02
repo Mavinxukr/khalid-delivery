@@ -94,8 +94,6 @@ class Product extends Resource
                 ])
                 ->hideFromDetail()
                 ->hideFromIndex(),
-            BelongsTo::make('Category','categories', MenuCategory::class)
-                ->searchable(),
             BelongsTo::make('Parent','parent',Product::class)
                 ->exceptOnForms(),
             NovaDependencyContainer::make([
@@ -123,6 +121,8 @@ class Product extends Resource
                     Number::make('Price','price')
                         ->exceptOnForms(),
                     Number::make('Rating')->max(5)->min(1),
+                    BelongsTo::make('Category','categories', MenuCategory::class)
+                        ->searchable(),
                 ])->dependsOn('has_ingredients',false),
             ])->dependsOn('type', 'food'),
 
@@ -141,12 +141,13 @@ class Product extends Resource
                     ->exceptOnForms(),
                 Items::make('Weight info', 'weight_info'),
                 BelongsTo::make('Utils','utils', Utils::class),
+                BelongsTo::make('Category','categories', MenuCategory::class)
+                    ->searchable(),
             ])->dependsOn('type', 'marker'),
 
             NovaDependencyContainer::make([
                 Number::make('Price for hour','price')
                     ->exceptOnForms(),
-
                 Items::make('What is included', 'what_is_included'),
                 Textarea::make('What is not included', 'what_is_not_included'),
                 Textarea::make('When I`ll pay', 'info_pay'),

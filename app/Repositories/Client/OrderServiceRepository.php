@@ -60,12 +60,13 @@ class OrderServiceRepository implements OrderServiceInterface
         }
 
         $costs = (new ServiceOrderHelper())->calculateCost($cost);
+
         $order->cost =  $costs['cost'];
         $order->service_received = $costs['service_received'];
         $order->company_received = $costs['company_received'];
 
         $order->provider_category   = $type;
-        $order->debt                = $order->cost;
+        $order->debt                = $costs['company_received'];
         if($order->payment_type === 'cash') $order->status = 'confirm';
         $order->save();
         $response =  $this->format($order);

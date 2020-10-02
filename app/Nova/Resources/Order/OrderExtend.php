@@ -6,6 +6,8 @@ use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -72,11 +74,13 @@ class OrderExtend extends Resource
                 ->zoom(17) // Optionally set the zoom level
                 ->defaultCoordinates(50.8466, 4.3517)
                 ->showOnDetail(),
+            DateTime::make('Last update', 'updated_at'),
             Text::make('Located there')->exceptOnForms()
                 ->displayUsing(function (){
                 return '3 hours';
             })
         ];
+
     }
 
     /**

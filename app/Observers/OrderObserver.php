@@ -10,10 +10,12 @@ class OrderObserver
 {
     public function updated(Order $order)
     {
+     /*   Log::info($order->debt .'----'. $order->service_received );
+        return;
         if($order->debt != $order->service_received){
-            $order->debt = $order->service_received;
+            $order->debt = $order->company_received;
             $order->save();
-        }
+        }*/
 
         if(!is_null($order->preOrder) &&
             !is_null($order->status) &&
