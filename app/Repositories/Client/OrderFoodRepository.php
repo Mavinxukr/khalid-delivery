@@ -77,7 +77,8 @@ class OrderFoodRepository implements OrderFoodInterface
 
             $order->provider_id = $providerId;
             if ($order->provider->percent){
-                $order->cost *= ($order->provider->count /100) ;
+                $kef = (100 + $order->provider->count) /100;
+                $order->cost *= $kef ;
             }else{
                 $order->cost += $order->provider->count;
             }
