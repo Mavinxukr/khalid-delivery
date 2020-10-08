@@ -87,7 +87,7 @@ class OrderFoodRepository implements OrderFoodInterface
             if($order->payment_type === 'cash')
                 $order->status = 'confirm';
 
-            $order->status_id = OrderStatus::whereName('confirmed')->first()->id;
+            $order->status_id = OrderStatus::whereName('placed')->first()->id;
 
             //проверка на маркет
             if (!is_null($providerId)){
