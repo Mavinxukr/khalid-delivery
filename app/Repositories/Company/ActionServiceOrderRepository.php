@@ -120,9 +120,7 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
             'cost'              => $costs['cost'],
             'reason'            => $request->reason,
         ]);
-
-        if(!is_null($request->has('files'))){
-
+        if(!is_null($request->all()['files'])){
             foreach ($request->all()['files'] as $item){
                 $file = FileHelper::store($item, '/orders/extends/');
                 $extend->files()->create([

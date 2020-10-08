@@ -56,16 +56,12 @@ class OrderFoodRepository implements OrderFoodInterface
             foreach ($data->user()->curt as $item) {
                 $cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
-                $item->delete();
+                //$item->delete();
             }
 
             if($minOrder !== 0 && $cost < $minOrder){
                 return TransJsonResponse::toJson(false, null,
                     'Minimum order cost is ' . $minOrder . '$', 400);
-            }
-
-            foreach ($data->user()->curt as $item) {
-                $item->delete();
             }
             if($cost){
                 $order->initial_cost = $cost;
@@ -78,18 +74,20 @@ class OrderFoodRepository implements OrderFoodInterface
                 $order->cost = $cost;
             }
 
+
             $order->provider_id = $providerId;
-            if ($order->provider->percent ){
-                $order->cost *= ($order->provider->count /100)  ;
+            if ($order->provider->percent){
+                $order->cost *= ($order->provider->count /100) ;
             }else{
                 $order->cost += $order->provider->count;
             }
+
             $order->provider_category = 'food';
             $order->debt = $order->cost;
             if($order->payment_type === 'cash')
-                $order->status = 'new';
+                $order->status = 'confirm';
 
-            $order->status_id = OrderStatus::whereName('New')->first()->id;
+            $order->status_id = OrderStatus::whereName('confirmed')->first()->id;
 
             //проверка на маркет
             if (!is_null($providerId)){
