@@ -96,7 +96,7 @@ class User extends Authenticatable
         'first_name', 'email', 'password',
         'phone','last_name','company_id',
         'social_key','social_driver','image',
-        'edit'
+        'edit',' bonus'
     ];
 
     /**

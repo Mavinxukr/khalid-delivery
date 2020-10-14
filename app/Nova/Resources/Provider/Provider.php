@@ -120,6 +120,10 @@ class Provider extends Resource
                 ->hideFromDetail(),
             BelongsTo::make('Category','categories', Category::class)
                 ->exceptOnForms(),
+            Boolean::make('Reward')
+                ->trueValue(1)
+                ->falseValue(0),
+            Number::make('Reward program','reward_percent'),
             Text::make('Chamber of commerce'),
             Boolean::make('Active')
                 ->trueValue(1)
@@ -135,8 +139,6 @@ class Provider extends Resource
                 ])
                 ->hideFromDetail()
                 ->hideFromIndex(),
-
-
             Number::make('Fee','count')
                 ->rules('required')->displayUsing(function ($i) use($request) {
                    if ($this->percent){

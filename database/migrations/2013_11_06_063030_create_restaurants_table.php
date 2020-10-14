@@ -28,6 +28,8 @@ class CreateRestaurantsTable extends Migration
             $table->string('state')->nullable();
             $table->string('country')->nullable();
             $table->string('zip')->nullable();
+            $table->integer('reward')->default(0);
+            $table->integer('reward_percent')->nullable();
             $table->string('company_number')->nullable();
             $table->double('limit_cash')->nullable();
             $table->boolean('enable_cash')->default(false);

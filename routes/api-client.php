@@ -34,6 +34,7 @@ Route::group(["namespace"=>"ApiClient"],function() {
         Route::post('logout','Auth\AuthController@logout');
         //---------------------------- Profile  --------------------------------//
         Route::get('profiles','Profile\ProfileController@getUserByToken');
+        Route::post('reward','Profile\RewardController@sendReward');
         Route::get('user-profiles-comments','Profile\ProfileController@getProfileComments');
         Route::post('profiles/{id}','Profile\ProfileController@update');
         //---------------------------- Order Service --------------------------------//

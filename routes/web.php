@@ -20,6 +20,9 @@ Route::get('phpinfo',function (){
     echo phpinfo();
 });
 
+
+Route::get('/reward/{sender_id}/recipient-email/{email}','Web\Reward\RewardController@successReward');
+
 Route::get('google','ApiClient\Auth\AuthController@google');
 Route::get('callback/google','ApiClient\Auth\AuthController@googleCallback');
 

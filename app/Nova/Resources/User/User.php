@@ -17,9 +17,11 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use phpDocumentor\Reflection\Types\Integer;
 use Whitecube\NovaGoogleMaps\GoogleMaps;
 
 class User extends Resource
@@ -85,6 +87,9 @@ class User extends Resource
                 ->linkOnIndex()
                 ->linkOnDetail()
                 ->rules('required'),
+            Number::make('Bonus')->readonly()->displayUsing(function ($i){
+                return $i .'$';
+            }),
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')

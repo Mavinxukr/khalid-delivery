@@ -76,7 +76,7 @@ class Provider extends Model
         'provider_status',
         'state', 'country', 'zip', 'count', 'charge',
         'days_after_invoice', 'days_before_invoice',
-        'percent'
+        'percent','reward','reward_percent'
     ];
 
     protected $hidden = [

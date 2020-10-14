@@ -15,6 +15,7 @@ use App\Contracts\Client\Order\PreOrderInterface;
 use App\Contracts\Client\Place\PlaceInterface;
 use App\Contracts\Client\Product\FilterInterface;
 use App\Contracts\Client\Product\ProductInterface;
+use App\Contracts\Client\Profile\RewardInterface;
 use App\Contracts\Client\Query\QueryInterface;
 use App\Contracts\Client\Product\SingleProductInterface;
 use App\Contracts\Client\Profile\ProfileInterface;
@@ -33,6 +34,7 @@ use App\Repositories\Client\PreOrderRepository;
 use App\Repositories\Client\ProductRepository;
 use App\Repositories\Client\ProfileRepository;
 use App\Repositories\Client\QueryRepository;
+use App\Repositories\Client\RewardRepository;
 use App\Repositories\Client\SingleProductRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -69,5 +71,6 @@ class RepositoryClientServiceProvider extends ServiceProvider
         $this->app->bind(OrderFoodInterface::class,OrderFoodRepository::class);
         $this->app->bind(FaqInterface::class,FaqRepository::class);
         $this->app->bind(PreOrderInterface::class,PreOrderRepository::class);
+        $this->app->bind(RewardInterface::class,RewardRepository::class);
     }
 }
