@@ -32,4 +32,21 @@ class RewardController extends Controller
     {
         return $this->reward->sendReward($request);
     }
+
+
+    /**
+     * @api {post} client/reward/using Using reward
+     * @apiName  Using reward
+     * @apiVersion 1.1.1
+     * @apiGroup Reward
+     * @apiParam {Number} code Code
+     * @apiPermission Authorization
+     * @apiHeader  Authorization token
+     * @apiSampleRequest  client/reward/using
+     */
+
+    public function usingCode(Request  $request)
+    {
+        return $this->reward->usingCode($request);
+    }
 }

@@ -10,6 +10,7 @@ use App\Models\Order\PreOrder;
 use App\Models\PlaceService\Place;
 use App\Models\Product\Product;
 use App\Models\Provider\Provider;
+use App\Models\Reward\Reward;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -168,4 +169,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(PreOrder::class);
     }
+
 }
