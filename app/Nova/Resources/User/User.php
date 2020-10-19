@@ -88,7 +88,12 @@ class User extends Resource
                 ->linkOnDetail()
                 ->rules('required'),
             Number::make('Bonus')->readonly()->displayUsing(function ($i){
-                return $i .'$';
+                if(!is_null($i)){
+                    return $i .'$';
+                }else{
+                    return 0 .'$';
+                }
+
             }),
             Password::make('Password')
                 ->onlyOnForms()

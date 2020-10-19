@@ -10,6 +10,7 @@ use App\Helpers\TransJsonResponse;
 use App\Contracts\Client\Order\OrderServiceInterface;
 use App\Models\Order\Order;
 use App\Models\Order\OrderExtend;
+use App\Models\Reward\Reward;
 use App\Traits\FeeTrait;
 use Carbon\Carbon;
 
@@ -35,6 +36,7 @@ class OrderServiceRepository implements OrderServiceInterface
         if ($type  == 'service'){
             $preOrder = $this->storePreOrder($data);
             $cost = $order->product->price;
+
             if(!is_null($preOrder)){
                     $time_from = Carbon::createFromFormat('H:m:i', $data->date_delivery_from);
                     $time_to = Carbon::createFromFormat('H:m:i', $data->date_delivery_to);
@@ -68,6 +70,7 @@ class OrderServiceRepository implements OrderServiceInterface
         $order->provider_category   = $type;
         $order->debt                = $costs['company_received'];
         if($order->payment_type === 'cash') $order->status = 'confirm';
+
         $order->save();
         $response =  $this->format($order);
         return TransJsonResponse::toJson(true,$response,'Order was created',201);

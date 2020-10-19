@@ -16,11 +16,16 @@ class RewardRepository implements RewardInterface
     public function sendReward(Request $request)
     {
         $user = User::whereEmail($request->email)->first();
+        if(is_null($user)){
+            return TransJsonResponse::toJson('Error',[],
+                'This user is not found in app',400);
+        }
+
         $reward = Reward::where([
             'recipient_id' => $user->id,
             'sender_id'  => $request->user()->id
         ])->first();
-        if (!is_null($reward) || is_null($user)){
+        if (!is_null($reward)  ){
             return TransJsonResponse::toJson('Error',[],
                 'You already send promo code this user or this user is not found in app',400);
         }

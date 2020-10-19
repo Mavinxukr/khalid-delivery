@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->boolean('active')->default(1);
             $table->unsignedBigInteger('company_id')->nullable();
-            $table->unsignedBigInteger('bonus')->nullable();
+            $table->double('bonus')->nullable();
             $table->foreign('company_id')
                     ->references('id')
                     ->on('providers')

@@ -10,27 +10,39 @@ use App\Helpers\PushHelper;
 use App\Helpers\ServiceOrderHelper;
 use App\Helpers\TransJsonResponse;
 use App\Models\Order\Order;
+use App\Traits\FeeTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ActionServiceOrderRepository implements ActionServiceOrderInterface
 {
+    use FeeTrait;
 
     public function take(Request $request)
     {
         try {
-            Order::whereId($request->order_id)
+            $order =  Order::whereId($request->order_id)
                 ->whereStatus('confirm')
                 ->whereNull('provider_id')
                 ->update([
                     'provider_id' => $request->user()->company->id,
-                    'status'      => 'confirm',
+                //    'status'      => 'confirm',
                 ]);
+
+            if ($order){
+                $rewOrder = Order::findOrFail($request->order_id);
+
+                if ($rewOrder->provider->reward){
+                    $bonus = $rewOrder->initial_cost * 0.01 > 10 ? 10 : $rewOrder->initial_cost * 0.01;
+                    $this->rewardAction($rewOrder, $bonus);
+                }
+            }
+
             return TransJsonResponse::toJson(true,null,'You just took the order',200);
-        }catch (\Exception $exception){
+        }
+        catch (\Exception $exception){
             return TransJsonResponse::toJson(false,null,'Something went wrong',400);
         }
-
 
     }
 

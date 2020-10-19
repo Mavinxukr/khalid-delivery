@@ -3,6 +3,8 @@
 namespace App\Traits;
 
 use App\Models\Fee\Fee;
+use App\Models\Order\Order;
+use App\Models\Reward\Reward;
 
 trait FeeTrait
 {
@@ -14,5 +16,16 @@ trait FeeTrait
     public static function getFeeStatic($type, $name)
     {
         return Fee::whereName($type . '_' . $name)->first()->count;
+    }
+
+    public function rewardAction(Order $order,  float $bonus)
+    {
+        $rewardUser = Reward::where([
+            'recipient_id'  => $order->user_id,
+            'used'          => true
+        ])->get();
+        foreach ($rewardUser as $user){
+            $user->sender->increment('bonus',$bonus);
+        }
     }
 }

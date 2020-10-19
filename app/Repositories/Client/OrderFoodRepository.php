@@ -11,10 +11,14 @@ use App\Contracts\Client\Order\OrderFoodInterface;
 use App\Models\Order\Order;
 use App\Models\Order\OrderStatus;
 use App\Models\Provider\Provider;
+use App\Models\Reward\Reward;
+use App\Traits\FeeTrait;
 use Carbon\Carbon;
 
 class OrderFoodRepository implements OrderFoodInterface
 {
+    use FeeTrait;
+
     public function show(int $id)
     {
 
@@ -56,7 +60,7 @@ class OrderFoodRepository implements OrderFoodInterface
             foreach ($data->user()->curt as $item) {
                 $cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
-                //$item->delete();
+                $item->delete();
             }
 
             if($minOrder !== 0 && $cost < $minOrder){
@@ -105,6 +109,13 @@ class OrderFoodRepository implements OrderFoodInterface
             if (!is_null($order->provider) && $order->provider->categories->type == 'market' ){
                 $order->status = 'confirm';
             }
+            if ($order->provider->reward){
+                if ($order->provider_category == 'food'){
+                    $bonus = $order->initial_cost *0.02;
+                    $this->rewardAction($order, $bonus);
+                }
+            }
+
             $order->save();
             $response = $this->format($order);
             return TransJsonResponse::toJson(true, $response, 'Order was created', 201);
