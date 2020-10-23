@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->boolean('edit')->default(false);
             $table->string('phone')->nullable();
             $table->boolean('active')->default(1);
+            $table->json('map')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
             $table->double('bonus')->nullable();
             $table->foreign('company_id')
