@@ -21,7 +21,7 @@ trait FeeTrait
     public function rewardAction(Order $order,  float $bonus)
     {
         $rewardUser = Reward::where([
-            'recipient_id'  => $order->user_id,
+            'recipient_email'  => $order->user->email,
             'used'          => true
         ])->get();
         foreach ($rewardUser as $user){

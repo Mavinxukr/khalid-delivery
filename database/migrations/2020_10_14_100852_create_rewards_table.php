@@ -16,11 +16,10 @@ class CreateRewardsTable extends Migration
         Schema::create('rewards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sender_id')->nullable();
-            $table->unsignedBigInteger('recipient_id')->nullable();
+            $table->string('recipient_email')->nullable();
             $table->integer('used')->default(0);
             $table->integer('code');
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('recipient_id')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

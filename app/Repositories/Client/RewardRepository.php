@@ -6,28 +6,22 @@ namespace App\Repositories\Client;
 
 use App\Contracts\Client\Profile\RewardInterface;
 use App\Helpers\TransJsonResponse;
+use App\Mail\SendOrderMail;
 use App\Models\Reward\Reward;
 use App\Notifications\SendReward;
 use App\User;
 use Illuminate\Http\Request;
+use Mail;
 
 class RewardRepository implements RewardInterface
 {
     public function sendReward(Request $request)
     {
-        $user = User::whereEmail($request->email)->first();
-        if(is_null($user)){
-            return TransJsonResponse::toJson('Error',[],
-                'This user is not found in app',400);
-        }
+        $valid = Reward::where('recipient_email', $request->email)->first();
 
-        $reward = Reward::where([
-            'recipient_id' => $user->id,
-            'sender_id'  => $request->user()->id
-        ])->first();
-        if (!is_null($reward)  ){
+        if (!is_null($valid)){
             return TransJsonResponse::toJson('Error',[],
-                'You already send promo code this user or this user is not found in app',400);
+                'You already send promo code to this user',400);
         }
 
         $code = rand(10**6,10**7);
@@ -35,9 +29,9 @@ class RewardRepository implements RewardInterface
             'sender_id' => $request->user()->id,
             'code'  => $code,
             'used' =>  0,
-            'recipient_id' => $user->id
+            'recipient_email' => $request->email
         ]);
-        $reward->recipient->notify(new SendReward($code,$reward->sender));
+        Mail::to($reward->recipient_email)->send(new SendOrderMail($reward));
         return TransJsonResponse::toJson('Success',[],
             'Promo code was send',200);
 
@@ -45,16 +39,26 @@ class RewardRepository implements RewardInterface
 
     public function usingCode(Request  $request)
     {
-        $reward =  Reward::where('code', $request->get('code'))->first();
+        $reward =  Reward::where([
+            'code' => $request->get('code'),
+            'recipient_email' => $request->user()->email
+        ])->first();
         if (is_null($reward) ||$reward->sender_id === $request->user()->id  || $reward->used){
             return TransJsonResponse::toJson('Error',[],
                 'Promo code is invalid or already used',400);
         }
+
+        $rewardRecipient = User::whereEmail($reward->recipient_email)->first();
+        if (is_null($rewardRecipient->creditCard)){
+            return TransJsonResponse::toJson('Error',[],
+                'You can use promo code because you do not have credit card in account',400);
+        }
+
         $reward->used = true;
-        $reward->recipient->bonus += 10;
+        $rewardRecipient->bonus += 10;
         $reward->sender->bonus += 10;
         $reward->save();
-        $reward->recipient->save();
+        $rewardRecipient->save();
         $reward->sender->save();
         return TransJsonResponse::toJson('Success',[],
             'Promo promo is activate - you will get 10$',200);

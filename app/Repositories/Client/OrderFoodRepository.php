@@ -60,7 +60,7 @@ class OrderFoodRepository implements OrderFoodInterface
             foreach ($data->user()->curt as $item) {
                 $cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
-                $item->delete();
+                //$item->delete();
             }
 
             if($minOrder !== 0 && $cost < $minOrder){
@@ -109,6 +109,7 @@ class OrderFoodRepository implements OrderFoodInterface
             if (!is_null($order->provider) && $order->provider->categories->type == 'market' ){
                 $order->status = 'confirm';
             }
+
             if ($order->provider->reward){
                 if ($order->provider_category == 'food'){
                     $bonus = $order->initial_cost *0.02;

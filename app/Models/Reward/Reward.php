@@ -11,7 +11,7 @@ class Reward extends Model
     use Notifiable;
 
     protected $fillable = [
-        'sender_id','used' , 'code', 'recipient_id'
+        'sender_id','used' , 'code', 'recipient_email'
     ];
 
     protected $casts = [
