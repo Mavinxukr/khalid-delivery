@@ -50,6 +50,7 @@ class RewardRepository implements RewardInterface
             return TransJsonResponse::toJson('Error',[],
                 'Promo code is invalid or already used',400);
         }
+        dd($reward);
         $reward->used = true;
         $reward->recipient->increment('bonus', 10);
         $reward->sender->increment('bonus', 10);
