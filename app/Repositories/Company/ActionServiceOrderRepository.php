@@ -31,7 +31,7 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
 
             if ($order){
                 $rewOrder = Order::findOrFail($request->order_id);
-                if ($rewOrder->provider->reward && $order->payment_type =='card'){
+                if ($rewOrder->provider->reward){
                     $bonus = $rewOrder->initial_cost * 0.01 > 10 ? 10 : $rewOrder->initial_cost * 0.01;
                     $this->rewardAction($rewOrder, $bonus);
                 }
