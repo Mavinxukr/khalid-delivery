@@ -110,7 +110,7 @@ class OrderFoodRepository implements OrderFoodInterface
                 $order->status = 'confirm';
             }
 
-            if ($order->provider->reward){
+            if ($order->provider->reward && $order->payment_type =='card'){
                 if ($order->provider_category == 'food'){
                     $bonus = $order->initial_cost *0.02;
                     $this->rewardAction($order, $bonus);
