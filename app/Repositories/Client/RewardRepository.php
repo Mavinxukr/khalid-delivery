@@ -51,9 +51,11 @@ class RewardRepository implements RewardInterface
                 'Promo code is invalid or already used',400);
         }
         $reward->used = true;
-        $reward->recipient->increment('bonus', 10);
-        $reward->sender->increment('bonus', 10);
+        $reward->recipient->bonus += 10;
+        $reward->sender->bonus += 10;
         $reward->save();
+        $reward->recipient->save();
+        $reward->sender->save();
         return TransJsonResponse::toJson('Success',[],
             'Promo promo is activate - you will get 10$',200);
 
