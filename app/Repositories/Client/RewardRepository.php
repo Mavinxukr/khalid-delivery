@@ -46,7 +46,7 @@ class RewardRepository implements RewardInterface
     public function usingCode(Request  $request)
     {
         $reward =  Reward::where('code', $request->get('code'))->first();
-        if ($reward->sender_id === $request->user()->id || is_null($reward) || $reward->used){
+        if (is_null($reward) ||$reward->sender_id === $request->user()->id  || $reward->used){
             return TransJsonResponse::toJson('Error',[],
                 'Promo code is invalid or already used',400);
         }
