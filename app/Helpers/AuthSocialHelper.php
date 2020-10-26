@@ -24,6 +24,7 @@ class AuthSocialHelper
         $createData['social_key']     =  $socialUser->getId();
         $createData['social_driver']  =  $driver;
         $createData['image']          =  $socialUser->getAvatar() ?? null;
+        $createData['email']          =  md5($socialUser->getId()).'delivery@gmail.com';
 
         $user                         =  User::updateOrCreate($updateBy,$createData);
 
