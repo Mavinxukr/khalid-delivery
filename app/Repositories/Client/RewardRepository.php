@@ -41,6 +41,10 @@ class RewardRepository implements RewardInterface
     public function usingCode(Request  $request)
     {
         $sender =  User::where('promo_code',$request->get('code'))->first();
+        if (is_null($sender)){
+            return TransJsonResponse::toJson('Error',[],
+                'Promo code is invalid',400);
+        }
         Reward::updateOrCreate([
             'recipient_email' => $request->user()->email,
             'code'  => $request->get('code'),
