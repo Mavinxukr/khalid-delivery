@@ -53,6 +53,8 @@ class ProfileRepository implements ProfileInterface
             'email'             => $data->email,
             'image'             => ImageLinker::linker($data->image),
             'phone'             => $data->phone,
+            'bonus'             => $data->bonus,
+            'promo_code'        => $data->promo_code,
             'has_card'          => $hasCard,
             'feedbacks'         => $data->myFeedback()->get(),
             'orders'            => $data->orderProfile()->get()->map(function ($i){

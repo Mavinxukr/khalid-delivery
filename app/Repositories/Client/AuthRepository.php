@@ -20,8 +20,11 @@ class AuthRepository implements AuthInterface
         $role = Role::where('name','user')->first();
         try {
             $user = User::create($data->except('password') + [
-                    'password' => bcrypt($data->password)
+                    'password' => bcrypt($data->password),
+
                 ]);
+            $user->promo_code = rand(10**6,10**7);
+            $user->save();
             $user->roles()->attach($role->id);
             $user = $this->format($user);
             return TransJsonResponse::toJson(true, $user, 'User was created', 201);
@@ -39,6 +42,10 @@ class AuthRepository implements AuthInterface
              ]);
          $user = Auth::user();
          if (!is_null($user)){
+             if (is_null($user->promo_code)){
+                 $user->promo_code = rand(10**6,10**7);
+                 $user->save();
+             }
              $role = $user->roles()->value('name');
              if ($role !== 'user')  {
                  throw new \Exception('Log in is only for role - user !');

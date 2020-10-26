@@ -17,17 +17,18 @@ class RewardRepository implements RewardInterface
 {
     public function sendReward(Request $request)
     {
-        $valid = Reward::where('recipient_email', $request->email)->first();
+        $valid = Reward::where([
+            'recipient_email' => $request->email,
+            'sender_id' => $request->user()->id
+        ])->first();
 
         if (!is_null($valid)){
             return TransJsonResponse::toJson('Error',[],
                 'You already send promo code to this user',400);
         }
-
-        $code = rand(10**6,10**7);
         $reward = Reward::create([
             'sender_id' => $request->user()->id,
-            'code'  => $code,
+            'code'  => $request->user()->promo_code,
             'used' =>  0,
             'recipient_email' => $request->email
         ]);
@@ -39,10 +40,24 @@ class RewardRepository implements RewardInterface
 
     public function usingCode(Request  $request)
     {
+        $sender =  User::where('promo_code',$request->get('code'))->first();
+        Reward::updateOrCreate([
+            'recipient_email' => $request->user()->email,
+            'code'  => $request->get('code'),
+            'sender_id' => $sender->id
+        ],
+            [
+                'recipient_email' => $request->user()->email,
+                'code'  => $request->get('code'),
+                'sender_id' => $sender->id
+            ]
+        );
+
         $reward =  Reward::where([
             'code' => $request->get('code'),
             'recipient_email' => $request->user()->email
         ])->first();
+
         if (is_null($reward) ||$reward->sender_id === $request->user()->id  || $reward->used){
             return TransJsonResponse::toJson('Error',[],
                 'Promo code is invalid or already used',400);

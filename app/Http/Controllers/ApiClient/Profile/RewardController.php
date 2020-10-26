@@ -49,4 +49,5 @@ class RewardController extends Controller
     {
         return $this->reward->usingCode($request);
     }
+
 }
