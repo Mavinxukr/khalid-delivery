@@ -100,12 +100,12 @@ class FoodOrderRepository implements FoodOrderInterface
         $order =  Order::findOrFail($request->order_id);
         if ($order->status === 'confirm' && $order->delivery_status->name === 'on the way'){
             if ($order->provider->reward && $order->payment_type =='card'){
-                if ($order->provider_category == 'food'){
-                    if ($order->provider->categories->type === 'food' && $order->$order->initial_cost > 0){
+                if ($order->provider_category == 'food' && $order->initial_cost > 0){
+                    if ($order->provider->categories->type === 'food'){
                         $bonus = $order->initial_cost * 0.02;
                         $this->rewardAction($order, $bonus);
                     }
-                    if ($order->provider->categories->type === 'market' && $order->$order->initial_cost > 0){
+                    if ($order->provider->categories->type === 'market'){
                         $bonus = $order->initial_cost * 0.05 > 5 ? 5: $order->initial_cost * 0.05 ;
                         $this->rewardAction($order, $bonus);
                     }
