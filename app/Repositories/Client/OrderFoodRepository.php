@@ -60,7 +60,7 @@ class OrderFoodRepository implements OrderFoodInterface
             foreach ($data->user()->curt as $item) {
                 $cost += $item->product->price * $item->quantity;
                 $order->products()->attach($item->product->id, ['quantity' => $item->quantity]);
-                //$item->delete();
+                $item->delete();
             }
 
             if($minOrder !== 0 && $cost < $minOrder){
