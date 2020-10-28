@@ -102,7 +102,7 @@ class FoodOrderRepository implements FoodOrderInterface
             if ($order->provider->reward && $order->payment_type =='card'){
                 if ($order->provider_category == 'food' && $order->initial_cost > 0){
 
-                    $prod =  $order->products()->where('cancel','=',1)->count();
+                    $prod =  $order->products()->where('order_products.cancel','=',1)->count();
 
                     dd($prod);
 
