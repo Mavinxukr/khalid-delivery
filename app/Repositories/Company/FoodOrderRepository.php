@@ -101,6 +101,11 @@ class FoodOrderRepository implements FoodOrderInterface
         if ($order->status === 'confirm' && $order->delivery_status->name === 'on the way'){
             if ($order->provider->reward && $order->payment_type =='card'){
                 if ($order->provider_category == 'food' && $order->initial_cost > 0){
+
+                    $prod =  $order->products()->where('cancel','=',1)->count();
+
+                    dd($prod);
+
                     if ($order->provider->categories->type === 'food'){
                         $bonus = $order->initial_cost * 0.02;
                         $this->rewardAction($order, $bonus);
