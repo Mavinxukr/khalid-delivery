@@ -98,13 +98,12 @@ class FoodOrderRepository implements FoodOrderInterface
     public function doneFoodOrder(Request $request)
     {
         $order =  Order::findOrFail($request->order_id);
+
         if ($order->status === 'confirm' && $order->delivery_status->name === 'on the way'){
-            if ($order->provider->reward && $order->payment_type =='card'){
+            $valid =  $order->products()->where('order_products.canceled','=',1)
+                ->count();
+            if ($order->provider->reward && $order->payment_type =='card' && $valid === 0){
                 if ($order->provider_category == 'food' && $order->initial_cost > 0){
-
-                    $prod =  $order->products()->where('order_products.cancel','=',1)->count();
-
-                    dd($prod);
 
                     if ($order->provider->categories->type === 'food'){
                         $bonus = $order->initial_cost * 0.02;
