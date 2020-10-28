@@ -16,6 +16,7 @@ use App\Models\Order\Order;
 use App\Models\Order\OrderStatus;
 use App\Models\Product\Product;
 use App\Notifications\SendNotification;
+use App\Traits\FeeTrait;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 class FoodOrderRepository implements FoodOrderInterface
 {
+    use FeeTrait;
 
     public function getAllOrder(Request $request)
     {
@@ -98,6 +100,12 @@ class FoodOrderRepository implements FoodOrderInterface
         $order =  Order::findOrFail($request->order_id);
 
         if ($order->status === 'confirm' && $order->delivery_status->name === 'on the way'){
+            if ($order->provider->reward && $order->payment_type =='card'){
+                if ($order->provider_category == 'food'){
+                    $bonus = $order->initial_cost * 0.02;
+                    $this->rewardAction($order, $bonus);
+                }
+            }
             $order ->update([
                 'status_id'    => OrderStatus::whereName('delivered')->first()->id
             ]);

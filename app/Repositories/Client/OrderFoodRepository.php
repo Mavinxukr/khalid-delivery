@@ -110,13 +110,6 @@ class OrderFoodRepository implements OrderFoodInterface
                 $order->status = 'confirm';
             }
 
-            if ($order->provider->reward && $order->payment_type =='card'){
-                if ($order->provider_category == 'food'){
-                    $bonus = $order->initial_cost *0.02;
-                    $this->rewardAction($order, $bonus);
-                }
-            }
-
             $order->save();
             $response = $this->format($order);
             return TransJsonResponse::toJson(true, $response, 'Order was created', 201);
