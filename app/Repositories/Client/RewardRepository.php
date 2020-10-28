@@ -32,7 +32,13 @@ class RewardRepository implements RewardInterface
             'used' =>  0,
             'recipient_email' => $request->email
         ]);
-        Mail::to($reward->recipient_email)->send(new SendOrderMail($reward));
+        try {
+            Mail::to($reward->recipient_email)->send(new SendOrderMail($reward));
+        }catch (\Exception $exception){
+            return TransJsonResponse::toJson('Error',[],
+                'Email is invalid try another',400);
+        }
+
         return TransJsonResponse::toJson('Success',[],
             'Promo code was send',200);
 
@@ -70,7 +76,7 @@ class RewardRepository implements RewardInterface
         $rewardRecipient = User::whereEmail($reward->recipient_email)->first();
         if (is_null($rewardRecipient->creditCard)){
             return TransJsonResponse::toJson('Error',[],
-                'You can use promo code because you do not have credit card in account',400);
+                'You cannot use promo code because you do not have credit card in account',400);
         }
 
         $reward->used = true;
