@@ -98,7 +98,6 @@ class FoodOrderRepository implements FoodOrderInterface
     public function doneFoodOrder(Request $request)
     {
         $order =  Order::findOrFail($request->order_id);
-
         if ($order->status === 'confirm' && $order->delivery_status->name === 'on the way'){
             $valid =  $order->products()->where('order_products.canceled','=',1)
                 ->count();
