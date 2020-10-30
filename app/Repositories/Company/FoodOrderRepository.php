@@ -110,7 +110,7 @@ class FoodOrderRepository implements FoodOrderInterface
                         $this->rewardAction($order, $bonus);
                     }
                     if ($order->provider->categories->type === 'market'){
-                        $bonus = $order->initial_cost * 0.05 > 5 ? 5: $order->initial_cost * 0.05 ;
+                        $bonus = $order->initial_cost * 0.005 > 5 ? 5: $order->initial_cost * 0.005 ;
                         $this->rewardAction($order, $bonus);
                     }
                 }
