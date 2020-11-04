@@ -163,7 +163,7 @@ class OrderServiceRepository implements OrderServiceInterface
 
         $sum = 0;
         foreach ($preOrder->details as $query){
-            dd($query);
+            dd($query->answer->price);
             $sum = $sum + ($query->answer->price);
         }
 
