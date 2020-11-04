@@ -150,9 +150,9 @@ class OrderServiceRepository implements OrderServiceInterface
 
         foreach ($answers as $k => $item) {
             $values = explode(',', $item);
-            dd($values);
             foreach ($values as $value) {
                 $temp = explode('=', $value);
+                dd($temp);
                 $params[$temp[0]] = $temp[1];
             }
             $preOrder->details()->create([
