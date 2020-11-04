@@ -35,8 +35,9 @@ class OrderServiceRepository implements OrderServiceInterface
         $type = $order->product->type;
         if ($type  == 'service'){
             $preOrder = $this->storePreOrder($data);
-            dd($preOrder);
             $cost = $order->product->price;
+
+            dd($cost);
 
             if(!is_null($preOrder)){
                     $time_from = Carbon::createFromFormat('H:m:i', $data->date_delivery_from);
