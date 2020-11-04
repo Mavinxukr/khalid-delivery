@@ -66,7 +66,7 @@ class ProfileRepository implements ProfileInterface
                                                 'date_delivery_from'    => $i->date_delivery_from,
                                                 'date_delivery_to'      => $i->date_delivery_to,
                                                 'callback_time'         => $i->callback_time,
-                                                'cost'                  => $i->cost,
+                                                'price'                  => $i->cost,
                                                 'status'                => $i->status,
                                                 'delivery_status'=> !is_null($i->delivery_status) ? [
                                                     'status' => $i->delivery_status->name,
