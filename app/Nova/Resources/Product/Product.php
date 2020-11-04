@@ -140,6 +140,8 @@ class Product extends Resource
                     ->falseValue(0)
                     ->exceptOnForms(),
                 Items::make('Weight info', 'weight_info'),
+                Number::make('Price','price')
+                    ->exceptOnForms(),
                 BelongsTo::make('Utils','utils', Utils::class),
                 BelongsTo::make('Category','categories', MenuCategory::class)
                     ->searchable(),
