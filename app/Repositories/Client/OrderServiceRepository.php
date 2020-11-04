@@ -44,8 +44,8 @@ class OrderServiceRepository implements OrderServiceInterface
                     $time = $time_to->diffInMinutes($time_from);
                     $attitude = $time/60;
 
-                    dd($cost, $preOrder->price, $attitude);
-                    $cost = ($cost + $preOrder->price) * $attitude;
+                    $cost = ($cost + (int)$preOrder->price) * $attitude;
+                    dd($cost);
                     foreach ($preOrder->details as $item){
                         $item->update(['order_id' => $order->id]);
                     }
