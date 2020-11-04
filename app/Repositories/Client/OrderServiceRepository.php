@@ -35,6 +35,7 @@ class OrderServiceRepository implements OrderServiceInterface
         $type = $order->product->type;
         if ($type  == 'service'){
             $preOrder = $this->storePreOrder($data);
+            dd($preOrder);
             $cost = $order->product->price;
 
             if(!is_null($preOrder)){
@@ -166,7 +167,6 @@ class OrderServiceRepository implements OrderServiceInterface
             $sum += $query->answer->price;
         }
 
-        dd($sum);
         $preOrder->update([
             'price'     => $sum,
             'status'    => 'pre-order',
