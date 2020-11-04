@@ -35,7 +35,6 @@ class OrderServiceRepository implements OrderServiceInterface
         $type = $order->product->type;
         if ($type  == 'service'){
             $preOrder = $this->storePreOrder($data);
-            dd($preOrder);
             $cost = $order->product->price;
 
             if(!is_null($preOrder)){
@@ -147,6 +146,8 @@ class OrderServiceRepository implements OrderServiceInterface
     {
         $preOrder = $data->user()->preOrder()->create();
         $answers = explode(';', $data->answers);
+
+        dd($answers);
 
         foreach ($answers as $k => $item) {
             $values = explode(',', $item);
