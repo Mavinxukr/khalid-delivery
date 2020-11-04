@@ -27,14 +27,7 @@ class OrderObserver
                 $order->preOrder()->update(['status' => $order->status]);
         }
 
-    /*    if (!is_null($order->provider) && $order->provider->reward) {
-            if (isset($order->getChanges()['initial_cost'])) {
-                $bonus = $order->initial_cost * 0.005 > 5 ? 5 : $order->initial_cost * 0.005;
-                $this->rewardAction($order, $bonus);
-            }
-        }*/
-
-        //sendpush обновлен заказ
+        //send push обновлен заказ
     }
 
 

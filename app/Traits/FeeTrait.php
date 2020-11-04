@@ -25,7 +25,8 @@ trait FeeTrait
             'used'          => true
         ])->get();
         foreach ($rewardUser as $user){
-            $user->sender->increment('bonus',$bonus);
+            $user->sender->bonus += $bonus;
+            $user->sender->save();
         }
     }
 }
