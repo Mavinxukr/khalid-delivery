@@ -37,6 +37,12 @@ class OrderObserver
         //sendpush обновлен заказ
     }
 
+
+    public function deleting(Order $order)
+    {
+        \DB::table('order_details')->where('order_id',$order->id)->delete();
+    }
+
     private function getFee($order, $name){
         return Fee::whereName($order->provider_category . '_' . $name)->first()->count;
     }
