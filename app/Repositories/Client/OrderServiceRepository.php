@@ -35,6 +35,7 @@ class OrderServiceRepository implements OrderServiceInterface
         $type = $order->product->type;
         if ($type  == 'service'){
             $preOrder = $this->storePreOrder($data);
+            dd($preOrder);
             $cost = $order->product->price;
 
             if(!is_null($preOrder)){
