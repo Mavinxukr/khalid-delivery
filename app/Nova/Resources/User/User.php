@@ -87,7 +87,7 @@ class User extends Resource
                 ->linkOnIndex()
                 ->linkOnDetail()
                 ->rules('required'),
-            Number::make('Bonus')->readonly()->displayUsing(function ($i){
+            Number::make('Bonus')->displayUsing(function ($i){
                 if(!is_null($i)){
                     return $i .'$';
                 }else{
