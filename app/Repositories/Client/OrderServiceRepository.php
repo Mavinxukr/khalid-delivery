@@ -45,7 +45,6 @@ class OrderServiceRepository implements OrderServiceInterface
                     $attitude = $time/60;
 
                     $cost = ($cost + (int)$preOrder->price) * $attitude;
-                    dd($cost);
                     foreach ($preOrder->details as $item){
                         $item->update(['order_id' => $order->id]);
                     }
@@ -64,6 +63,7 @@ class OrderServiceRepository implements OrderServiceInterface
 
         $costs = (new ServiceOrderHelper())->calculateCost($cost);
 
+        dd($costs);
         $order->cost =  $costs['cost'];
         $order->service_received = $costs['service_received'];
         $order->company_received = $costs['company_received'];
