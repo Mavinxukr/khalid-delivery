@@ -63,7 +63,6 @@ class OrderServiceRepository implements OrderServiceInterface
 
         $costs = (new ServiceOrderHelper())->calculateCost($cost);
 
-        dd($costs);
         $order->cost =  $costs['cost'];
         $order->service_received = $costs['service_received'];
         $order->company_received = $costs['company_received'];
