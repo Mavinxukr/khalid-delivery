@@ -155,13 +155,14 @@ class OrderServiceRepository implements OrderServiceInterface
                 $params[$temp[0]] = $temp[1];
             }
 
-            dd($params);
             $preOrder->details()->create([
                 'query_id' => $params['q'],
                 'answer_id' => $params['a'],
             ]);
         }
 
+
+        dd($preOrder->details);
         $sum = 0;
         foreach ($preOrder->details as $query){
             $sum = $sum + ($query->answer->price);
