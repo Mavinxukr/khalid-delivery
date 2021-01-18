@@ -76,6 +76,7 @@ class ActionServiceOrderRepository implements ActionServiceOrderInterface
 
             if ($order->provider->reward && $order->payment_type =='card'){
                 $bonus = $order->initial_cost * 0.01 > 10 ? 10 : $order->initial_cost * 0.01;
+                
                 $this->rewardAction($order, $bonus);
             }
                 foreach ($order->extends->all() as $extend){
