@@ -71,7 +71,6 @@ class AuthController extends Controller
     public function google()
     {
         return Socialite::driver('google')
-            ->stateless()
             ->redirect();
     }
     public function googleCallback(Request $request)
