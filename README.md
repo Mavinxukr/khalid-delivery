@@ -9,11 +9,11 @@
 
 - cp .env.example .env
 
-- create DB Mysql []
+- create DB MySQL
 
 - go to .env and update variables 
-  [
+- 
     # DB_DATABASE=yourname
     # DB_USERNAME=yourpassword
     # DB_PASSWORD=yourpassword
-  ]
+    
