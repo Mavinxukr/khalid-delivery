@@ -13,7 +13,7 @@
 
 - go to .env and update variables 
 - 
-    # DB_DATABASE=yourname
-    # DB_USERNAME=yourpassword
-    # DB_PASSWORD=yourpassword
+    # DB_DATABASE=your database name
+    # DB_USERNAME=your user name - MySQL
+    # DB_PASSWORD=your password
     
